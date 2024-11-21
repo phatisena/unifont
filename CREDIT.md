@@ -2,12 +2,12 @@
 
 ## Credit functions in extensions
 
-jwundrel
-* arcade-sprite-util
-  - spriteutil-drawTransparentImage
+* jwundrel
+  - arcade-sprite-util
+    - spriteutil-drawTransparentImage
 
 ## Extended credits for the entire namespace
 
-rishiporwal
-* custom-font
-  - namespace-font
+* rishiporwal
+  - custom-font
+    - namespace-font
