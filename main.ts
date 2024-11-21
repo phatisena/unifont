@@ -293,7 +293,7 @@ namespace unifont {
                 }
                 curchar2 = deepChar(tid, currentletter + 1, input)
                 if (curchar2 && Math.abs(ligsubw[tid][ligs[tid].indexOf(curchar2)] - ligwidth[tid][ligs[tid].indexOf(curchar2)]) > 0) {
-                    wie += Math.abs(ligsubw[tid][ligs[tid].indexOf(curchar2)] - ligwidth[tid][ligs[tid].indexOf(curchar2)])
+                    wie += Math.abs(ligwidth[tid][ligs[tid].indexOf(curchar)] - Math.abs(ligsubw[tid][ligs[tid].indexOf(curchar2)] - ligwidth[tid][ligs[tid].indexOf(curchar2)]))
                 } else if (Math.abs(ligsubw[tid][ligs[tid].indexOf(curchar)] - ligwidth[tid][ligs[tid].indexOf(curchar)]) > 0) {
                     wie += ligsubw[tid][(ligs[tid].indexOf(curchar))]
                 } else if (ligwidth[tid][(ligs[tid].indexOf(curchar))] > 0) {
@@ -345,7 +345,7 @@ namespace unifont {
                 }
                 curchar2 = deepChar(tid, currentletter2 + 1, input)
                 if (curchar2 && Math.abs(ligsubw[tid][ligs[tid].indexOf(curchar2)] - ligwidth[tid][ligs[tid].indexOf(curchar2)]) > 0) {
-                    wie += Math.abs(ligsubw[tid][ligs[tid].indexOf(curchar2)] - ligwidth[tid][ligs[tid].indexOf(curchar2)])
+                    wie += Math.abs(ligwidth[tid][ligs[tid].indexOf(curchar)] - Math.abs(ligsubw[tid][ligs[tid].indexOf(curchar2)] - ligwidth[tid][ligs[tid].indexOf(curchar2)]))
                 } else if (Math.abs(ligsubw[tid][ligs[tid].indexOf(curchar)] - ligwidth[tid][ligs[tid].indexOf(curchar)]) > 0) {
                     wie += ligsubw[tid][(ligs[tid].indexOf(curchar))]
                 } else if (ligwidth[tid][(ligs[tid].indexOf(curchar))] > 0) {
@@ -518,7 +518,10 @@ namespace unifont {
                 } else {
                     swidt = 0
                 }
-                if (Math.abs(ligsubw[tid][ligs[tid].indexOf(curchar)] - ligwidth[tid][ligs[tid].indexOf(curchar)]) > 0) {
+                curchar2 = deepChar(tid, currentletter + 1, input)
+                if (curchar2 && Math.abs(ligsubw[tid][ligs[tid].indexOf(curchar2)] - ligwidth[tid][ligs[tid].indexOf(curchar2)]) > 0) {
+                    wie += Math.abs(ligwidth[tid][ligs[tid].indexOf(curchar)] - Math.abs(ligsubw[tid][ligs[tid].indexOf(curchar2)] - ligwidth[tid][ligs[tid].indexOf(curchar2)]))
+                } else if (Math.abs(ligsubw[tid][ligs[tid].indexOf(curchar)] - ligwidth[tid][ligs[tid].indexOf(curchar)]) > 0) {
                     wie += ligsubw[tid][(ligs[tid].indexOf(curchar))]
                 } else if (ligwidth[tid][(ligs[tid].indexOf(curchar))] > 0) {
                     wie += Math.abs(uwidt - nwidt)
@@ -567,7 +570,10 @@ namespace unifont {
                 } else {
                     swidt = 0
                 }
-                if (Math.abs(ligsubw[tid][ligs[tid].indexOf(curchar)] - ligwidth[tid][ligs[tid].indexOf(curchar)]) > 0) {
+                curchar2 = deepChar(tid, currentletter2 + 1, input)
+                if (curchar2 && Math.abs(ligsubw[tid][ligs[tid].indexOf(curchar2)] - ligwidth[tid][ligs[tid].indexOf(curchar2)]) > 0) {
+                    wie += Math.abs(ligwidth[tid][ligs[tid].indexOf(curchar)] - Math.abs(ligsubw[tid][ligs[tid].indexOf(curchar2)] - ligwidth[tid][ligs[tid].indexOf(curchar2)]))
+                } else if (Math.abs(ligsubw[tid][ligs[tid].indexOf(curchar)] - ligwidth[tid][ligs[tid].indexOf(curchar)]) > 0) {
                     wie += ligsubw[tid][(ligs[tid].indexOf(curchar))]
                 } else if (ligwidth[tid][(ligs[tid].indexOf(curchar))] > 0) {
                     wie += Math.abs(uwidt - nwidt)
@@ -636,17 +642,16 @@ namespace unifont {
                     }
                 }
                 if (wie < 0) { wie = Math.abs(wie) }
-                if (ligsubw[tid][ligs[tid].indexOf(curchar)] > 0 && Math.abs(ligsubw[tid][ligs[tid].indexOf(curchar)] - ligwidth[tid][ligs[tid].indexOf(curchar)]) > 0) {
-                    drawTransparentImage(rimg, limg, (curwidt - nwidt) - Math.abs(ligsubw[tid][ligs[tid].indexOf(input.charAt(Math.min(currentletter3 + curchar.length, input.length - 1)))] - ligwidth[tid][ligs[tid].indexOf(curchar)]), 0 + (hvi - ligages[tid][(ligs[tid].indexOf(curchar))].height))
-                } else {
-                    drawTransparentImage(rimg, limg, curwidt - (nwidt + wie), 0 + (hvi - ligages[tid][(ligs[tid].indexOf(curchar))].height))
-                }
+                drawTransparentImage(rimg, limg, curwidt - (nwidt + wie), 0 + (hvi - ligages[tid][(ligs[tid].indexOf(curchar))].height))
                 if (ligwidth[tid][(ligs[tid].indexOf(input.charAt(Math.min(currentletter3 + curchar.length, input.length - 1))))] == 0) {
                     swidt = uwidt
                 } else {
                     swidt = 0
                 }
-                if (Math.abs(ligsubw[tid][ligs[tid].indexOf(curchar)] - ligwidth[tid][ligs[tid].indexOf(curchar)]) > 0) {
+                curchar2 = deepChar(tid, currentletter3 + 1, input)
+                if (curchar2 && Math.abs(ligsubw[tid][ligs[tid].indexOf(curchar2)] - ligwidth[tid][ligs[tid].indexOf(curchar2)]) > 0) {
+                    curwidt += Math.abs(ligwidth[tid][ligs[tid].indexOf(curchar)] - Math.abs(ligsubw[tid][ligs[tid].indexOf(curchar2)] - ligwidth[tid][ligs[tid].indexOf(curchar2)]))
+                } else if (Math.abs(ligsubw[tid][ligs[tid].indexOf(curchar)] - ligwidth[tid][ligs[tid].indexOf(curchar)]) > 0) {
                     curwidt += ligsubw[tid][(ligs[tid].indexOf(curchar))]
                 } else if (ligwidth[tid][(ligs[tid].indexOf(curchar))] > 0) {
                     curwidt += Math.abs(uwidt - nwidt)
