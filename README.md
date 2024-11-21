@@ -36,16 +36,16 @@ This will have the following steps:
 ## check the repo and download
 
 * If any repositories are makecode arcade extensions
-* and come with UF2 or HEX files that have
-* the word arcade in front of them,
-* you can download and import them through this file.
+  and come with UF2 or HEX files that have
+  the word arcade in front of them,
+  you can download and import them through this file.
 
 ## import extension with uf2 or hex file
 
 * After downloading the UF2 file or HEX file in the repo
-* go to the [arcade.makecode.com](https://www.arcade.makecode.com)
-* And go to your project where you want to import the extension.
-* After entering the project, try to add an extension.
+  go to the [arcade.makecode.com](https://www.arcade.makecode.com)
+  And go to your project where you want to import the extension.
+  After entering the project, try to add an extension.
 
 1. When you enter the page to add an extension,
    try to import the extension via a link or extension ID.
