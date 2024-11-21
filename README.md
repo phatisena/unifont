@@ -1,5 +1,5 @@
  
-
+> You can download the extension [here](arcade-unifont.uf2)
 
 > Open this page at [https://phatisena.github.io/unifont/](https://phatisena.github.io/unifont/)
 
