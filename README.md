@@ -5,31 +5,59 @@
 
 > Open this page at [https://phatisena.github.io/unifont/](https://phatisena.github.io/unifont/)
 
-## Use as Extension
+# Extension Import Guide 
 
-This repository can be added as an **extension** in MakeCode.
+> Since some Microsoft MakeCode users are getting
+> used to importing via extension links,
+> some may not show up, so here is a guide.
 
-* open [https://arcade.makecode.com/](https://arcade.makecode.com/)
-* click on **New Project**
-* click on **Extensions** under the gearwheel menu
-* search for **https://github.com/phatisena/unifont** and import
+## list of contents
 
-## Edit this project ![Build status badge](https://github.com/phatisena/unifont/workflows/MakeCode/badge.svg)
+* [FileImport](#Importing-via-extension-file)
+  - [CheckRepo](#check-the-repo-and-download)
+  - [ImportWithExtensionFile](#import-extension-with-uf2-or-hex-file)
 
-To edit this repository in MakeCode.
+---
 
-* open [https://arcade.makecode.com/](https://arcade.makecode.com/)
-* click on **Import** then click on **Import URL**
-* paste **https://github.com/phatisena/unifont** and click import
+# Importing via extension file
 
-## Blocks preview
+For importing via file extension,
+it is noted that Microsoft MakeCode Arcade
+can import code with embedded image files or
+machine files such as HEX and UF2 files.
 
-This image shows the blocks code from the last commit in master.
-This image may take a few minutes to refresh.
+Which Phattisena has distributed
+the UF2 file in this repo in case
+you import it through the link but
+it doesn't show up.
 
-![A rendered view of the blocks](https://github.com/phatisena/unifont/raw/master/.github/makecode/blocks.png)
+This will have the following steps:
 
-#### Metadata (used for search, rendering)
+## check the repo and download
 
-* for PXT/arcade
-<script src="https://makecode.com/gh-pages-embed.js"></script><script>makeCodeRender("{{ site.makecode.home_url }}", "{{ site.github.owner_name }}/{{ site.github.repository_name }}");</script>
+* If any repositories are makecode arcade extensions
+* and come with UF2 or HEX files that have
+* the word arcade in front of them,
+* you can download and import them through this file.
+
+## import extension with uf2 or hex file
+
+* After downloading the UF2 file or HEX file in the repo
+* go to the [arcade.makecode.com](https://www.arcade.makecode.com)
+* And go to your project where you want to import the extension.
+* After entering the project, try to add an extension.
+
+1. When you enter the page to add an extension,
+   try to import the extension via a link or extension ID.
+   If the test does not show up,
+
+2. try importing the extension via a hex file or a UF2 file.
+   After importing an extension with a hex file or a UF2 file,
+   the project will check this file first
+   After importing an extension with a hex file or a UF2 file,
+  
+3. the project will check this file first, if the imported file is complete,
+   the project will allow the import,
+   if the project detects that the imported extension file is incomplete.
+   the project may not allow importing this file.
+   
