@@ -12,3 +12,6 @@
 
 # Extension Highlight
 
+![collage-hightlight](20241121_063217_0000.png)
+
+This extension highlight is a rough outline but can be viewed at [extension-hightlight](HIGHTLIGHT.md)
