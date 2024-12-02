@@ -1966,7 +1966,7 @@ namespace unifont {
     //%Col.shadow=colorindexpicker
     //%blockSetVariable="myUnifont"
     //%group="sprite mode"
-    //%weight=20
+    //%weight=22
     export function newUnifontSprite(Text: string = "",Col: number ,alg: align, Tid: number = 0) {
         let _UnifontSprite = sprites.create(img`
             .
@@ -2054,6 +2054,7 @@ namespace unifont {
     //%blockid=unifont_sprite_settextdata
     //%block=" $myUnifont=variables_get set text to $Text"
     //%group="sprite mode"
+    //%weight=20
     export function setSpriteText(myUnifont: Sprite,Text: string = "") {
         const Sdata = myUnifont.data
         Sdata["Stxt"] = Text
