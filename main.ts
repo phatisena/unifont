@@ -1950,13 +1950,137 @@ namespace unifont {
         }
     }
 
+    //% blockId=spriteDataSetNumber block="set $sprite=variables_get data $name to number $value"
+    //% blockHidden=true
+    //% name.shadow="spriteDataNumberNameShadow"
+    //% group="Data"
+    //% weight=10
+    //% blockGap=8
+    export function setDataNumber(sprite: Sprite, name: string, value: number) {
+        if (!sprite || !name) return;
+        const d = sprite.data;
+        d[name] = value;
+    }
+
+    //% blockId=spriteDataChangeNumber block="change $sprite=variables_get data $name by number $value"
+    //% blockHidden=true
+    //% name.shadow="spriteDataNumberNameShadow"
+    //% group="Data"
+    //% weight=10
+    //% blockGap=8
+    export function changeDataNumberBy(sprite: Sprite, name: string, value: number) {
+        if (!sprite || !name) return;
+        const d = sprite.data;
+        d[name] = (d[name] || 0) + value;
+    }
+
+    //% blockId=spriteDataGetNumber block="$sprite=variables_get data $name as number"
+    //% blockHidden=true
+    //% name.shadow="spriteDataNumberNameShadow"
+    //% group="Data"
+    //% weight=10
+    //% blockGap=8
+    export function readDataNumber(sprite: Sprite, name: string): number {
+        if (!sprite || !name) return 0;
+        const d = sprite.data;
+        return d[name] as number;
+    }
+
+    //% blockId=spriteDataSetString block="set $sprite=variables_get data $name to string $value"
+    //% blockHidden=true
+    //% name.shadow="spriteDataStringNameShadow"
+    //% group="Data"
+    //% weight=10
+    //% blockGap=8
+    export function setDataString(sprite: Sprite, name: string, value: string) {
+        if (!sprite || !name) return;
+        const d = sprite.data;
+        d[name] = value;
+    }
+
+    //% blockId=spriteDataGetString block="$sprite=variables_get data $name as string"
+    //% blockHidden=true
+    //% name.shadow="spriteDataStringNameShadow"
+    //% group="Data"
+    //% weight=10
+    //% blockGap=8
+    export function readDataString(sprite: Sprite, name: string): string {
+        if (!sprite || !name) return "";
+        const d = sprite.data;
+        return d[name] as string;
+    }
+
+    //% block="$name"
+    //% blockId=spriteDataNumberNameShadow
+    //% blockHidden=true shim=TD_ID
+    //% name.fieldEditor="autocomplete" name.fieldOptions.decompileLiterals=true
+    //% name.fieldOptions.key="spritedatanumber"
+    export function _numberNameShadow(name: string) {
+        return name
+    }
+
+    //% block="$name"
+    //% blockId=spriteDataStringNameShadow
+    //% blockHidden=true shim=TD_ID
+    //% name.fieldEditor="autocomplete" name.fieldOptions.decompileLiterals=true
+    //% name.fieldOptions.key="spritedatastring"
+    export function _stringNameShadow(name: string) {
+        return name
+    }
+
+    //% blockId=spriteDataSetImage block="set $sprite=variables_get data $name to image $value"
+    //% blockHidden=true
+    //% name.shadow="spriteDataImageNameShadow"
+    //% group="Data"
+    //% deprecated=1
+    //% weight=9
+    //% blockGap=8
+    export function setDataImage(sprite: Sprite, name: string, value: Image) {
+        setDataImageValue(sprite, name, value);
+    }
+
+    //% blockId=spriteDataSetImageValue block="set $sprite data $name to image $value"
+    //% blockHidden=true
+    //% name.shadow="spriteDataImageNameShadow"
+    //% group="Data"
+    //% sprite.shadow=variables_get
+    //% value.shadow=screen_image_picker
+    //% weight=9
+    //% blockGap=8
+    export function setDataImageValue(sprite: Sprite, name: string, value: Image) {
+        if (!sprite || !name) return;
+        const d = sprite.data;
+        d[name] = value;
+    }
+
+    //% blockId=spriteDataGetImage block="$sprite=variables_get data $name as image"
+    //% blockHidden=true
+    //% name.shadow="spriteDataImageNameShadow"
+    //% group="Data"
+    //% weight=9
+    //% blockGap=8
+    export function readDataImage(sprite: Sprite, name: string): Image {
+        if (!sprite || !name) return undefined;
+        const d = sprite.data;
+        return d[name] as Image;
+    }
+
+    //% block="$name"
+    //% blockId=spriteDataImageNameShadow
+    //% blockHidden=true shim=TD_ID
+    //% name.fieldEditor="autocomplete" name.fieldOptions.decompileLiterals=true
+    //% name.fieldOptions.key="spritedataimage"
+    export function _imageNameShadow(name: string) {
+        return name
+    }
+
     export function spriteUpdate(Spr: Sprite ) {
         if (!(Spr)) { return; }
         const Sdata = Spr.data
-        if (Sdata.sdim ) {
-            Spr.setImage(StampStrToDialog(Sdata.sdim,Sdata.stxt,Sdata.stxw,Sdata.scol,Sdata.salg))
+        if (readDataImage(Spr,"sdim") != undefined ) {
+            Spr.setImage(StampStrToDialog(readDataImage(Spr,"sdim"),readDataString(Spr,"stxt"),readDataNumber(Spr,"stxw"),readDataNumber(Spr,"stid"),readDataNumber(Spr,"scol"),readDataNumber(Spr,"salg")))
         }
-        Spr.setImage(SetTextImage(Sdata.stxt,Sdata.stxw,Sdata.scol,Sdata.salg))
+        Spr.setImage(SetTextImage(readDataString(Spr,"stxt"),readDataNumber(Spr,"stxw"),readDataNumber(Spr,"stid"),readDataNumber(Spr,"scol"),readDataNumber(Spr,"salg")))
     }
 
     export enum SprDataType {Tcol,Tid,PageW,Talg}
@@ -1971,12 +2095,11 @@ namespace unifont {
         let _UnifontSprite = sprites.create(img`
             .
         `, SpriteKind.Unifont)
-        const Sdata = _UnifontSprite.data
-        Sdata.text = Text as string
-        Sdata.scol = Col as number
-        Sdata.stid = Tid as number
-        Sdata.stxw = 0 as number
-        Sdata.salg = getAlign(alg) as number
+        setDataString(_UnifontSprite,"stxt",Text)
+        setDataNumber(_UnifontSprite,"scol",Col)
+        setDataNumber(_UnifontSprite,"stid",Tid)
+        setDataNumber(_UnifontSprite,"stxw",0)
+        setDataNumber(_UnifontSprite,"salg",getAlign(alg))
         spriteUpdate(_UnifontSprite)
         _UnifontSprite.setPosition(Math.floor(scene.screenWidth() / 2), Math.floor(scene.screenHeight() / 2))
         return _UnifontSprite
@@ -1988,8 +2111,7 @@ namespace unifont {
     //%group="sprite mode"
     //%weight=18
     export function getSpriteText(myUnifont:Sprite) {
-        const Sdata = myUnifont.data
-        return Sdata.stxt as string
+        return readDataString(myUnifont,"stxt")
     }
 
     //%blockid=unifont_sprite_readsprdatainnum
@@ -1998,16 +2120,15 @@ namespace unifont {
     //%group="sprite mode"
     //%weight=16
     export function getSpriteTextData(myUnifont:Sprite,NumType:SprDataType) {
-        const Sdata = myUnifont.data
         switch (NumType) {
             case SprDataType.Tcol:
-            return Sdata.scol as number;
+            return readDataNumber(myUnifont,"scol");
             case SprDataType.Tid:
-            return Sdata.stid as number;
+            return readDataNumber(myUnifont,"stid");
             case SprDataType.PageW:
-            return Sdata.stxw as number;
+            return readDataNumber(myUnifont,"stxw");
             case SprDataType.Talg:
-            return Sdata.salg as number;
+            return readDataNumber(myUnifont,"salg");
             default:
             return -1;
         }
@@ -2019,8 +2140,7 @@ namespace unifont {
     //%group="sprite mode"
     //%weight=14
     export function setSpriteAlign(myUnifont:Sprite,alg:align) {
-        const Sdata = myUnifont.data
-        Sdata.salg = getAlign(alg)
+        setDataNumber(myUnifont,"salg",getAlign(alg))
         spriteUpdate(myUnifont)
     }
 
@@ -2030,8 +2150,7 @@ namespace unifont {
     //%group="sprite mode"
     //%weight=12
     export function setSpriteAlignNum(myUnifont:Sprite,aln:number = 0) {
-        const Sdata = myUnifont.data
-        Sdata.salg = aln
+        setDataNumber(myUnifont,"salg",aln)
         spriteUpdate(myUnifont)
     }
 
@@ -2041,8 +2160,7 @@ namespace unifont {
     //%group="sprite mode"
     //%weight=10
     export function setSpriteDialogTxt(myUnifont: Sprite,DlImg: Image) {
-        const Sdata = myUnifont.data
-        Sdata.sdim = DlImg
+        setDataImage(myUnifont,"sdim",DlImg)
         spriteUpdate(myUnifont)
     }
 
@@ -2052,8 +2170,7 @@ namespace unifont {
     //%group="sprite mode"
     //%weight=8
     export function clearSpriteDialog(myUnifont: Sprite) {
-        const Sdata = myUnifont.data
-        if (Sdata.sdim ) {Sdata.sdim = undefined}
+        setDataImage(myUnifont,"sdim",undefined)
         spriteUpdate(myUnifont)
     }
 
@@ -2063,8 +2180,7 @@ namespace unifont {
     //%group="sprite mode"
     //%weight=20
     export function setSpriteText(myUnifont: Sprite,Text: string = "") {
-        const Sdata = myUnifont.data
-        Sdata.stxt = Text
+        setDataString(myUnifont,"stxt",Text)
         spriteUpdate(myUnifont)
     }
 
@@ -2075,8 +2191,7 @@ namespace unifont {
     //%group="sprite mode"
     //%weight=6
     export function setSpriteTextCol(myUnifont: Sprite,Col: number = 0) {
-        const Sdata = myUnifont.data
-        Sdata.scol = Col
+        setDataNumber(myUnifont,"scol",Col)
         spriteUpdate(myUnifont)
     }
 
@@ -2086,8 +2201,7 @@ namespace unifont {
     //%group="sprite mode"
     //%weight=2
     export function setSpriteTableId(myUnifont: Sprite,Tid: number = 0) {
-        const Sdata = myUnifont.data
-        Sdata.stid = Tid
+        setDataNumber(myUnifont,"stid",Tid)
         spriteUpdate(myUnifont)
     }
 
@@ -2097,8 +2211,7 @@ namespace unifont {
     //%group="sprite mode"
     //%weight=4
     export function setSpritePageWidth(myUnifont: Sprite, PageW: number = 0) {
-        const Sdata = myUnifont.data
-        Sdata.stxw = PageW
+        setDataNumber(myUnifont,"stxw",PageW)
         spriteUpdate(myUnifont)
     }
 }
