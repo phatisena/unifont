@@ -2077,10 +2077,11 @@ namespace unifont {
     export function spriteUpdate(Spr: Sprite ) {
         if (!(Spr)) { return; }
         const Sdata = Spr.data
-        if (readDataImage(Spr,"sdim") != undefined ) {
+        if (readDataImage(Spr,"sdim")) {
             Spr.setImage(StampStrToDialog(readDataImage(Spr,"sdim"),readDataString(Spr,"stxt"),readDataNumber(Spr,"stxw"),readDataNumber(Spr,"stid"),readDataNumber(Spr,"scol"),readDataNumber(Spr,"salg")))
+        } else {
+            Spr.setImage(SetTextImage(readDataString(Spr,"stxt"),readDataNumber(Spr,"stxw"),readDataNumber(Spr,"stid"),readDataNumber(Spr,"scol"),readDataNumber(Spr,"salg")))
         }
-        Spr.setImage(SetTextImage(readDataString(Spr,"stxt"),readDataNumber(Spr,"stxw"),readDataNumber(Spr,"stid"),readDataNumber(Spr,"scol"),readDataNumber(Spr,"salg")))
     }
 
     export enum SprDataType {Tcol,Tid,PageW,Talg}
