@@ -1953,10 +1953,10 @@ namespace unifont {
     export function spriteUpdate(Spr: Sprite ) {
         if (!(Spr)) { return; }
         const Sdata = Spr.data
-        if (Sdata["Sdim"]) {
-            Spr.setImage(StampStrToDialog(Sdata["Sdim"],Sdata["Stxt"],Sdata["Stxw"],Sdata["Scol"],Sdata["Salg"]))
+        if (Sdata.sdim ) {
+            Spr.setImage(StampStrToDialog(Sdata.sdim,Sdata.stxt,Sdata.stxw,Sdata.scol,Sdata.salg))
         }
-        Spr.setImage(SetTextImage(Sdata["Stxt"],Sdata["Stxw"],Sdata["Scol"],Sdata["Salg"]))
+        Spr.setImage(SetTextImage(Sdata.stxt,Sdata.stxw,Sdata.scol,Sdata.salg))
     }
 
     export enum SprDataType {Tcol,Tid,PageW,Talg}
@@ -1972,11 +1972,11 @@ namespace unifont {
             .
         `, SpriteKind.Unifont)
         const Sdata = _UnifontSprite.data
-        Sdata["Stxt"] = Text
-        Sdata["Scol"] = Col
-        Sdata["Stid"] = Tid
-        Sdata["Stxw"] = 0
-        Sdata["Salg"] = getAlign(alg)
+        Sdata.text = Text as string
+        Sdata.scol = Col as number
+        Sdata.stid = Tid as number
+        Sdata.stxw = 0 as number
+        Sdata.salg = getAlign(alg) as number
         spriteUpdate(_UnifontSprite)
         _UnifontSprite.setPosition(Math.floor(scene.screenWidth() / 2), Math.floor(scene.screenHeight() / 2))
         return _UnifontSprite
@@ -1989,7 +1989,7 @@ namespace unifont {
     //%weight=18
     export function getSpriteText(myUnifont:Sprite) {
         const Sdata = myUnifont.data
-        return Sdata["Stxt"] as string
+        return Sdata.stxt as string
     }
 
     //%blockid=unifont_sprite_readsprdatainnum
@@ -2001,13 +2001,13 @@ namespace unifont {
         const Sdata = myUnifont.data
         switch (NumType) {
             case SprDataType.Tcol:
-            return Sdata["Scol"] as number;
+            return Sdata.scol as number;
             case SprDataType.Tid:
-            return Sdata["Stid"] as number;
+            return Sdata.stid as number;
             case SprDataType.PageW:
-            return Sdata["Stxw"] as number;
+            return Sdata.stxw as number;
             case SprDataType.Talg:
-            return Sdata["Salg"] as number;
+            return Sdata.salg as number;
             default:
             return -1;
         }
@@ -2020,7 +2020,7 @@ namespace unifont {
     //%weight=14
     export function setSpriteAlign(myUnifont:Sprite,alg:align) {
         const Sdata = myUnifont.data
-        Sdata["Salg"] = getAlign(alg)
+        Sdata.salg = getAlign(alg)
         spriteUpdate(myUnifont)
     }
 
@@ -2031,7 +2031,7 @@ namespace unifont {
     //%weight=12
     export function setSpriteAlignNum(myUnifont:Sprite,aln:number = 0) {
         const Sdata = myUnifont.data
-        Sdata["Salg"] = aln
+        Sdata.salg = aln
         spriteUpdate(myUnifont)
     }
 
@@ -2042,7 +2042,7 @@ namespace unifont {
     //%weight=10
     export function setSpriteDialogTxt(myUnifont: Sprite,DlImg: Image) {
         const Sdata = myUnifont.data
-        Sdata["Sdim"] = DlImg
+        Sdata.sdim = DlImg
         spriteUpdate(myUnifont)
     }
 
@@ -2053,7 +2053,7 @@ namespace unifont {
     //%weight=8
     export function clearSpriteDialog(myUnifont: Sprite) {
         const Sdata = myUnifont.data
-        if (Sdata["Sdim"]) {Sdata["Sdim"] = undefined}
+        if (Sdata.sdim ) {Sdata.sdim = undefined}
         spriteUpdate(myUnifont)
     }
 
@@ -2064,7 +2064,7 @@ namespace unifont {
     //%weight=20
     export function setSpriteText(myUnifont: Sprite,Text: string = "") {
         const Sdata = myUnifont.data
-        Sdata["Stxt"] = Text
+        Sdata.stxt = Text
         spriteUpdate(myUnifont)
     }
 
@@ -2076,7 +2076,7 @@ namespace unifont {
     //%weight=6
     export function setSpriteTextCol(myUnifont: Sprite,Col: number = 0) {
         const Sdata = myUnifont.data
-        Sdata["Scol"] = Col
+        Sdata.scol = Col
         spriteUpdate(myUnifont)
     }
 
@@ -2087,7 +2087,7 @@ namespace unifont {
     //%weight=2
     export function setSpriteTableId(myUnifont: Sprite,Tid: number = 0) {
         const Sdata = myUnifont.data
-        Sdata["Stid"] = Tid
+        Sdata.stid = Tid
         spriteUpdate(myUnifont)
     }
 
@@ -2098,7 +2098,7 @@ namespace unifont {
     //%weight=4
     export function setSpritePageWidth(myUnifont: Sprite, PageW: number = 0) {
         const Sdata = myUnifont.data
-        Sdata["Stxw"] = PageW
+        Sdata.stxw = PageW
         spriteUpdate(myUnifont)
     }
 }
