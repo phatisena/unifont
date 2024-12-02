@@ -1983,7 +1983,8 @@ namespace unifont {
     }
     
     //%blockid=unifont_sprite_readtxt
-    //%block="get $myUnifont=variables_get as text data"
+    //%block="get $myUnifont as text data"
+    //%myUnifont.shadow=variables_get myUnifont.defl=myUnifont
     //%group="sprite mode"
     //%weight=18
     export function getSpriteText(myUnifont:Sprite) {
@@ -1992,7 +1993,8 @@ namespace unifont {
     }
 
     //%blockid=unifont_sprite_readsprdatainnum
-    //%block="get $myUnifont=variables_get from $NumType"
+    //%block="get $myUnifont from $NumType"
+    //%myUnifont.shadow=variables_get myUnifont.defl=myUnifont
     //%group="sprite mode"
     //%weight=16
     export function getSpriteTextData(myUnifont:Sprite,NumType:SprDataType) {
@@ -2013,6 +2015,7 @@ namespace unifont {
 
     //%blockid=unifont_sprite_setalign
     //%block=" $myUnifont=variables_get set align to $alg"
+    //%myUnifont.shadow=variables_get myUnifont.defl=myUnifont
     //%group="sprite mode"
     //%weight=14
     export function setSpriteAlign(myUnifont:Sprite,alg:align) {
@@ -2022,7 +2025,8 @@ namespace unifont {
     }
 
     //%blockid=unifont_sprite_setalignnum
-    //%block=" $myUnifont=variables_get set align value to $aln"
+    //%block=" $myUnifont set align value to $aln"
+    //%myUnifont.shadow=variables_get myUnifont.defl=myUnifont
     //%group="sprite mode"
     //%weight=12
     export function setSpriteAlignNum(myUnifont:Sprite,aln:number = 0) {
@@ -2032,7 +2036,8 @@ namespace unifont {
     }
 
     //%blockid=unifont_sprite_setdialog
-    //%block=" $myUnifont=variables_get set dialog frame to $DlImg=dialog_image_picker"
+    //%block=" $myUnifont set dialog frame to $DlImg=dialog_image_picker"
+    //%myUnifont.shadow=variables_get myUnifont.defl=myUnifont
     //%group="sprite mode"
     //%weight=10
     export function setSpriteDialogTxt(myUnifont: Sprite,DlImg: Image) {
@@ -2042,7 +2047,8 @@ namespace unifont {
     }
 
     //%blockid=unifont_sprite_cleardialog
-    //%block=" $myUnifont=variables_get clear dialog frame"
+    //%block=" $myUnifont clear dialog frame"
+    //%myUnifont.shadow=variables_get myUnifont.defl=myUnifont
     //%group="sprite mode"
     //%weight=8
     export function clearSpriteDialog(myUnifont: Sprite) {
@@ -2052,7 +2058,8 @@ namespace unifont {
     }
 
     //%blockid=unifont_sprite_settextdata
-    //%block=" $myUnifont=variables_get set text to $Text"
+    //%block=" $myUnifont set text to $Text"
+    //%myUnifont.shadow=variables_get myUnifont.defl=myUnifont
     //%group="sprite mode"
     //%weight=20
     export function setSpriteText(myUnifont: Sprite,Text: string = "") {
@@ -2062,7 +2069,8 @@ namespace unifont {
     }
 
     //%blockid=unifont_sprite_settextcolor
-    //%block=" $myUnifont=variables_get set text color to $Col"
+    //%block=" $myUnifont set text color to $Col"
+    //%myUnifont.shadow=variables_get myUnifont.defl=myUnifont
     //%Col.shadow=colorindexpicker
     //%group="sprite mode"
     //%weight=6
@@ -2073,7 +2081,8 @@ namespace unifont {
     }
 
     //%blockid=unifont_sprite_settableid
-    //%block=" $myUnifont=variables_get set Table id to $Tid"
+    //%block=" $myUnifont set Table id to $Tid"
+    //%myUnifont.shadow=variables_get myUnifont.defl=myUnifont
     //%group="sprite mode"
     //%weight=2
     export function setSpriteTableId(myUnifont: Sprite,Tid: number = 0) {
@@ -2083,7 +2092,8 @@ namespace unifont {
     }
 
     //%blockid=unifont_sprite_setpagewidth
-    //%block=" $myUnifont=variables_get set page width to $PageW"
+    //%block=" $myUnifont set page width to $PageW"
+    //%myUnifont.shadow=variables_get myUnifont.defl=myUnifont
     //%group="sprite mode"
     //%weight=4
     export function setSpritePageWidth(myUnifont: Sprite, PageW: number = 0) {
