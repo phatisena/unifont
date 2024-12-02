@@ -2,9 +2,10 @@ namespace SpriteKind {
     export const Unifont = SpriteKind.create()
     export const Unisrc = SpriteKind.create()
 }
-//% block="UniFont"
-//% color="#bedfac" 
-//% icon="\uf031"
+//%block="UniFont"
+//%color="#dec549" 
+//%icon="\uf031"
+//%weight=3
 namespace unifont {
 
     export let ligs: string[][] = []; export let ligages: Image[][] = []; export let ligwidth: number[][] = []; export let ligsubw: number[][] = []; export let ligdir: number[][] = []; export let ligcol: number[][] = []; export let ligul: number[][] = []; export let storeid: number[] = []; export let letterspace: number = 1; export let curid = 0; export let lineheight = 1;
