@@ -1,6 +1,6 @@
 ## Acknowledgements
 This project includes code from the `arcade-sprite-data` extension, developed by [microsoft]. 
-- Repository: [https://github.com/microsoft/arcade-sprite-data]
+- Repository: [www.github.com/microsoft/arcade-sprite-data](https://www.github.com/microsoft/arcade-sprite-data)
 - License: [MIT License]
 
 
