@@ -3,6 +3,7 @@ This project includes code from the `arcade-sprite-data` extension, developed by
 - Repository: [https://github.com/microsoft/arcade-sprite-data]
 - License: [MIT License]
 
+
 > You can view the extension owner's credits at [credit.md](CREDIT.md)
 
 > Open this page at [https://phatisena.github.io/unifont/](https://phatisena.github.io/unifont/)
