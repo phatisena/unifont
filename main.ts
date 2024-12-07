@@ -3,7 +3,7 @@ namespace SpriteKind {
     export const Unisrc = SpriteKind.create()
 }
 //%block="UniFont"
-//%color="#dec549" 
+//%color="#12d48a" 
 //%icon="\uf031"
 //%weight=3
 namespace unifont {
