@@ -276,17 +276,7 @@ namespace unifont {
         return ligs[tid]
     }
 
-    /**
-     * render text from my table
-     * to the image
-     */
-    //%blockid=unifont_setimgfromtext
-    //%block="create the image of |text $input in page width $iwidt from table id $tid ||and |fill col $icol and got alignment $alm and get debugalm $debugalm"
-    //%alm.min=-1 alm.max=1 alm.defl=0
-    //%icol.shadow=colorindexpicker
-    //%group="render"
-    //%weight=4
-    export function SetTextImage(input: string, iwidt: number, tid: number, icol: number = 0, alm: number = 0, debugalm: boolean = false) {
+    export function SetTextImgValue(arrm: boolean,input: string, iwidt: number, tid: number, icol: number = 0, alm: number = 0, debugalm: boolean = false) {
         let curchar = ""; let curchar2 = ""; let uhei = 0; let outputarr: Image[] = []; let lnwit: number[] = []; let heig = 0; let widt = 0; let curwidt = 0; let uwidt = 0; let swidt = 0; let nwidt = 0; let wie = 0; let hie = 0; let hvi = 0;
         for (let currentletter = 0; currentletter < input.length; currentletter++) {
             curchar = deepChar(tid, currentletter, input)
@@ -500,7 +490,22 @@ namespace unifont {
             }
         }
         outputarr.push(output.clone())
-        return output
+        if (arrm) { return outputarr as Image[] }
+        return output as Image
+    }
+    
+    /**
+     * render text from my table
+     * to the image
+     */
+    //%blockid=unifont_setimgfromtext
+    //%block="create the image of |text $input in page width $iwidt from table id $tid ||and |fill col $icol and got alignment $alm and get debugalm $debugalm"
+    //%alm.min=-1 alm.max=1 alm.defl=0
+    //%icol.shadow=colorindexpicker
+    //%group="render"
+    //%weight=4
+    export function SetTextImage(input: string, iwidt: number, tid: number, icol: number = 0, alm: number = 0, debugalm: boolean = false) {
+        return SetTextImgValue(false, input, iwidt, tid, icol, alm, debugalm) as Image
     }
 
     /**
@@ -515,220 +520,7 @@ namespace unifont {
     //%group="render"
     //%weight=2
     export function SetTextImageArray(input: string, iwidt: number, tid: number, icol: number = 0, alm: number = 0, debugalm: boolean = false) {
-        let curchar = ""; let curchar2 = ""; let uhei = 0; let outputarr: Image[] = []; let lnwit: number[] = []; let heig = 0; let widt = 0; let curwidt = 0; let uwidt = 0; let swidt = 0; let nwidt = 0; let wie = 0; let hie = 0; let hvi = 0;
-        for (let currentletter = 0; currentletter < input.length; currentletter++) {
-            curchar = deepChar(tid, currentletter, input)
-            if (!(ligs[tid].indexOf(curchar) < 0)) {
-                uwidt = ligwidth[tid][(ligs[tid].indexOf(curchar))]
-                if (ligwidth[tid][(ligs[tid].indexOf(curchar))] <= 0) {
-                    nwidt = ligages[tid][(ligs[tid].indexOf(curchar))].width
-                } else {
-                    nwidt = 0
-                }
-                if (uwidt > 0) {
-                    swidt = uwidt
-                } else {
-                    swidt = 0
-                }
-                curchar2 = deepChar(tid, currentletter + 1, input)
-                if (curchar2 && Math.abs(ligsubw[tid][ligs[tid].indexOf(curchar2)] - ligwidth[tid][ligs[tid].indexOf(curchar2)]) > 0) {
-                    wie += Math.abs(ligwidth[tid][ligs[tid].indexOf(curchar)] - Math.abs(ligsubw[tid][ligs[tid].indexOf(curchar2)] - ligwidth[tid][ligs[tid].indexOf(curchar2)]))
-                } else if (Math.abs(ligsubw[tid][ligs[tid].indexOf(curchar)] - ligwidth[tid][ligs[tid].indexOf(curchar)]) > 0) {
-                    wie += ligsubw[tid][(ligs[tid].indexOf(curchar))]
-                } else if (ligwidth[tid][(ligs[tid].indexOf(curchar))] > 0) {
-                    wie += Math.abs(uwidt - nwidt)
-                }
-                if ((iwidt <= 0 || !(findCommand(input, "n", currentletter))) && (ligwidth[tid][(ligs[tid].indexOf(input.charAt(Math.min(currentletter + Math.max(curchar.length, 1), input.length - 1))))] > 0 || currentletter + (curchar.length - 1) >= input.length - 1)) {
-                    wie += letterspace
-                }
-                hvi = ligages[tid][(ligs[tid].indexOf(curchar))].height
-            } else if (input.charAt(currentletter) == " ") {
-                wie += 3 * letterspace
-            } else {
-                wie += 2 * letterspace
-            }
-            uhei = Math.max(uhei, hvi)
-            heig = Math.max(heig, hie + hvi)
-            if (iwidt > 0) {
-                if (wie >= iwidt || findCommand(input, "n", currentletter)) {
-                    if (uhei > hvi) {
-                        hie += uhei
-                    } else {
-                        hie += hvi
-                    }
-                    hie += lineheight
-                    wie = 0;
-                    if (findCommand(input, "n", currentletter)) {
-                        currentletter += 2
-                    }
-                }
-            } else if (findCommand(input, "n", currentletter)) {
-                currentletter += 2
-            }
-            if (curchar.length - 1 > 0) { currentletter += curchar.length - 1 }
-        }
-        wie = 0; widt = 0; let hix = 0;
-        for (let currentletter2 = 0; currentletter2 < input.length; currentletter2++) {
-            curchar = deepChar(tid, currentletter2, input)
-            if (!(ligs[tid].indexOf(curchar) < 0)) {
-                uwidt = ligwidth[tid][(ligs[tid].indexOf(curchar))]
-                if (ligwidth[tid][(ligs[tid].indexOf(curchar))] <= 0) {
-                    nwidt = ligages[tid][(ligs[tid].indexOf(curchar))].width
-                } else {
-                    nwidt = 0
-                }
-                if (ligwidth[tid][(ligs[tid].indexOf(input.charAt(Math.min(currentletter2 + curchar.length, input.length - 1))))] <= 0) {
-                    swidt = uwidt
-                } else {
-                    swidt = 0
-                }
-                curchar2 = deepChar(tid, currentletter2 + 1, input)
-                if (curchar2 && Math.abs(ligsubw[tid][ligs[tid].indexOf(curchar2)] - ligwidth[tid][ligs[tid].indexOf(curchar2)]) > 0) {
-                    wie += Math.abs(ligwidth[tid][ligs[tid].indexOf(curchar)] - Math.abs(ligsubw[tid][ligs[tid].indexOf(curchar2)] - ligwidth[tid][ligs[tid].indexOf(curchar2)]))
-                } else if (Math.abs(ligsubw[tid][ligs[tid].indexOf(curchar)] - ligwidth[tid][ligs[tid].indexOf(curchar)]) > 0) {
-                    wie += ligsubw[tid][(ligs[tid].indexOf(curchar))]
-                } else if (ligwidth[tid][(ligs[tid].indexOf(curchar))] > 0) {
-                    wie += Math.abs(uwidt - nwidt)
-                }
-                if ((iwidt <= 0 || !(findCommand(input, "n", currentletter2))) && (ligwidth[tid][(ligs[tid].indexOf(input.charAt(Math.min(currentletter2 + Math.max(curchar.length, 1), input.length - 1))))] > 0 || currentletter2 + (curchar.length - 1) >= input.length - 1)) {
-                    wie += letterspace
-                }
-            } else if (input.charAt(currentletter2) == " ") {
-                wie += 3 * letterspace
-            } else {
-                wie += 2 * letterspace
-            }
-            if (false) { widt = Math.max(widt, wie) }
-            if (iwidt > 0) {
-                if (wie >= iwidt || findCommand(input, "n", currentletter2)) {
-                    if (debugalm && findCommand(input, "n", currentletter2)) {
-                        wie -= (3 * letterspace) + letterspace; widt = Math.max(widt, wie)
-                    } else {
-                        widt = Math.max(widt, wie)
-                    }
-                    lnwit.push(wie); wie = 0; hix += 1
-                    if (findCommand(input, "n", currentletter2)) {
-                        currentletter2 += 2
-                    }
-                } else {
-                    widt = Math.max(widt, wie)
-                }
-            } else if (findCommand(input, "n", currentletter2)) {
-                widt = Math.max(widt, wie); currentletter2 += 2;
-            } else {
-                widt = Math.max(widt, wie)
-            }
-            if (curchar.length - 1 > 0) { currentletter2 += curchar.length - 1 }
-        }
-        if (hix > 0 && debugalm) { wie += letterspace + (3 * letterspace) }; wie -= letterspace; lnwit.push(wie);
-        let hgi = 0; let limg = image.create(lnwit[hgi], heig); let scwidt = true; let underc = false; let sc = 0; let scnwidt = false; let rimg = image.create(8, 8); let output = image.create(widt, heig); hie = 0; wie = 0; curwidt = 0;
-        for (let currentletter3 = 0; currentletter3 < input.length; currentletter3++) {
-            wie = 0; curchar = deepChar(tid, currentletter3, input)
-            if (!(ligs[tid].indexOf(curchar) < 0)) {
-                hvi = ligages[tid][(ligs[tid].indexOf(curchar))].height; uwidt = ligwidth[tid][(ligs[tid].indexOf(curchar))];
-                if (ligwidth[tid][(ligs[tid].indexOf(curchar))] <= 0) {
-                    nwidt = ligages[tid][(ligs[tid].indexOf(curchar))].width
-                } else {
-                    nwidt = 0
-                }
-                scwidt = false; scnwidt = false; wie = 0; rimg = ligages[tid][(ligs[tid].indexOf(curchar))].clone(); let ccol = ligul[tid][ligs[tid].indexOf(input.charAt(currentletter3))];
-                if (ligwidth[tid][ligs[tid].indexOf(input.charAt(Math.min(currentletter3 + curchar.length, input.length - 1)))] > 0 && ligdir[tid][ligs[tid].indexOf(input.charAt(Math.min(currentletter3 + curchar.length, input.length - 1)))] == 0) {
-                    rimg.replace(ccol, ligcol[tid][ligs[tid].indexOf(curchar)])
-                } else if (ligwidth[tid][ligs[tid].indexOf(curchar)] > 0 && ligdir[tid][ligs[tid].indexOf(input.charAt(Math.min(currentletter3 + curchar.length, input.length - 1)))] < 0) {
-                    rimg.replace(ccol, 0)
-                } else if (ligwidth[tid][ligs[tid].indexOf(curchar)] > 0 && ligdir[tid][ligs[tid].indexOf(input.charAt(Math.min(currentletter3 + curchar.length, input.length - 1)))] > 0) {
-                    rimg.replace(ccol, ligcol[tid][ligs[tid].indexOf(curchar)])
-                }
-                if (Math.abs(ligdir[tid][ligs[tid].indexOf(curchar)]) > 0 && Math.abs(ligdir[tid][ligs[tid].indexOf(input.charAt(Math.max(currentletter3 - 1, 0)))]) == 0) {
-                    sc = 1; wie = 0;
-                    while (sc > 0) {
-                        sc = 0
-                        for (let yh = 0; yh < rimg.height; yh++) {
-                            if (limg.getPixel((curwidt - letterspace) - wie, yh) == rimg.getPixel(rimg.width - 1, yh) && (limg.getPixel((curwidt - letterspace) - wie, yh) != 0 && limg.getPixel((curwidt - letterspace) - wie, yh) != 0)) {
-                                sc += 1
-                            }
-                        }
-                        if (sc > 0 || (sc == 0 && wie > 0)) {
-                            wie += 1
-                        }
-                    }
-                }
-                if (wie < 0) { wie = Math.abs(wie) }
-                drawTransparentImage(rimg, limg, curwidt - (nwidt + wie), 0 + (hvi - ligages[tid][(ligs[tid].indexOf(curchar))].height))
-                if (ligwidth[tid][(ligs[tid].indexOf(input.charAt(Math.min(currentletter3 + curchar.length, input.length - 1))))] == 0) {
-                    swidt = uwidt
-                } else {
-                    swidt = 0
-                }
-                curchar2 = deepChar(tid, currentletter3 + 1, input)
-                if (curchar2 && Math.abs(ligsubw[tid][ligs[tid].indexOf(curchar2)] - ligwidth[tid][ligs[tid].indexOf(curchar2)]) > 0) {
-                    curwidt += Math.abs(ligwidth[tid][ligs[tid].indexOf(curchar)] - Math.abs(ligsubw[tid][ligs[tid].indexOf(curchar2)] - ligwidth[tid][ligs[tid].indexOf(curchar2)]))
-                } else if (Math.abs(ligsubw[tid][ligs[tid].indexOf(curchar)] - ligwidth[tid][ligs[tid].indexOf(curchar)]) > 0) {
-                    curwidt += ligsubw[tid][(ligs[tid].indexOf(curchar))]
-                } else if (ligwidth[tid][(ligs[tid].indexOf(curchar))] > 0) {
-                    curwidt += Math.abs(uwidt - nwidt)
-                }
-                if ((iwidt <= 0 || !(findCommand(input, "n", currentletter3))) && (ligwidth[tid][(ligs[tid].indexOf(input.charAt(Math.min(currentletter3 + Math.max(curchar.length, 1), input.length - 1))))] > 0 || currentletter3 + (curchar.length - 1) >= input.length - 1)) {
-                    curwidt += letterspace
-                }
-            } else if (input.charAt(currentletter3) == " ") {
-                curwidt += 3 * letterspace
-            } else {
-                curwidt += 2 * letterspace
-            }
-            uhei = Math.max(uhei, hvi)
-            if (alm < 0) {
-                drawTransparentImage(limg.clone(), output, 0, hie)
-            } else if (alm > 0) {
-                drawTransparentImage(limg.clone(), output, Math.abs(output.width - limg.width), hie)
-            } else if (alm == 0) {
-                drawTransparentImage(limg.clone(), output, Math.abs((output.width / 2) - (limg.width / 2)), hie)
-            }
-            if (icol > 0) {
-                for (let ico = 1; ico < 16; ico++) {
-                    output.replace(ico, icol)
-                }
-            }
-            outputarr.push(output.clone())
-            if (iwidt > 0) {
-                if (curwidt >= iwidt || findCommand(input, "n", currentletter3)) {
-                    if (alm < 0) {
-                        drawTransparentImage(limg.clone(), output, 0, hie)
-                    } else if (alm > 0) {
-                        drawTransparentImage(limg.clone(), output, Math.abs(output.width - limg.width), hie)
-                    } else if (alm == 0) {
-                        drawTransparentImage(limg.clone(), output, Math.abs((output.width / 2) - (limg.width / 2)), hie)
-                    }
-                    hgi += 1; limg = image.create(lnwit[hgi], heig); curwidt = 0;
-                    if (uhei > hvi) {
-                        hie += uhei
-                    } else {
-                        hie += hvi
-                    }
-                    hie += lineheight
-                    if (findCommand(input, "n", currentletter3)) {
-                        currentletter3 += 2
-                    }
-                }
-            } else if (findCommand(input, "n", currentletter3)) {
-                currentletter3 += 2
-            }
-            if (curchar.length - 1 > 0) { currentletter3 += curchar.length - 1 }
-        }
-        if (alm < 0) {
-            drawTransparentImage(limg.clone(), output, 0, hie)
-        } else if (alm > 0) {
-            drawTransparentImage(limg.clone(), output, Math.abs(output.width - limg.width), hie)
-        } else if (alm == 0) {
-            drawTransparentImage(limg.clone(), output, Math.abs((output.width / 2) - (limg.width / 2)), hie)
-        }
-        if (icol > 0) {
-            for (let ico = 1; ico < 16; ico++) {
-                output.replace(ico, icol)
-            }
-        }
-        outputarr.push(output.clone())
-        return outputarr
+        return SetTextImgValue(true, input, iwidt, tid, icol, alm, debugalm) as Image[]
     }
 
     /** 
