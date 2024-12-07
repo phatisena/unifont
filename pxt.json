@@ -8,6 +8,7 @@
     "files": [
         "main.blocks",
         "main.ts",
+        "sprite-more-data.ts",
         "README.md",
         "assets.json"
     ],
