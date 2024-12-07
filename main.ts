@@ -1,3 +1,4 @@
+
 namespace SpriteKind {
     export const Unifont = SpriteKind.create()
     export const Unisrc = SpriteKind.create()
@@ -1875,36 +1876,17 @@ namespace unifont {
         d[name] = value;
     }
 
-    //% blockId=spriteDataGetImage block="$sprite=variables_get data $name as image"
-    //% blockHidden=true
-    //% name.shadow="spriteDataImageNameShadow"
-    //% group="Data"
-    //% weight=9
-    //% blockGap=8
-    export function readDataImage(sprite: Sprite, name: string): Image {
-        if (!sprite || !name) return undefined;
-        const d = sprite.data;
-        return d[name] as Image;
-    }
-
-    //% block="$name"
-    //% blockId=spriteDataImageNameShadow
-    //% blockHidden=true shim=TD_ID
-    //% name.fieldEditor="autocomplete" name.fieldOptions.decompileLiterals=true
-    //% name.fieldOptions.key="spritedataimage"
-    export function _imageNameShadow(name: string) {
-        return name
-    }
+    //% blockId=spriteDataGetImage block
 
     export function spriteUpdate(Spr: Sprite ) {
         if (!(Spr)) { return; }
-        if (readDataImage(Spr,"sdim")) {
-            setDataImage(Spr,"nextimg",StampStrToDialog(readDataImage(Spr,"sdim"),readDataString(Spr,"stxt"),readDataNumber(Spr,"stxw"),readDataNumber(Spr,"stid"),readDataNumber(Spr,"scol"),readDataNumber(Spr,"socol"),readDataNumber(Spr,"salg"),readDataNumber(Spr,"spacew"),readDataNumber(Spr,"lineh")))
+        if (sprdata.readDataImage(Spr,"sdim")) {
+            sprdata.setDataImage(Spr, "nextimg", StampStrToDialog(sprdata.readDataImage(Spr, "sdim"), sprdata.readDataString(Spr, "stxt"), sprdata.readDataNumber(Spr,"stxw"),sprdata.readDataNumber(Spr,"stid"),sprdata.readDataNumber(Spr,"scol"),sprdata.readDataNumber(Spr,"socol"),sprdata.readDataNumber(Spr,"salg"),sprdata.readDataNumber(Spr,"spacew"),sprdata.readDataNumber(Spr,"lineh")))
         } else {
-            setDataImage(Spr,"nextimg",SetTextImage(readDataString(Spr,"stxt"),readDataNumber(Spr,"stxw"),readDataNumber(Spr,"stid"),readDataNumber(Spr,"scol"),readDataNumber(Spr,"socol"),readDataNumber(Spr,"salg"),false,readDataNumber(Spr,"spacew"),readDataNumber(Spr,"lineh")))
+            sprdata.setDataImage(Spr, "nextimg", SetTextImage(sprdata.readDataString(Spr, "stxt"),sprdata.readDataNumber(Spr,"stxw"),sprdata.readDataNumber(Spr,"stid"),sprdata.readDataNumber(Spr,"scol"),sprdata.readDataNumber(Spr,"socol"),sprdata.readDataNumber(Spr,"salg"),false,sprdata.readDataNumber(Spr,"spacew"),sprdata.readDataNumber(Spr,"lineh")))
         }
-        if (Spr.image.equals(readDataImage(Spr,"nextimg"))) { return; }
-        Spr.setImage(readDataImage(Spr,"nextimg"))
+        if (Spr.image.equals(sprdata.readDataImage(Spr,"nextimg"))) { return; }
+        Spr.setImage(sprdata.readDataImage(Spr,"nextimg"))
     }
 
     export enum SprDataType {Tcol,Bcol,Tid,PageW,Talg}
@@ -1920,14 +1902,14 @@ namespace unifont {
         let _UnifontSprite = sprites.create(img`
             .
         `, SpriteKind.Unifont)
-        setDataString(_UnifontSprite,"stxt",Text)
-        setDataNumber(_UnifontSprite,"scol",Col)
-        setDataNumber(_UnifontSprite,"stid",Tid)
-        setDataNumber(_UnifontSprite,"stxw",0)
-        setDataNumber(_UnifontSprite,"salg",getAlign(alg))
-        setDataNumber(_UnifontSprite,"spacew",letterspace)
-        setDataNumber(_UnifontSprite,"lineh",lineheight)
-        setDataNumber(_UnifontSprite,"socol",Bcol)
+        sprdata.setDataString(_UnifontSprite,"stxt",Text)
+        sprdata.setDataNumber(_UnifontSprite,"scol",Col)
+        sprdata.setDataNumber(_UnifontSprite,"stid",Tid)
+        sprdata.setDataNumber(_UnifontSprite,"stxw",0)
+        sprdata.setDataNumber(_UnifontSprite,"salg",getAlign(alg))
+        sprdata.setDataNumber(_UnifontSprite,"spacew",letterspace)
+        sprdata.setDataNumber(_UnifontSprite,"lineh",lineheight)
+        sprdata.setDataNumber(_UnifontSprite,"socol",Bcol)
         spriteUpdate(_UnifontSprite)
         _UnifontSprite.setPosition(Math.floor(scene.screenWidth() / 2), Math.floor(scene.screenHeight() / 2))
         return _UnifontSprite
@@ -1939,7 +1921,7 @@ namespace unifont {
     //%group="sprite mode"
     //%weight=18
     export function getSpriteText(myUnifont:Sprite) {
-        return readDataString(myUnifont,"stxt")
+        return sprdata.readDataString(myUnifont,"stxt")
     }
 
     //%blockid=unifont_sprite_readsprdatainnum
@@ -1950,15 +1932,15 @@ namespace unifont {
     export function getSpriteTextData(myUnifont:Sprite,NumType:SprDataType) {
         switch (NumType) {
             case SprDataType.Tcol:
-            return readDataNumber(myUnifont,"scol");
+            return sprdata.readDataNumber(myUnifont,"scol");
             case SprDataType.Bcol:
-            return readDataNumber(myUnifont,"socol")
+            return sprdata.readDataNumber(myUnifont,"socol")
             case SprDataType.Tid:
-            return readDataNumber(myUnifont,"stid");
+            return sprdata.readDataNumber(myUnifont,"stid");
             case SprDataType.PageW:
-            return readDataNumber(myUnifont,"stxw");
+            return sprdata.readDataNumber(myUnifont,"stxw");
             case SprDataType.Talg:
-            return readDataNumber(myUnifont,"salg");
+            return sprdata.readDataNumber(myUnifont,"salg");
             default:
             return -1;
         }
@@ -1970,7 +1952,7 @@ namespace unifont {
     //%group="sprite mode"
     //%weight=14
     export function setSpriteAlign(myUnifont:Sprite,alg:align) {
-        setDataNumber(myUnifont,"salg",getAlign(alg))
+        sprdata.setDataNumber(myUnifont,"salg",getAlign(alg))
         spriteUpdate(myUnifont)
     }
 
@@ -1980,7 +1962,7 @@ namespace unifont {
     //%group="sprite mode"
     //%weight=12
     export function setSpriteAlignNum(myUnifont:Sprite,aln:number = 0) {
-        setDataNumber(myUnifont,"salg",aln)
+        sprdata.setDataNumber(myUnifont,"salg",aln)
         spriteUpdate(myUnifont)
     }
 
@@ -1990,7 +1972,7 @@ namespace unifont {
     //%group="sprite mode"
     //%weight=10
     export function setSpriteDialogTxt(myUnifont: Sprite,DlImg: Image) {
-        setDataImage(myUnifont,"sdim",DlImg)
+        sprdata.setDataImage(myUnifont,"sdim",DlImg)
         spriteUpdate(myUnifont)
     }
 
@@ -2000,29 +1982,47 @@ namespace unifont {
     //%group="sprite mode"
     //%weight=9
     export function clearSpriteDialog(myUnifont: Sprite) {
-        setDataImage(myUnifont,"sdim",undefined)
+        sprdata.setDataImage(myUnifont,"sdim",undefined)
         spriteUpdate(myUnifont)
     }
     
+    export enum spacetype {letterspace,lineheight}
+
     //%blockid=unifont_sprite_setlinespace
-    //%block=" $myUnifont set letterspace to $spacew and linegap to $lineh"
+    //%block=" $myUnifont set $gaptype to $value"
     //%myUnifont.shadow=variables_get myUnifont.defl=myUnifont
     //%group="sprite mode"
     //%weight=8
-    export function setGapSpr(myUnifont: Sprite, spacew: number = 0, lineh: number = 0) {
-        setDataNumber(myUnifont,"spacew",spacew)
-        setDataNumber(myUnifont,"lineh",lineh)
+    export function setGapSpr(myUnifont: Sprite, gaptype: spacetype, value: number = 0) {
+        switch (gaptype) {
+        case spacetype.letterspace:
+        sprdata.setDataNumber(myUnifont,"spacew",value)
+        break;
+        case spacetype.lineheight:
+        sprdata.setDataNumber(myUnifont,"lineh",value)
+        break;
+        default:
+        break;
+        }
         spriteUpdate(myUnifont)
     }
 
     //%blockid=unifont_sprite_setdefaultlinespace
-    //%block=" $myUnifont set letterspace and linegap to default value"
+    //%block=" $myUnifont set $gaptype to default value"
     //%myUnifont.shadow=variables_get myUnifont.defl=myUnifont
     //%group="sprite mode"
     //%weight=7
-    export function setDefaultGapSpr(myUnifont: Sprite) {
-        setDataNumber(myUnifont,"spacew",letterspace)
-        setDataNumber(myUnifont,"lineh",lineheight)
+    export function setDefaultGapSpr(myUnifont: Sprite, gaptype: spacetype) {
+        switch (gaptype) {
+        case spacetype.letterspace:
+        sprdata.setDataNumber(myUnifont,"spacew",letterspace)
+        break;
+        case spacetype.lineheight:
+        sprdata.setDataNumber(myUnifont,"lineh",lineheight)
+        break;
+        default:
+        break;
+        }
         spriteUpdate(myUnifont)
     }
 
@@ -2032,7 +2032,7 @@ namespace unifont {
     //%group="sprite mode"
     //%weight=20
     export function setSpriteText(myUnifont: Sprite,Text: string = "") {
-        setDataString(myUnifont,"stxt",Text)
+        sprdata.setDataString(myUnifont,"stxt",Text)
         spriteUpdate(myUnifont)
     }
 
@@ -2044,8 +2044,8 @@ namespace unifont {
     //%group="sprite mode"
     //%weight=6
     export function setSpriteTextCol(myUnifont: Sprite,Col: number = 0,Bcol: number = 0) {
-        setDataNumber(myUnifont,"scol",Col)
-        setDataNumber(myUnifont,"socol",Bcol)
+        sprdata.setDataNumber(myUnifont,"scol",Col)
+        sprdata.setDataNumber(myUnifont,"socol",Bcol)
         spriteUpdate(myUnifont)
     }
 
@@ -2055,7 +2055,7 @@ namespace unifont {
     //%group="sprite mode"
     //%weight=2
     export function setSpriteTableId(myUnifont: Sprite,Tid: number = 0) {
-        setDataNumber(myUnifont,"stid",Tid)
+        sprdata.setDataNumber(myUnifont,"stid",Tid)
         spriteUpdate(myUnifont)
     }
 
@@ -2065,7 +2065,7 @@ namespace unifont {
     //%group="sprite mode"
     //%weight=4
     export function setSpritePageWidth(myUnifont: Sprite, PageW: number = 0) {
-        setDataNumber(myUnifont,"stxw",PageW)
+        sprdata.setDataNumber(myUnifont,"stxw",PageW)
         spriteUpdate(myUnifont)
     }
 }
