@@ -1,0 +1,16 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "ภัทร",
+      "age": 17,
+      "skills": ["Coding", "Gaming", "Design"]
+    },
+    {
+      "id": 2,
+      "name": "สมชาย",
+      "age": 18,
+      "skills": ["Writing", "Drawing"]
+    }
+  ]
+}
