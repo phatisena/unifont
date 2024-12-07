@@ -614,4 +614,3 @@ namespace unidata {
   
 }
 
-export default unidata;
