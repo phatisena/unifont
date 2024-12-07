@@ -119,7 +119,7 @@ namespace unifont {
      * add charcter glyph to the table
      */
     //%blockid=unifont_setcharecter
-    //%block="set |table id $gid and set letter $glyph to img $imgi=screen_image_picker ||and |the letter can move? $notmove and stay on or under the letter? $onthechar and substract width $inchar erase col $bcol spacebar col $scol base col $mcol guard col $ncol"
+    //%block="set |table id $gid and set letter $glyph to img $imgi=screen_image_picker||and |the letter can move? $notmove and stay on or under the letter? $onthechar and substract width $inchar erase col $bcol spacebar col $scol base col $mcol guard col $ncol"
     //%bcol.shadow=colorindexpicker
     //%scol.shadow=colorindexpicker
     //%mcol.shadow=colorindexpicker
@@ -226,7 +226,7 @@ namespace unifont {
      * to the table
      */
     //%blockid=unifont_setcharfromimgsheet
-    //%block="set |table id $tid and set img sheet $PngSheet=screen_image_picker with letters $GroupChar ||and |staying letters $StayChar letters on the letters $CharOnChar and Char Substact $CharSubW width $twid height $thei erase col $bcl space col $scl base col $mcl guard col $ncl"
+    //%block="set |table id $tid and set img sheet $PngSheet=screen_image_picker with letters $GroupChar||and |staying letters $StayChar letters on the letters $CharOnChar and Char Substact $CharSubW width $twid height $thei erase col $bcl space col $scl base col $mcl guard col $ncl"
     //%bcl.shadow=colorindexpicker
     //%scl.shadow=colorindexpicker
     //%mcl.shadow=colorindexpicker
@@ -526,7 +526,7 @@ namespace unifont {
      * to the image
      */
     //%blockid=unifont_setimgfromtext
-    //%block="create the image of |text $input in page width $iwidt from table id $tid ||and |fill col $icol with outline $bcol and got alignment $alm and get debugalm $debugalm"
+    //%block="create the image of |text $input in page width $iwidt from table id $tid||and |fill col $icol with outline $bcol and got alignment $alm and get debugalm $debugalm"
     //%alm.min=-1 alm.max=1 alm.defl=0
     //%icol.shadow=colorindexpicker
     //%bcol.shadow=colorindexpicker
@@ -542,7 +542,7 @@ namespace unifont {
      * to image array
      */
     //%blockid=unifont_setimgframefromtext
-    //%block="create the image frame of |text $input in page width $iwidt from table id $tid ||and |fill col $icol with outline $bcol and got alignment $alm and get debugalm $debugalm"
+    //%block="create the image frame of |text $input in page width $iwidt from table id $tid||and |fill col $icol with outline $bcol and got alignment $alm and get debugalm $debugalm"
     //%alm.min=-1 alm.max=1 alm.defl=0
     //%icol.shadow=colorindexpicker
     //%bcol.shadow=colorindexpicker
@@ -558,7 +558,7 @@ namespace unifont {
      * my dialog frame
      */
     //%blockid=unifont_stamptexttoframe
-    //%block="StampStrImgToTheDialogFrame $Fimg=dialog_image_picker Text $Txt Text width $Wval TableId $arrid || And text color col $ucol and outline $bcol Alignment $ualm"
+    //%block="StampStrImgToTheDialogFrame $Fimg=dialog_image_picker Text $Txt Text width $Wval TableId $arrid|| And text color col $ucol and outline $bcol Alignment $ualm"
     //%ualm.min=-1 ualm.max=1 ualm.defl=0
     //%ucol.shadow=colorindexpicker
     //%bcol.shadow=colorindexpicker
@@ -581,7 +581,7 @@ namespace unifont {
      * as image array
      */
     //%blockid=unifont_stamptextarrtoframe
-    //%block="StampStrAnimToDialogFrame $Fimg=dialog_image_picker Text input $Txt In text width $Wval At table id $arrid ||and text color $ucol with outline $bcol And alignment $ualm "
+    //%block="StampStrAnimToDialogFrame $Fimg=dialog_image_picker Text input $Txt In text width $Wval At table id $arrid||and text color $ucol with outline $bcol And alignment $ualm "
     //%ualm.min=-1 ualm.max=1 ualm.defl=0
     //%ucol.shadow=colorindexpicker
     //%bcol.shadow=colorindexpicker
@@ -705,20 +705,20 @@ namespace unifont {
     export enum SprDataType {Tcol,Bcol,Tid,PageW,Talg}
 
     //%blockid=unifont_sprite_create
-    //%block="create unifont sprite as $Text in color $Col with outline $Bcol in alignment $alg ||and tableid $Tid"
+    //%block="create unifont sprite as $Text in color $Col with outline $Bcol in alignment $alg||and page width $PageW and tableid $Tid"
     //%Col.shadow=colorindexpicker
     //%Bcol.shadow=colorindexpicker
     //%blockSetVariable="myUnifont"
     //%group="sprite mode"
     //%weight=22
-    export function newUnifontSprite(Text: string = "",Col: number , Bcol: number,alg: align, Tid: number = 0) {
+    export function newUnifontSprite(Text: string = "",Col: number , Bcol: number,alg: align,PageW: number = 0, Tid: number = 0) {
         let _UnifontSprite = sprites.create(img`
             .
         `, SpriteKind.Unifont)
         sprdata.setDataString(_UnifontSprite,"stxt",Text)
         sprdata.setDataNumber(_UnifontSprite,"scol",Col)
         sprdata.setDataNumber(_UnifontSprite,"stid",Tid)
-        sprdata.setDataNumber(_UnifontSprite,"stxw",0)
+        sprdata.setDataNumber(_UnifontSprite,"stxw",PageW)
         sprdata.setDataNumber(_UnifontSprite,"salg",getAlign(alg))
         sprdata.setDataNumber(_UnifontSprite,"spacew",letterspace)
         sprdata.setDataNumber(_UnifontSprite,"lineh",lineheight)
@@ -849,16 +849,25 @@ namespace unifont {
         spriteUpdate(myUnifont)
     }
 
+    export enum colortype {solidcolor,outlinecolor}
+
     //%blockid=unifont_sprite_settextcolor
-    //%block=" $myUnifont set text color to $Col and outline color to $Bcol"
+    //%block=" $myUnifont set $colortexttype to $ncolor"
     //%myUnifont.shadow=variables_get myUnifont.defl=myUnifont
-    //%Col.shadow=colorindexpicker
-    //%Bcol.shadow=colorindexpicker
+    //%ncolor.shadow=colorindexpicker
     //%group="sprite mode"
     //%weight=6
-    export function setSpriteTextCol(myUnifont: Sprite,Col: number = 0,Bcol: number = 0) {
-        sprdata.setDataNumber(myUnifont,"scol",Col)
-        sprdata.setDataNumber(myUnifont,"socol",Bcol)
+    export function setSpriteTextCol(myUnifont: Sprite,colortexttype:colortype,ncolor: number = 0) {
+        switch (colortexttype) {
+        case colortype.solidcolor:
+        sprdata.setDataNumber(myUnifont,"scol",ncolor)
+        break;
+        case colortype.outlinecolor:
+        sprdata.setDataNumber(myUnifont,"socol",ncolor)
+        break;
+        default:
+        break;
+        }
         spriteUpdate(myUnifont)
     }
 
