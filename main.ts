@@ -1868,12 +1868,13 @@ namespace unifont {
 
     export function spriteUpdate(Spr: Sprite ) {
         if (!(Spr)) { return; }
-        const Sdata = Spr.data
         if (readDataImage(Spr,"sdim")) {
-            Spr.setImage(StampStrToDialog(readDataImage(Spr,"sdim"),readDataString(Spr,"stxt"),readDataNumber(Spr,"stxw"),readDataNumber(Spr,"stid"),readDataNumber(Spr,"scol"),readDataNumber(Spr,"salg")))
+            setDataImage(Spr,"nextimg",StampStrToDialog(readDataImage(Spr,"sdim"),readDataString(Spr,"stxt"),readDataNumber(Spr,"stxw"),readDataNumber(Spr,"stid"),readDataNumber(Spr,"scol"),readDataNumber(Spr,"salg")))
         } else {
-            Spr.setImage(SetTextImage(readDataString(Spr,"stxt"),readDataNumber(Spr,"stxw"),readDataNumber(Spr,"stid"),readDataNumber(Spr,"scol"),readDataNumber(Spr,"salg")))
+            setDataImage(Spr,"nextimg",SetTextImage(readDataString(Spr,"stxt"),readDataNumber(Spr,"stxw"),readDataNumber(Spr,"stid"),readDataNumber(Spr,"scol"),readDataNumber(Spr,"salg")))
         }
+        if (Spr.image.equals(readDataImage(Spr,"nextimg"))) { return; }
+        Spr.setImage(readDataImage(Spr,"nextimg"))
     }
 
     export enum SprDataType {Tcol,Tid,PageW,Talg}
