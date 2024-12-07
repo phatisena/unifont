@@ -443,4 +443,3 @@ namespace sprdata {
     }
 }
 
-export default sprdata;
