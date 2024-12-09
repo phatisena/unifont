@@ -11,3 +11,7 @@
 * rishiporwal
   - custom-font
     - namespace-font
+
+* microsoft
+  - arcade-sprite-data
+    - namespace-sprite
