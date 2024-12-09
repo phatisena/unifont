@@ -765,6 +765,7 @@ namespace unifont {
     //%group="sprite mode"
     //%weight=14
     export function setSpriteAlign(myUnifont:Sprite,alg:align) {
+        if (sprdata.readDataNumber(myUnifont,"salg") == getAlign(alg)) { return; }
         sprdata.setDataNumber(myUnifont,"salg",getAlign(alg))
         spriteUpdate(myUnifont)
     }
@@ -775,6 +776,7 @@ namespace unifont {
     //%group="sprite mode"
     //%weight=12
     export function setSpriteAlignNum(myUnifont:Sprite,aln:number = 0) {
+        if (sprdata.readDataNumber(myUnifont,"salg") == aln) { return; }
         sprdata.setDataNumber(myUnifont,"salg",aln)
         spriteUpdate(myUnifont)
     }
@@ -785,6 +787,7 @@ namespace unifont {
     //%group="sprite mode"
     //%weight=10
     export function setSpriteDialogTxt(myUnifont: Sprite,DlImg: Image) {
+        if (sprdata.readDataImage(myUnifont,"sdim") && sprdata.readDataImage(myUnifont,"sdim").equals(DlImg)) { return; }
         sprdata.setDataImage(myUnifont,"sdim",DlImg)
         spriteUpdate(myUnifont)
     }
@@ -795,6 +798,7 @@ namespace unifont {
     //%group="sprite mode"
     //%weight=9
     export function clearSpriteDialog(myUnifont: Sprite) {
+        if (!(sprdata.readDataImage(myUnifont,"sdim"))) { return; }
         sprdata.setDataImage(myUnifont,"sdim",undefined)
         spriteUpdate(myUnifont)
     }
@@ -809,13 +813,15 @@ namespace unifont {
     export function setGapSpr(myUnifont: Sprite, gaptype: spacetype, value: number = 0) {
         switch (gaptype) {
         case spacetype.letterspace:
+        if (sprdata.readDataNumber(myUnifont,"spacew") == value) { return; }
         sprdata.setDataNumber(myUnifont,"spacew",value)
         break;
         case spacetype.lineheight:
+        if (sprdata.readDataNumber(myUnifont,"lineh") == value) { return; }
         sprdata.setDataNumber(myUnifont,"lineh",value)
         break;
         default:
-        break;
+        return;
         }
         spriteUpdate(myUnifont)
     }
@@ -828,13 +834,15 @@ namespace unifont {
     export function setDefaultGapSpr(myUnifont: Sprite, gaptype: spacetype) {
         switch (gaptype) {
         case spacetype.letterspace:
+        if (sprdata.readDataNumber(myUnifont,"spacew") == letterspace) { return; }
         sprdata.setDataNumber(myUnifont,"spacew",letterspace)
         break;
         case spacetype.lineheight:
+        if (sprdata.readDataNumber(myUnifont,"lineh") == lineheight) { return; }
         sprdata.setDataNumber(myUnifont,"lineh",lineheight)
         break;
         default:
-        break;
+        return;
         }
         spriteUpdate(myUnifont)
     }
@@ -845,6 +853,7 @@ namespace unifont {
     //%group="sprite mode"
     //%weight=20
     export function setSpriteText(myUnifont: Sprite,Text: string = "") {
+        if (sprdata.readDataString(myUnifont,"stxt") == Text) { return; }
         sprdata.setDataString(myUnifont,"stxt",Text)
         spriteUpdate(myUnifont)
     }
@@ -860,13 +869,15 @@ namespace unifont {
     export function setSpriteTextCol(myUnifont: Sprite,colortexttype:colortype,ncolor: number = 0) {
         switch (colortexttype) {
         case colortype.solidcolor:
+        if (sprdata.readDataNumber(myUnifont,"scol") == ncolor) { return; }
         sprdata.setDataNumber(myUnifont,"scol",ncolor)
         break;
         case colortype.outlinecolor:
+        if (sprdata.readDataNumber(myUnifont,"socol") == ncolor) { return; }
         sprdata.setDataNumber(myUnifont,"socol",ncolor)
         break;
         default:
-        break;
+        return;
         }
         spriteUpdate(myUnifont)
     }
@@ -877,6 +888,7 @@ namespace unifont {
     //%group="sprite mode"
     //%weight=2
     export function setSpriteTableId(myUnifont: Sprite,Tid: number = 0) {
+        if (sprdata.readDataNumber(myUnifont,"stid") == Tid) { return; }
         sprdata.setDataNumber(myUnifont,"stid",Tid)
         spriteUpdate(myUnifont)
     }
@@ -887,6 +899,7 @@ namespace unifont {
     //%group="sprite mode"
     //%weight=4
     export function setSpritePageWidth(myUnifont: Sprite, PageW: number = 0) {
+        if (sprdata.readDataNumber(myUnifont,"stxw") == PageW) { return; }
         sprdata.setDataNumber(myUnifont,"stxw",PageW)
         spriteUpdate(myUnifont)
     }
