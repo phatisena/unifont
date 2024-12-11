@@ -1,7 +1,7 @@
 
 namespace SpriteKind {
-    export const Unifont = SpriteKind.create()
-    export const Unisrc = SpriteKind.create()
+    export const _unifont = SpriteKind.create()
+    export const _unisrc = SpriteKind.create()
 }
 //%block="UniFont"
 //%color="#12d48a" 
@@ -714,7 +714,7 @@ namespace unifont {
     export function newUnifontSprite(Text: string = "",Col: number , Bcol: number,alg: align,PageW: number = 0, Tid: number = 0) {
         let _UnifontSprite = sprites.create(img`
             .
-        `, SpriteKind.Unifont)
+        `, SpriteKind._unifont)
         sprdata.setDataString(_UnifontSprite,"stxt",Text)
         sprdata.setDataNumber(_UnifontSprite,"scol",Col)
         sprdata.setDataNumber(_UnifontSprite,"stid",Tid)
@@ -735,6 +735,14 @@ namespace unifont {
     //%weight=18
     export function getSpriteText(myUnifont:Sprite) {
         return sprdata.readDataString(myUnifont,"stxt")
+    }
+
+    //%blockid=unifont_sprite_uniarray
+    //%block="array of all unifont sprite"
+    //%group="sprite mode"
+    //%weight=17
+    export function getSpriteArray() {
+        return sprites.allOfKind(SpriteKind._unifont)
     }
 
     //%blockid=unifont_sprite_readsprdatainnum
@@ -902,5 +910,59 @@ namespace unifont {
         if (sprdata.readDataNumber(myUnifont,"stxw") == PageW) { return; }
         sprdata.setDataNumber(myUnifont,"stxw",PageW)
         spriteUpdate(myUnifont)
+    }
+
+    export enum delaytype {delaypermsec,msec,fpsec}
+
+    //%blockid=unifont_sprite_setpagewidth
+    //%block=" $myUnifont get animation play for $delaymode in $secval (ms)||and paused $pausev"
+    //%secval.defl=100
+    //%myUnifont.shadow=variables_get myUnifont.defl=myUnifont
+    //%group="sprite mode"
+    //%weight=1
+    export function getSpriteAnimPlay(myUnifont: Sprite,delaymode:delaytype,secval:number,pausev:boolean=false) {
+        if (sprdata.readDataBoolean(myUnifont, "anim")) { return; }
+        sprdata.setDataBoolean(myUnifont, "anim", true)
+        sprdata.setDataNumber(myUnifont,"scval",0)
+        if (sprdata.readDataImage(myUnifont, "sdim")) {
+            sprdata.setDataImageArray(myUnifont, "imgarr", StampStrArrToDialog(sprdata.readDataImage(myUnifont, "sdim"), sprdata.readDataString(myUnifont, "stxt"), sprdata.readDataNumber(myUnifont, "stxw"), sprdata.readDataNumber(myUnifont, "stid"), sprdata.readDataNumber(myUnifont, "scol"), sprdata.readDataNumber(myUnifont, "socol"), sprdata.readDataNumber(myUnifont, "salg"), sprdata.readDataNumber(myUnifont, "spacew"), sprdata.readDataNumber(myUnifont, "lineh")))
+        } else {
+            sprdata.setDataImageArray(myUnifont, "imgarr", SetTextImageArray(sprdata.readDataString(myUnifont, "stxt"), sprdata.readDataNumber(myUnifont, "stxw"), sprdata.readDataNumber(myUnifont, "stid"), sprdata.readDataNumber(myUnifont, "scol"), sprdata.readDataNumber(myUnifont, "socol"), sprdata.readDataNumber(myUnifont, "salg"), false, sprdata.readDataNumber(myUnifont, "spacew"), sprdata.readDataNumber(myUnifont, "lineh")))
+        }
+        switch (delaymode) {
+            case delaytype.delaypermsec:
+            sprdata.setDataNumber(myUnifont,"scval",secval)
+            break;
+            case delaytype.msec:
+            sprdata.setDataNumber(myUnifont,"scval",secval / sprdata.readDataImageArray(myUnifont,"imgarr").length)
+            break;
+            case delaytype.fpsec:
+            sprdata.setDataNumber(myUnifont, "scval", 1000 / secval)
+            break;
+            default:
+            return;
+        }
+        sprdata.setDataNumber(myUnifont, "sidx", 0)
+        if (pausev) {
+            while (sprdata.readDataNumber(myUnifont, "sidx") < sprdata.readDataImageArray(myUnifont, "imgarr").length) {
+                myUnifont.setImage(sprdata.readDataImageArray(myUnifont, "imgarr")[sprdata.readDataNumber(myUnifont, "sidx")])
+                pause(sprdata.readDataNumber(myUnifont, "scval"))
+                sprdata.changeDataNumberBy(myUnifont, "sidx", 1)
+            }
+            myUnifont.setImage(sprdata.readDataImage(myUnifont, "nextimg"))
+            sprdata.setDataBoolean(myUnifont, "anim", false)
+            return;
+        }
+        game.onUpdateInterval(sprdata.readDataNumber(myUnifont, "scval"), function() {
+            if (sprdata.readDataBoolean(myUnifont, "anim")) {
+                if (sprdata.readDataNumber(myUnifont, "sidx") < sprdata.readDataImageArray(myUnifont, "imgarr").length) {
+                    myUnifont.setImage(sprdata.readDataImageArray(myUnifont, "imgarr")[sprdata.readDataNumber(myUnifont, "sidx")])
+                } else {
+                    myUnifont.setImage(sprdata.readDataImage(myUnifont, "nextimg"))
+                    sprdata.setDataBoolean(myUnifont, "anim", false)
+                }
+                sprdata.changeDataNumberBy(myUnifont, "sidx", 1)
+            }
+        })
     }
 }
