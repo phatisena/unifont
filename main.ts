@@ -954,9 +954,8 @@ namespace unifont {
             return;
         }
         if (!(sprdata.readDataBoolean(myUnifont, "anip"))) {
+            sprdata.setDataBoolean(myUnifont, "anip", true)
             game.onUpdateInterval(sprdata.readDataNumber(myUnifont, "scval"), function() {
-                if (!(sprdata.readDataBoolean(myUnifont, "anip"))) {
-                sprdata.setDataBoolean(myUnifont, "anip", true)
                 if (sprdata.readDataBoolean(myUnifont, "anim")) {
                     if (sprdata.readDataNumber(myUnifont, "sidx") < sprdata.readDataImageArray(myUnifont, "imgarr").length) {
                         myUnifont.setImage(sprdata.readDataImageArray(myUnifont, "imgarr")[sprdata.readDataNumber(myUnifont, "sidx")])
@@ -966,7 +965,6 @@ namespace unifont {
                         sprdata.setDataBoolean(myUnifont, "anim", false)
                         return;
                     }
-                }
                 }
             })
         }
