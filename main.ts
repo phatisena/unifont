@@ -915,7 +915,7 @@ namespace unifont {
     export enum delaytype {delaypermsec,msec,fpsec}
 
     //%blockid=unifont_sprite_setpagewidth
-    //%block=" $myUnifont get animation play for $delaymode in $secval (ms)||and paused $pausev"
+    //%block=" $myUnifont get animation play for pause type $delaymode in (ms) $secval||and paused $pausev"
     //%secval.defl=100
     //%myUnifont.shadow=variables_get myUnifont.defl=myUnifont
     //%group="sprite mode"
