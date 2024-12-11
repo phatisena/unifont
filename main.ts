@@ -923,6 +923,7 @@ namespace unifont {
     export function getSpriteAnimPlay(myUnifont: Sprite,delaymode:delaytype,secval:number,pausev:boolean=false) {
         if (sprdata.readDataBoolean(myUnifont, "anim")) { return; }
         sprdata.setDataBoolean(myUnifont, "anim", true)
+        sprdata.setDataBoolean(myUnifont, "anip", false)
         sprdata.setDataNumber(myUnifont,"scval",0)
         if (sprdata.readDataImage(myUnifont, "sdim")) {
             sprdata.setDataImageArray(myUnifont, "imgarr", StampStrArrToDialog(sprdata.readDataImage(myUnifont, "sdim"), sprdata.readDataString(myUnifont, "stxt"), sprdata.readDataNumber(myUnifont, "stxw"), sprdata.readDataNumber(myUnifont, "stid"), sprdata.readDataNumber(myUnifont, "scol"), sprdata.readDataNumber(myUnifont, "socol"), sprdata.readDataNumber(myUnifont, "salg"), sprdata.readDataNumber(myUnifont, "spacew"), sprdata.readDataNumber(myUnifont, "lineh")))
@@ -953,16 +954,20 @@ namespace unifont {
             sprdata.setDataBoolean(myUnifont, "anim", false)
             return;
         }
-        game.onUpdateInterval(sprdata.readDataNumber(myUnifont, "scval"), function() {
-            if (sprdata.readDataBoolean(myUnifont, "anim")) {
-                if (sprdata.readDataNumber(myUnifont, "sidx") < sprdata.readDataImageArray(myUnifont, "imgarr").length) {
-                    myUnifont.setImage(sprdata.readDataImageArray(myUnifont, "imgarr")[sprdata.readDataNumber(myUnifont, "sidx")])
-                } else {
-                    myUnifont.setImage(sprdata.readDataImage(myUnifont, "nextimg"))
-                    sprdata.setDataBoolean(myUnifont, "anim", false)
+        if (!(sprdata.readDataBoolean(myUnifont, "anip"))) {
+            sprdata.setDataBoolean(myUnifont, "anip", true)
+            game.onUpdateInterval(sprdata.readDataNumber(myUnifont, "scval"), function() {
+                if (sprdata.readDataBoolean(myUnifont, "anim")) {
+                    if (sprdata.readDataNumber(myUnifont, "sidx") < sprdata.readDataImageArray(myUnifont, "imgarr").length) {
+                        myUnifont.setImage(sprdata.readDataImageArray(myUnifont, "imgarr")[sprdata.readDataNumber(myUnifont, "sidx")])
+                    } else {
+                        myUnifont.setImage(sprdata.readDataImage(myUnifont, "nextimg"))
+                        sprdata.setDataBoolean(myUnifont, "anim", false)
+                        return;
+                    }
+                    sprdata.changeDataNumberBy(myUnifont, "sidx", 1)
                 }
-                sprdata.changeDataNumberBy(myUnifont, "sidx", 1)
-            }
-        })
+            })
+        }
     }
 }
