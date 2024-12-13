@@ -297,7 +297,7 @@ namespace unifont {
     }
 
     export function SetTextImgValue(arrm: boolean,input: string, iwidt: number, tid: number, icol: number = 0, bcol: number = 0, alm: number = 0, debugalm: boolean = false, spacew: number = undefined, lineh: number = undefined) {
-        if (rendering) { return image.create(1,1) }
+        if (rendering) { if (arrm) { return [image.create(1,1)] as Image[] } else { return image.create(1,1) as Image } }
         rendering = true
         if (lineh == undefined) { lineh = lineheight}
         if (spacew == undefined) { spacew = letterspace}
