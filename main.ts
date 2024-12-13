@@ -296,9 +296,9 @@ namespace unifont {
         return ligs[tid]
     }
 
-    export function SetTextImgValue(arrm: boolean,input: string, iwidt: number, tid: number, icol: number = 0, bcol: number = 0, alm: number = 0, debugalm: boolean = false, spacew: number = 0, lineh: number = 0) {
-        if (lineh <= 0) { lineh = lineheight}
-        if (spacew <= 0) { spacew = letterspace}
+    export function SetTextImgValue(arrm: boolean,input: string, iwidt: number, tid: number, icol: number = 0, bcol: number = 0, alm: number = 0, debugalm: boolean = false, spacew: number = undefined, lineh: number = undefined) {
+        if (lineh == undefined) { lineh = lineheight}
+        if (spacew == undefined) { spacew = letterspace}
         let curchar = ""; let curchar2 = ""; let uhei = 0; let outputarr: Image[] = []; let lnwit: number[] = []; let heig = 0; let widt = 0; let curwidt = 0; let uwidt = 0; let swidt = 0; let nwidt = 0; let wie = 0; let hie = 0; let hvi = 0;
         for (let currentletter = 0; currentletter < input.length; currentletter++) {
             curchar = deepChar(tid, currentletter, input)
@@ -720,8 +720,8 @@ namespace unifont {
         sprdata.setDataNumber(_UnifontSprite,"stid",Tid)
         sprdata.setDataNumber(_UnifontSprite,"stxw",PageW)
         sprdata.setDataNumber(_UnifontSprite,"salg",getAlign(alg))
-        sprdata.setDataNumber(_UnifontSprite,"spacew",letterspace)
-        sprdata.setDataNumber(_UnifontSprite,"lineh",lineheight)
+        sprdata.setDataNumber(_UnifontSprite,"spacew",undefined)
+        sprdata.setDataNumber(_UnifontSprite,"lineh",undefined)
         sprdata.setDataNumber(_UnifontSprite,"socol",Bcol)
         spriteUpdate(_UnifontSprite)
         _UnifontSprite.setPosition(Math.floor(scene.screenWidth() / 2), Math.floor(scene.screenHeight() / 2))
@@ -842,12 +842,12 @@ namespace unifont {
     export function setDefaultGapSpr(myUnifont: Sprite, gaptype: spacetype) {
         switch (gaptype) {
         case spacetype.letterspace:
-        if (sprdata.readDataNumber(myUnifont,"spacew") == letterspace) { return; }
-        sprdata.setDataNumber(myUnifont,"spacew",letterspace)
+        if (sprdata.readDataNumber(myUnifont,"spacew") == undefined) { return; }
+        sprdata.setDataNumber(myUnifont,"spacew",undefined)
         break;
         case spacetype.lineheight:
-        if (sprdata.readDataNumber(myUnifont,"lineh") == lineheight) { return; }
-        sprdata.setDataNumber(myUnifont,"lineh",lineheight)
+        if (sprdata.readDataNumber(myUnifont,"lineh") == undefined) { return; }
+        sprdata.setDataNumber(myUnifont,"lineh",undefined)
         break;
         default:
         return;
@@ -962,3 +962,4 @@ namespace unifont {
         }
     }
 }
+
