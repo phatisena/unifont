@@ -9,7 +9,7 @@ namespace SpriteKind {
 //%weight=3
 namespace unifont {
 
-    export let ligs: string[][] = []; export let ligages: Image[][] = []; export let ligwidth: number[][] = []; export let ligsubw: number[][] = []; export let ligdir: number[][] = []; export let ligcol: number[][] = []; export let ligul: number[][] = []; export let storeid: number[] = []; export let letterspace: number = 1; export let curid = 0; export let lineheight = 1;
+    let rendering = false; export let ligs: string[][] = []; export let ligages: Image[][] = []; export let ligwidth: number[][] = []; export let ligsubw: number[][] = []; export let ligdir: number[][] = []; export let ligcol: number[][] = []; export let ligul: number[][] = []; export let storeid: number[] = []; export let letterspace: number = 1; export let curid = 0; export let lineheight = 1;
 
     export function newtableid() {
         storeid.push(curid); ligs.push([]); ligages.push([]); ligwidth.push([]); ligsubw.push([]); ligdir.push([]); ligcol.push([]); ligul.push([]); curid += 1; return storeid.length - 1;
@@ -297,6 +297,8 @@ namespace unifont {
     }
 
     export function SetTextImgValue(arrm: boolean,input: string, iwidt: number, tid: number, icol: number = 0, bcol: number = 0, alm: number = 0, debugalm: boolean = false, spacew: number = undefined, lineh: number = undefined) {
+        if (rendering) { return image.create(1,1) }
+        rendering = true
         if (lineh == undefined) { lineh = lineheight}
         if (spacew == undefined) { spacew = letterspace}
         let curchar = ""; let curchar2 = ""; let uhei = 0; let outputarr: Image[] = []; let lnwit: number[] = []; let heig = 0; let widt = 0; let curwidt = 0; let uwidt = 0; let swidt = 0; let nwidt = 0; let wie = 0; let hie = 0; let hvi = 0;
@@ -516,6 +518,7 @@ namespace unifont {
         }
         if (bcol > 0) { uoutput = drawOutline(output,bcol,true) } else { uoutput = output.clone() }
         outputarr.push(uoutput.clone())
+        rendering = false
         if (arrm) { return outputarr as Image[] }
         output = uoutput.clone()
         return output as Image
