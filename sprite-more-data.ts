@@ -3,9 +3,9 @@ namespace sprdata {
     /**
      * Sets a number in the data of a sprite
      */
-    //% blockId=spriteDataSetNumber block="set $sprite=variables_get data $name to number $value"
+    //% blockId=sprdata_spriteDataSetNumber block="set $sprite=variables_get data $name to number $value"
     //% blockHidden=true
-    //% name.shadow="spriteDataNumberNameShadow"
+    //% name.shadow="sprdata_spriteDataNumberNameShadow"
     //% group="Data"
     //% weight=10
     //% blockGap=8
@@ -18,9 +18,9 @@ namespace sprdata {
     /**
      * Change a number in the data of a sprite by a given value
      */
-    //% blockId=spriteDataChangeNumber block="change $sprite=variables_get data $name by number $value"
+    //% blockId=sprdata_spriteDataChangeNumber block="change $sprite=variables_get data $name by number $value"
     //% blockHidden=true
-    //% name.shadow="spriteDataNumberNameShadow"
+    //% name.shadow="sprdata_spriteDataNumberNameShadow"
     //% group="Data"
     //% weight=10
     //% blockGap=8
@@ -33,8 +33,8 @@ namespace sprdata {
     /**
      * Gets a number in the data of a sprite
      */
-    //% blockId=spriteDataGetNumber block="$sprite=variables_get data $name as number"
-    //% name.shadow="spriteDataNumberNameShadow"
+    //% blockId=sprdata_spriteDataGetNumber block="$sprite=variables_get data $name as number"
+    //% name.shadow="sprdata_spriteDataNumberNameShadow"
     //% blockHidden=true
     //% group="Data"
     //% weight=10
@@ -48,9 +48,9 @@ namespace sprdata {
     /**
      * Sets a number array in the data of a sprite
      */
-    //% blockId=spriteDataSetNumberArray block="set $sprite=variables_get data $name to number array $value"
+    //% blockId=sprdata_spriteDataSetNumberArray block="set $sprite=variables_get data $name to number array $value"
     //% blockHidden=true
-    //% name.shadow="spriteDataNumberArrayNameShadow"
+    //% name.shadow="sprdata_spriteDataNumberArrayNameShadow"
     //% group="Data array"
     //% weight=10
     //% blockGap=8
@@ -63,9 +63,9 @@ namespace sprdata {
     /**
      * Gets a number array in the data of a sprite
      */
-    //% blockId=spriteDataGetNumberArray block="$sprite=variables_get data $name as number array"
+    //% blockId=sprdata_spriteDataGetNumberArray block="$sprite=variables_get data $name as number array"
     //% blockHidden=true
-    //% name.shadow="spriteDataNumberArrayNameShadow"
+    //% name.shadow="sprdata_spriteDataNumberArrayNameShadow"
     //% group="Data array"
     //% weight=10
     //% blockGap=8
@@ -78,9 +78,9 @@ namespace sprdata {
     /**
      * Sets a string in the data of a sprite
      */
-    //% blockId=spriteDataSetString block="set $sprite=variables_get data $name to string $value"
+    //% blockId=sprdata_spriteDataSetString block="set $sprite=variables_get data $name to string $value"
     //% blockHidden=true
-    //% name.shadow="spriteDataStringNameShadow"
+    //% name.shadow="sprdata_spriteDataStringNameShadow"
     //% group="Data"
     //% weight=10
     //% blockGap=8
@@ -93,9 +93,9 @@ namespace sprdata {
     /**
      * Gets a string in the data of a sprite
      */
-    //% blockId=spriteDataGetString block="$sprite=variables_get data $name as string"
+    //% blockId=sprdata_spriteDataGetString block="$sprite=variables_get data $name as string"
     //% blockHidden=true
-    //% name.shadow="spriteDataStringNameShadow"
+    //% name.shadow="sprdata_spriteDataStringNameShadow"
     //% group="Data"
     //% weight=10
     //% blockGap=8
@@ -108,9 +108,9 @@ namespace sprdata {
     /**
      * Sets a string array in the data of a sprite
      */
-    //% blockId=spriteDataSetStringArray block="set $sprite=variables_get data $name to string array $value"
+    //% blockId=sprdata_spriteDataSetStringArray block="set $sprite=variables_get data $name to string array $value"
     //% blockHidden=true
-    //% name.shadow="spriteDataStringArrayNameShadow"
+    //% name.shadow="sprdata_spriteDataStringArrayNameShadow"
     //% group="Data array"
     //% weight=10
     //% blockGap=8
@@ -123,9 +123,9 @@ namespace sprdata {
     /**
      * Gets a string array in the data of a sprite
      */
-    //% blockId=spriteDataGetStringArray block="$sprite=variables_get data $name as string array"
+    //% blockId=sprdata_spriteDataGetStringArray block="$sprite=variables_get data $name as string array"
     //% blockHidden=true
-    //% name.shadow="spriteDataStringArrayNameShadow"
+    //% name.shadow="sprdata_spriteDataStringArrayNameShadow"
     //% group="Data array"
     //% weight=10
     //% blockGap=8
@@ -138,9 +138,9 @@ namespace sprdata {
     /**
      * Sets a boolean in the data of a sprite
      */
-    //% blockId=spriteDataSetBoolean block="set $sprite=variables_get data $name to boolean $value"
+    //% blockId=sprdata_spriteDataSetBoolean block="set $sprite=variables_get data $name to boolean $value"
     //% blockHidden=true
-    //% name.shadow="spriteDataBooleanNameShadow"
+    //% name.shadow="sprdata_spriteDataBooleanNameShadow"
     //% group="Data"
     //% weight=10
     //% blockGap=8
@@ -153,9 +153,9 @@ namespace sprdata {
     /**
      * Gets a boolean in the data of a sprite
      */
-    //% blockId=spriteDataGetBoolean block="$sprite=variables_get data $name as boolean"
+    //% blockId=sprdata_spriteDataGetBoolean block="$sprite=variables_get data $name as boolean"
     //% blockHidden=true
-    //% name.shadow="spriteDataBooleanNameShadow"
+    //% name.shadow="sprdata_spriteDataBooleanNameShadow"
     //% group="Data"
     //% weight=10
     //% blockGap=8
@@ -169,9 +169,9 @@ namespace sprdata {
     /**
      * Sets a boolean array in the data of a sprite
      */
-    //% blockId=spriteDataSetBooleanArray block="set $sprite=variables_get data $name to boolean array $value"
+    //% blockId=sprdata_spriteDataSetBooleanArray block="set $sprite=variables_get data $name to boolean array $value"
     //% blockHidden=true
-    //% name.shadow="spriteDataBooleanArrayNameShadow"
+    //% name.shadow="sprdata_spriteDataBooleanArrayNameShadow"
     //% group="Data array"
     //% weight=10
     //% blockGap=8
@@ -184,9 +184,9 @@ namespace sprdata {
     /**
      * Gets a boolean array in the data of a sprite
      */
-    //% blockId=spriteDataGetBooleanArray block="$sprite=variables_get data $name as boolean array"
+    //% blockId=sprdata_spriteDataGetBooleanArray block="$sprite=variables_get data $name as boolean array"
     //% blockHidden=true
-    //% name.shadow="spriteDataBooleanArrayNameShadow"
+    //% name.shadow="sprdata_spriteDataBooleanArrayNameShadow"
     //% group="Data array"
     //% weight=10
     //% blockGap=8
@@ -199,9 +199,9 @@ namespace sprdata {
     /**
      * Sets a sprite in the data of a sprite
      */
-    //% blockId=spriteDataSetSprite block="set $sprite=variables_get data $name to sprite $value"
+    //% blockId=sprdata_spriteDataSetSprite block="set $sprite=variables_get data $name to sprite $value"
     //% blockHidden=true
-    //% name.shadow="spriteDataSpriteNameShadow"
+    //% name.shadow="sprdata_spriteDataSpriteNameShadow"
     //% group="Data"
     //% weight=10
     //% blockGap=8
@@ -214,9 +214,9 @@ namespace sprdata {
     /**
      * Gets a sprite in the data of a sprite
      */
-    //% blockId=spriteDataGetSprite block="$sprite=variables_get data $name as sprite"
+    //% blockId=sprdata_spriteDataGetSprite block="$sprite=variables_get data $name as sprite"
     //% blockHidden=true
-    //% name.shadow="spriteDataSpriteNameShadow"
+    //% name.shadow="sprdata_spriteDataSpriteNameShadow"
     //% group="Data"
     //% weight=10
     //% blockGap=8
@@ -229,10 +229,10 @@ namespace sprdata {
     /**
      * Sets a sprite array in the data of a sprite
      */
-    //% blockId=spriteDataSetSpriteArray block="set $sprite=variables_get data $name to sprite array $value"
+    //% blockId=sprdata_spriteDataSetSpriteArray block="set $sprite=variables_get data $name to sprite array $value"
     //% blockHidden=true
     //% value.shadow="lists_create_with"
-    //% name.shadow="spriteDataSpriteNameShadow"
+    //% name.shadow="sprdata_spriteDataSpriteNameShadow"
     //% group="Data array"
     //% weight=10
     //% blockGap=8
@@ -245,9 +245,9 @@ namespace sprdata {
     /**
      * Gets a sprite array in the data of a sprite
      */
-    //% blockId=spriteDataGetSpriteArray block="$sprite=variables_get data $name as sprite array"
+    //% blockId=sprdata_spriteDataGetSpriteArray block="$sprite=variables_get data $name as sprite array"
     //% blockHidden=true
-    //% name.shadow="spriteDataSpriteArrayNameShadow"
+    //% name.shadow="sprdata_spriteDataSpriteArrayNameShadow"
     //% group="Data array"
     //% weight=10
     //% blockGap=8
@@ -261,9 +261,9 @@ namespace sprdata {
      * Sets an Image in the data of a sprite.
      * Deprecated. Use setDataImageValue instead
      */
-    //% blockId=spriteDataSetImage block="set $sprite=variables_get data $name to image $value"
+    //% blockId=sprdata_spriteDataSetImage block="set $sprite=variables_get data $name to image $value"
     //% blockHidden=true
-    //% name.shadow="spriteDataImageNameShadow"
+    //% name.shadow="sprdata_spriteDataImageNameShadow"
     //% group="Data"
     //% deprecated=1
     //% weight=9
@@ -275,9 +275,9 @@ namespace sprdata {
     /**
      * Sets an Image in the data of a sprite
      */
-    //% blockId=spriteDataSetImageValue block="set $sprite data $name to image $value"
+    //% blockId=sprdata_spriteDataSetImageValue block="set $sprite data $name to image $value"
     //% blockHidden=true
-    //% name.shadow="spriteDataImageNameShadow"
+    //% name.shadow="sprdata_spriteDataImageNameShadow"
     //% group="Data"
     //% sprite.shadow=variables_get
     //% value.shadow=screen_image_picker
@@ -292,9 +292,9 @@ namespace sprdata {
     /**
      * Gets a sprite in the data of a sprite
      */
-    //% blockId=spriteDataGetImage block="$sprite=variables_get data $name as image"
+    //% blockId=sprdata_spriteDataGetImage block="$sprite=variables_get data $name as image"
     //% blockHidden=true
-    //% name.shadow="spriteDataImageNameShadow"
+    //% name.shadow="sprdata_spriteDataImageNameShadow"
     //% group="Data"
     //% weight=9
     //% blockGap=8
@@ -308,10 +308,10 @@ namespace sprdata {
      * Sets an Image array in the data of a sprite.
      * Deprecated. Use setDataImageValue instead
      */
-    //% blockId=spriteDataSetImageArray block="set $sprite=variables_get data $name to image array $value"
+    //% blockId=sprdata_spriteDataSetImageArray block="set $sprite=variables_get data $name to image array $value"
     //% blockHidden=true
     //% value.shadow="lists_create_with" value.defl=screen_image_picker
-    //% name.shadow="spriteDataImageArrayNameShadow"
+    //% name.shadow="sprdata_spriteDataImageArrayNameShadow"
     //% group="Data array"
     //% deprecated=1
     //% weight=9
@@ -323,10 +323,10 @@ namespace sprdata {
     /**
      * Sets an Image array in the data of a sprite
      */
-    //% blockId=spriteDataSetImageValueArray block="set $sprite data $name to image array $value"
+    //% blockId=sprdata_spriteDataSetImageValueArray block="set $sprite data $name to image array $value"
     //% blockHidden=true
     //% value.shadow="lists_create_with" value.defl=screen_image_picker
-    //% name.shadow="spriteDataImageArrayNameShadow"
+    //% name.shadow="sprdata_spriteDataImageArrayNameShadow"
     //% group="Data array"
     //% sprite.shadow=variables_get
     //% weight=9
@@ -340,9 +340,9 @@ namespace sprdata {
     /**
      * Gets a sprite in the data of a sprite
      */
-    //% blockId=spriteDataGetImageArray block="$sprite=variables_get data $name as image array"
+    //% blockId=sprdata_spriteDataGetImageArray block="$sprite=variables_get data $name as image array"
     //% blockHidden=true
-    //% name.shadow="spriteDataImageArrayNameShadow"
+    //% name.shadow="sprdata_spriteDataImageArrayNameShadow"
     //% group="Data array"
     //% weight=9
     //% blockGap=8
@@ -353,7 +353,7 @@ namespace sprdata {
     }
 
     //% block="$name"
-    //% blockId=spriteDataNumberNameShadow
+    //% blockId=sprdata_spriteDataNumberNameShadow
     //% blockHidden=true shim=TD_ID
     //% name.fieldEditor="autocomplete" name.fieldOptions.decompileLiterals=true
     //% name.fieldOptions.key="spritedatanumber"
@@ -362,7 +362,7 @@ namespace sprdata {
     }
 
     //% block="$name"
-    //% blockId=spriteDataNumberArrayNameShadow
+    //% blockId=sprdata_spriteDataNumberArrayNameShadow
     //% blockHidden=true shim=TD_ID
     //% name.fieldEditor="autocomplete" name.fieldOptions.decompileLiterals=true
     //% name.fieldOptions.key="spritedatanumberarray"
@@ -371,7 +371,7 @@ namespace sprdata {
     }
 
     //% block="$name"
-    //% blockId=spriteDataSpriteNameShadow
+    //% blockId=sprdata_spriteDataSpriteNameShadow
     //% blockHidden=true shim=TD_ID
     //% name.fieldEditor="autocomplete" name.fieldOptions.decompileLiterals=true
     //% name.fieldOptions.key="spritedatasprite"
@@ -380,7 +380,7 @@ namespace sprdata {
     }
 
     //% block="$name"
-    //% blockId=spriteDataSpriteArrayNameShadow
+    //% blockId=sprdata_spriteDataSpriteArrayNameShadow
     //% blockHidden=true shim=TD_ID
     //% name.fieldEditor="autocomplete" name.fieldOptions.decompileLiterals=true
     //% name.fieldOptions.key="spritedataspritearray"
@@ -389,7 +389,7 @@ namespace sprdata {
     }
 
     //% block="$name"
-    //% blockId=spriteDataBooleanNameShadow
+    //% blockId=sprdata_spriteDataBooleanNameShadow
     //% blockHidden=true shim=TD_ID
     //% name.fieldEditor="autocomplete" name.fieldOptions.decompileLiterals=true
     //% name.fieldOptions.key="spritedataboolean"
@@ -398,7 +398,7 @@ namespace sprdata {
     }
 
     //% block="$name"
-    //% blockId=spriteDataBooleanArrayNameShadow
+    //% blockId=sprdata_spriteDataBooleanArrayNameShadow
     //% blockHidden=true shim=TD_ID
     //% name.fieldEditor="autocomplete" name.fieldOptions.decompileLiterals=true
     //% name.fieldOptions.key="spritedatabooleanarray"
@@ -407,7 +407,7 @@ namespace sprdata {
     }
 
     //% block="$name"
-    //% blockId=spriteDataStringNameShadow
+    //% blockId=sprdata_spriteDataStringNameShadow
     //% blockHidden=true shim=TD_ID
     //% name.fieldEditor="autocomplete" name.fieldOptions.decompileLiterals=true
     //% name.fieldOptions.key="spritedatastring"
@@ -416,7 +416,7 @@ namespace sprdata {
     }
 
     //% block="$name"
-    //% blockId=spriteDataStringArrayNameShadow
+    //% blockId=sprdata_spriteDataStringArrayNameShadow
     //% blockHidden=true shim=TD_ID
     //% name.fieldEditor="autocomplete" name.fieldOptions.decompileLiterals=true
     //% name.fieldOptions.key="spritedatastringarray"
@@ -425,7 +425,7 @@ namespace sprdata {
     }
 
     //% block="$name"
-    //% blockId=spriteDataImageNameShadow
+    //% blockId=sprdata_spriteDataImageNameShadow
     //% blockHidden=true shim=TD_ID
     //% name.fieldEditor="autocomplete" name.fieldOptions.decompileLiterals=true
     //% name.fieldOptions.key="spritedataimage"
@@ -434,7 +434,7 @@ namespace sprdata {
     }
 
     //% block="$name"
-    //% blockId=spriteDataImageArrayNameShadow
+    //% blockId=sprdata_spriteDataImageArrayNameShadow
     //% blockHidden=true shim=TD_ID
     //% name.fieldEditor="autocomplete" name.fieldOptions.decompileLiterals=true
     //% name.fieldOptions.key="spritedataimagearray"
