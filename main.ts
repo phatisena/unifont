@@ -119,11 +119,11 @@ namespace unifont {
         return ImgOutput
     }
 
-    //% block="$name"
-    //% blockId=tablenameshadow
-    //% blockHidden=true shim=TD_ID
-    //% name.fieldEditor="autocomplete" name.fieldOptions.decompileLiterals=true
-    //% name.fieldOptions.key="tablenameshadow"
+    //%block="$name"
+    //%blockId=tablenameshadow
+    //%blockHidden=true shim=TD_ID
+    //%name.fieldEditor="autocomplete" name.fieldOptions.decompileLiterals=true
+    //%name.fieldOptions.key="tablenameshadow"
     export function _tableNameShadow(name: string) {
         return name
     }
@@ -133,14 +133,14 @@ namespace unifont {
      */
     //%blockid=unifont_setcharecter
     //%block="set |table id $gid and set letter $glyph to img $imgi=screen_image_picker||and |the letter can move? $notmove and stay on or under the letter? $onthechar and substract width $inchar erase col $bcol spacebar col $scol base col $mcol guard col $ncol"
-    //%gid.shadow=tablenameshadow
+    //%gid.shadow=tablenameshadow gid.defl="fonttemp"
     //%bcol.shadow=colorindexpicker
     //%scol.shadow=colorindexpicker
     //%mcol.shadow=colorindexpicker
     //%ncol.shadow=colorindexpicker
     //%group="create"
     //%weight=2
-    export function setCharecter(gid: string = "", glyph: string = "", imgi: Image = image.create(5, 8), notmove: boolean = false, onthechar: boolean = false, inchar: boolean = false, bcol: number = 0, scol: number = 0, mcol: number = 0, ncol: number = 0) {
+    export function setCharecter(gid: string = "fonttemp", glyph: string = "", imgi: Image = image.create(5, 8), notmove: boolean = false, onthechar: boolean = false, inchar: boolean = false, bcol: number = 0, scol: number = 0, mcol: number = 0, ncol: number = 0) {
         let tid = gettableid(gid)
         let sncol = true; let scnwidt = true; let scwidt = false; let wi = 0; let wj = 0; let si = 0; let imgj = image.create(imgi.width, imgi.height);
         if (bcol > 0 && bcol < 16) {
@@ -235,14 +235,14 @@ namespace unifont {
      */
     //%blockid=unifont_setcharfromimgsheet
     //%block="set |table id $tid and set img sheet $PngSheet=screen_image_picker with letters $GroupChar||and |staying letters $StayChar letters on the letters $CharOnChar and Char Substact $CharSubW width $twid height $thei erase col $bcl space col $scl base col $mcl guard col $ncl"
-    //%tid.shadow=tablenameshadow
+    //%tid.shadow=tablenameshadow tid.defl="fonttemp"
     //%bcl.shadow=colorindexpicker
     //%scl.shadow=colorindexpicker
     //%mcl.shadow=colorindexpicker
     //%ncl.shadow=colorindexpicker
     //%group="create"
     //%weight=4
-    export function setCharFromSheet(tid: string = "", PngSheet: Image = image.create(10, 16), GroupChar: string = "", StayChar: string = "", CharOnChar: string = "", CharSubW: string = "", twid: number = 5, thei: number = 8, bcl: number = 0, scl: number = 0, mcl: number = 0, ncl: number = 0) {
+    export function setCharFromSheet(tid: string = "fonttemp", PngSheet: Image = image.create(10, 16), GroupChar: string = "", StayChar: string = "", CharOnChar: string = "", CharSubW: string = "", twid: number = 5, thei: number = 8, bcl: number = 0, scl: number = 0, mcl: number = 0, ncl: number = 0) {
         let gwid = Math.round(PngSheet.width / twid); let uig = image.create(twid, thei); let txi = 0; let tyi = 0;
         for (let tvn = 0; tvn < GroupChar.length; tvn++) {
             uig = image.create(twid, thei); txi = twid * (tvn % gwid); tyi = thei * Math.floor(tvn / gwid); drawTransparentImage(PngSheet, uig, 0 - txi, 0 - tyi); setCharecter(tid, GroupChar.charAt(tvn), uig, StayChar.includes(GroupChar.charAt(tvn)), CharOnChar.includes(GroupChar.charAt(tvn)), CharSubW.includes(GroupChar.charAt(tvn)), bcl, scl, mcl, ncl);
@@ -256,14 +256,14 @@ namespace unifont {
      */
     //%blockid=unifont_setchararrfromimgsheet
     //%block="set |table id $tid and set img sheet $PngSheet=screen_image_picker with array of letters $GroupChar||and | array of staying letters $StayChar array of letters on the letters $CharOnChar and array of Char Substact $CharSubW width $twid height $thei erase col $bcl space col $scl base col $mcl guard col $ncl"
-    //%tid.shadow=tablenameshadow
+    //%tid.shadow=tablenameshadow tid.defl="fonttemp"
     //%bcl.shadow=colorindexpicker
     //%scl.shadow=colorindexpicker
     //%mcl.shadow=colorindexpicker
     //%ncl.shadow=colorindexpicker
     //%group="create"
     //%weight=6
-    export function setCharArrFromSheet(tid: string = "", PngSheet: Image = image.create(10, 16), GroupChar: string[] = [], StayChar: string[] = [], CharOnChar: string[] = [], CharSubW: string[] = [], twid: number = 5, thei: number = 8, bcl: number = 0, scl: number = 0, mcl: number = 0, ncl: number = 0) {
+    export function setCharArrFromSheet(tid: string = "fonttemp", PngSheet: Image = image.create(10, 16), GroupChar: string[] = [], StayChar: string[] = [], CharOnChar: string[] = [], CharSubW: string[] = [], twid: number = 5, thei: number = 8, bcl: number = 0, scl: number = 0, mcl: number = 0, ncl: number = 0) {
         let gwid = Math.round(PngSheet.width / twid); let uig = image.create(twid, thei); let txi = 0; let tyi = 0;
         for (let tvn = 0; tvn < GroupChar.length; tvn++) {
             uig = image.create(twid, thei); txi = twid * (tvn % gwid); tyi = thei * Math.floor(tvn / gwid); drawTransparentImage(PngSheet, uig, 0 - txi, 0 - tyi); setCharecter(tid, GroupChar[tvn], uig, StayChar.indexOf(GroupChar[tvn]) >= 0, CharOnChar.indexOf(GroupChar[tvn]) >= 0, CharSubW.indexOf(GroupChar[tvn]) >= 0, bcl, scl, mcl, ncl);
@@ -276,10 +276,10 @@ namespace unifont {
      */
     //%blockid=unifont_numofglyphs
     //%block="number of glyphs ||in table id $gid"
-    //%gid.shadow=tablenameshadow
+    //%gid.shadow=tablenameshadow gid.defl="fonttemp"
     //%group="datainfo"
     //%weight=2
-    export function NumOfGlyphs(gid: string = ""): number {
+    export function NumOfGlyphs(gid: string = "fonttemp"): number {
         let tid = gettableid(gid)
         return ligs[tid].length
     }
@@ -290,10 +290,10 @@ namespace unifont {
      */
     //%blockid=unifont_arrofgypimg
     //%block="array of glyph images ||in table id $gid"
-    //%gid.shadow=tablenameshadow
+    //%gid.shadow=tablenameshadow gid.defl="fonttemp"
     //%group="datainfo"
     //%weight=4
-    export function ImageArray(gid: string = ""): Image[] {
+    export function ImageArray(gid: string = "fonttemp"): Image[] {
         let tid = gettableid(gid)
         return ligages[tid]
     }
@@ -304,10 +304,10 @@ namespace unifont {
      */
     //%blockid=unifont_arrofglyphs
     //%block="array of glyphs ||in table id $gid"
-    //%gid.shadow=tablenameshadow
+    //%gid.shadow=tablenameshadow gid.defl="fonttemp"
     //%group="datainfo"
     //%weight=6
-    export function GlyphArray(gid: string = ""): String[] {
+    export function GlyphArray(gid: string = "fonttemp"): String[] {
         let tid = gettableid(gid) 
         return ligs[tid]
     }
@@ -547,13 +547,13 @@ namespace unifont {
      */
     //%blockid=unifont_setimgfromtext
     //%block="create the image of |text $input in page width $iwidt from table id $tid||and |fill col $icol with outline $bcol and got alignment $alm and get debugalm $debugalm"
-    //%tid.shadow=tablenameshadow
+    //%tid.shadow=tablenameshadow tid.defl="fonttemp"
     //%alm.min=-1 alm.max=1 alm.defl=0
     //%icol.shadow=colorindexpicker
     //%bcol.shadow=colorindexpicker
     //%group="render"
     //%weight=4
-    export function SetTextImage(input: string, iwidt: number, tid: string, icol: number = 0, bcol: number = 0, alm: number = 0, debugalm: boolean = false,spacew: number = 0, lineh: number = 0) {
+    export function SetTextImage(input: string = "", iwidt: number = 0, tid: string = "fonttemp", icol: number = 0, bcol: number = 0, alm: number = 0, debugalm: boolean = false,spacew: number = 0, lineh: number = 0) {
         return SetTextImgValue(false, input, iwidt, tid, icol, bcol, alm, debugalm, spacew, lineh) as Image
     }
 
@@ -564,13 +564,13 @@ namespace unifont {
      */
     //%blockid=unifont_setimgframefromtext
     //%block="create the image frame of |text $input in page width $iwidt from table id $tid||and |fill col $icol with outline $bcol and got alignment $alm and get debugalm $debugalm"
-    //%tid.shadow=tablenameshadow
+    //%tid.shadow=tablenameshadow tid.defl="fonttemp"
     //%alm.min=-1 alm.max=1 alm.defl=0
     //%icol.shadow=colorindexpicker
     //%bcol.shadow=colorindexpicker
     //%group="render"
     //%weight=2
-    export function SetTextImageArray(input: string, iwidt: number, tid: string, icol: number = 0, bcol: number = 0, alm: number = 0, debugalm: boolean = false, spacew: number = 0, lineh: number = 0) {
+    export function SetTextImageArray(input: string = "", iwidt: number = 0, tid: string = "fonttemp", icol: number = 0, bcol: number = 0, alm: number = 0, debugalm: boolean = false, spacew: number = 0, lineh: number = 0) {
         return SetTextImgValue(true, input, iwidt, tid, icol, bcol, alm, debugalm, spacew, lineh) as Image[]
     }
 
@@ -581,13 +581,13 @@ namespace unifont {
      */
     //%blockid=unifont_stamptexttoframe
     //%block="StampStrImgToTheDialogFrame $Fimg=dialog_image_picker Text $Txt Text width $Wval TableId $arrid||And text color col $ucol and outline $bcol Alignment $ualm"
-    //%arrid.shadow=tablenameshadow
+    //%arrid.shadow=tablenameshadow arrid.defl="fonttemp"
     //%ualm.min=-1 ualm.max=1 ualm.defl=0
     //%ucol.shadow=colorindexpicker
     //%bcol.shadow=colorindexpicker
     //%group="Dialog render"
     //%weight=4
-    export function StampStrToDialog(Fimg: Image, Txt: string = "", Wval: number = 0, arrid: string = "", ucol: number = 0, bcol: number = 0, ualm: number = 0, spacew: number = 0, lineh: number = 0) {
+    export function StampStrToDialog(Fimg: Image, Txt: string = "", Wval: number = 0, arrid: string = "fonttemp", ucol: number = 0, bcol: number = 0, ualm: number = 0, spacew: number = 0, lineh: number = 0) {
         let StrImg: Image = SetTextImage(Txt, Wval, arrid, ucol, bcol, ualm, false, spacew, lineh)
         let gapw = Math.floor(Fimg.width / 3)
         let gaph = Math.floor(Fimg.height / 3)
@@ -605,13 +605,13 @@ namespace unifont {
      */
     //%blockid=unifont_stamptextarrtoframe
     //%block="StampStrAnimToDialogFrame $Fimg=dialog_image_picker Text input $Txt In text width $Wval At table id $arrid||and text color $ucol with outline $bcol And alignment $ualm "
-    //%arrid.shadow=tablenameshadow
+    //%arrid.shadow=tablenameshadow arrid.defl="fonttemp"
     //%ualm.min=-1 ualm.max=1 ualm.defl=0
     //%ucol.shadow=colorindexpicker
     //%bcol.shadow=colorindexpicker
     //%group="Dialog render"
     //%weight=2
-    export function StampStrArrToDialog(Fimg: Image, Txt: string = "", Wval: number = 0, arrid: string = "", ucol: number = 0, bcol: number = 0, ualm: number = 0,spacew: number = 0, lineh: number = 0) {
+    export function StampStrArrToDialog(Fimg: Image, Txt: string = "", Wval: number = 0, arrid: string = "fonttemp", ucol: number = 0, bcol: number = 0, ualm: number = 0,spacew: number = 0, lineh: number = 0) {
         let StrImg: Image[] = SetTextImageArray(Txt, Wval, arrid, ucol, bcol, ualm, false, spacew, lineh)
         let gapw = Math.floor(Fimg.width / 3)
         let gaph = Math.floor(Fimg.height / 3)
@@ -640,6 +640,7 @@ namespace unifont {
     /**
      * change the letterspace by value
      */
+    true && true
     //%blockid=unifont_changeletterspacing
     //%block="change letter spacing by $input"
     //%group="modify"
@@ -699,10 +700,10 @@ namespace unifont {
      */
     //%blockid=unifont_presetfont
     //%block="SetupPresetFont $tempf ||with table id $tid"
-    //%tid.shadow=tablenameshadow
+    //%tid.shadow=tablenameshadow tid.defl="fonttemp"
     //%group="create"
     //%weight=10
-    export function SetupPresetFont(tempf: tempfont, tid: string = "") {
+    export function SetupPresetFont(tempf: tempfont, tid: string = "fonttemp") {
         switch (tempf) {
             case tempfont.MainFont:
                 unidata.mainfont(tid)
@@ -734,12 +735,13 @@ namespace unifont {
      */
     //%blockid=unifont_sprite_create
     //%block="create unifont sprite as $Text in color $Col with outline $Bcol in alignment $alg||and page width $PageW and tableid $Tid"
+    //%Tid.shadow=tablenameshadow Tid.defl="fonttemp"
     //%Col.shadow=colorindexpicker
     //%Bcol.shadow=colorindexpicker
     //%blockSetVariable="myUnifont"
     //%group="sprite mode"
     //%weight=22
-    export function newUnifontSprite(Text: string = "",Col: number , Bcol: number,alg: align,PageW: number = 0, Tid: string = "") {
+    export function newUnifontSprite(Text: string = "",Col: number , Bcol: number,alg: align,PageW: number = 0, Tid: string = "fonttemp") {
         let _UnifontSprite = sprites.create(img`
             .
         `, SpriteKind._unifont)
@@ -968,11 +970,11 @@ namespace unifont {
      */
     //%blockid=unifont_sprite_settableid
     //%block=" $myUnifont set Table id to $Tid"
-    //%Tid.shadow=tablenameshadow
+    //%Tid.shadow=tablenameshadow Tid.defl="fonttemp"
     //%myUnifont.shadow=variables_get myUnifont.defl=myUnifont
     //%group="sprite mode"
     //%weight=2
-    export function setSpriteTableId(myUnifont: Sprite,Tid: string = "") {
+    export function setSpriteTableId(myUnifont: Sprite,Tid: string = "fonttemp") {
         if (sprdata.readDataString(myUnifont,"stid") == Tid) { return; }
         sprdata.setDataString(myUnifont,"stid",Tid)
         spriteUpdate(myUnifont)
