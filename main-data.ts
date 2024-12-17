@@ -1,6 +1,6 @@
 namespace unidata {
 
-  export function mainfont(tid:number) {
+  export function mainfont(tid:string = "") {
     unifont.setCharFromSheet(
                     tid,
                     img`
@@ -482,7 +482,7 @@ namespace unidata {
                 )                    
   }
 
-  export function arcadefont(tid:number) {
+  export function arcadefont(tid:string = "") {
     unifont.setCharFromSheet(
                     tid,
                     img`
