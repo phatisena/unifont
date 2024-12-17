@@ -699,9 +699,10 @@ namespace unifont {
      */
     //%blockid=unifont_presetfont
     //%block="SetupPresetFont $tempf ||with table id $tid"
+    //%tid.shadow=tablenameshadow
     //%group="create"
     //%weight=10
-    export function SetupPresetFont(tempf: tempfont, tid: number = 0) {
+    export function SetupPresetFont(tempf: tempfont, tid: string = "") {
         switch (tempf) {
             case tempfont.MainFont:
                 unidata.mainfont(tid)
