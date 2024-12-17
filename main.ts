@@ -275,7 +275,7 @@ namespace unifont {
      * my charcter in table
      */
     //%blockid=unifont_numofglyphs
-    //%block="number of glyphs ||in table id $gid"
+    //%block="number of glyphs in table id $gid"
     //%gid.shadow=tablenameshadow gid.defl="fonttemp"
     //%group="datainfo"
     //%weight=2
@@ -289,7 +289,7 @@ namespace unifont {
      * of my table
      */
     //%blockid=unifont_arrofgypimg
-    //%block="array of glyph images ||in table id $gid"
+    //%block="array of glyph images in table id $gid"
     //%gid.shadow=tablenameshadow gid.defl="fonttemp"
     //%group="datainfo"
     //%weight=4
@@ -303,7 +303,7 @@ namespace unifont {
      * of my table
      */
     //%blockid=unifont_arrofglyphs
-    //%block="array of glyphs ||in table id $gid"
+    //%block="array of glyphs in table id $gid"
     //%gid.shadow=tablenameshadow gid.defl="fonttemp"
     //%group="datainfo"
     //%weight=6
@@ -699,7 +699,7 @@ namespace unifont {
      * from template
      */
     //%blockid=unifont_presetfont
-    //%block="SetupPresetFont $tempf ||with table id $tid"
+    //%block="SetupPresetFont $tempf with table id $tid"
     //%tid.shadow=tablenameshadow tid.defl="fonttemp"
     //%group="create"
     //%weight=10
