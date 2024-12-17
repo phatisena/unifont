@@ -734,14 +734,14 @@ namespace unifont {
      * create the unifont as sprite
      */
     //%blockid=unifont_sprite_create
-    //%block="create unifont sprite as $Text in color $Col with outline $Bcol in alignment $alg||and page width $PageW and tableid $Tid"
+    //%block="create unifont sprite as $Text in color $Col with outline $Bcol in alignment $alg and tableid $Tid||and page width $PageW"
     //%Tid.shadow=tablenameshadow Tid.defl="fonttemp"
     //%Col.shadow=colorindexpicker
     //%Bcol.shadow=colorindexpicker
     //%blockSetVariable="myUnifont"
     //%group="sprite mode"
     //%weight=22
-    export function newUnifontSprite(Text: string = "",Col: number , Bcol: number,alg: align,PageW: number = 0, Tid: string = "fonttemp") {
+    export function newUnifontSprite(Text: string = "", Col: number, Bcol: number, alg: align, Tid: string = "fonttemp", PageW: number = 0) {
         let _UnifontSprite = sprites.create(img`
             .
         `, SpriteKind._unifont)
