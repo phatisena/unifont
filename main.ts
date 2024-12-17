@@ -9,10 +9,14 @@ namespace SpriteKind {
 //%weight=3
 namespace unifont {
 
-    let rendering = false; export let ligs: string[][] = []; export let ligages: Image[][] = []; export let ligwidth: number[][] = []; export let ligsubw: number[][] = []; export let ligdir: number[][] = []; export let ligcol: number[][] = []; export let ligul: number[][] = []; export let storeid: number[] = []; export let letterspace: number = 1; export let curid = 0; export let lineheight = 1;
+    let rendering = false;let tablename: string[] = []; let ligs: string[][] = []; let ligages: Image[][] = []; let ligwidth: number[][] = []; let ligsubw: number[][] = []; let ligdir: number[][] = []; let ligcol: number[][] = []; let ligul: number[][] = []; let storeid: number[] = []; let letterspace: number = 1; let curid = 0; let lineheight = 1;
 
-    export function newtableid() {
-        storeid.push(curid); ligs.push([]); ligages.push([]); ligwidth.push([]); ligsubw.push([]); ligdir.push([]); ligcol.push([]); ligul.push([]); curid += 1; return storeid.length - 1;
+    export function gettableid(name: string) {
+        if (tablename.indexOf(name) < 0) {
+        tablename.push(name); storeid.push(curid); ligs.push([]); ligages.push([]); ligwidth.push([]); ligsubw.push([]); ligdir.push([]); ligcol.push([]); ligul.push([]); curid += 1;
+        return tablename.length - 1
+        }
+        return tablename.indexOf(name)
     }
 
     export function drawTransparentImage(src: Image, to: Image, x: number, y: number) {
@@ -115,25 +119,29 @@ namespace unifont {
         return ImgOutput
     }
 
+    //% block="$name"
+    //% blockId=tablenameshadow
+    //% blockHidden=true shim=TD_ID
+    //% name.fieldEditor="autocomplete" name.fieldOptions.decompileLiterals=true
+    //% name.fieldOptions.key="tablenameshadow"
+    export function _tableNameShadow(name: string) {
+        return name
+    }
+
     /**
      * add charcter glyph to the table
      */
     //%blockid=unifont_setcharecter
     //%block="set |table id $gid and set letter $glyph to img $imgi=screen_image_picker||and |the letter can move? $notmove and stay on or under the letter? $onthechar and substract width $inchar erase col $bcol spacebar col $scol base col $mcol guard col $ncol"
+    //%gid.shadow=tablenameshadow
     //%bcol.shadow=colorindexpicker
     //%scol.shadow=colorindexpicker
     //%mcol.shadow=colorindexpicker
     //%ncol.shadow=colorindexpicker
     //%group="create"
     //%weight=2
-    export function setCharecter(gid: number = 0, glyph: string = "", imgi: Image = image.create(5, 8), notmove: boolean = false, onthechar: boolean = false, inchar: boolean = false, bcol: number = 0, scol: number = 0, mcol: number = 0, ncol: number = 0) {
-        let tid = 0
-        if (storeid.indexOf(gid) < 0) {
-            tid = newtableid()
-        } else {
-            tid = gid
-        }
-
+    export function setCharecter(gid: string = "", glyph: string = "", imgi: Image = image.create(5, 8), notmove: boolean = false, onthechar: boolean = false, inchar: boolean = false, bcol: number = 0, scol: number = 0, mcol: number = 0, ncol: number = 0) {
+        let tid = gettableid(gid)
         let sncol = true; let scnwidt = true; let scwidt = false; let wi = 0; let wj = 0; let si = 0; let imgj = image.create(imgi.width, imgi.height);
         if (bcol > 0 && bcol < 16) {
             imgi.replace(bcol, 0)
@@ -227,13 +235,14 @@ namespace unifont {
      */
     //%blockid=unifont_setcharfromimgsheet
     //%block="set |table id $tid and set img sheet $PngSheet=screen_image_picker with letters $GroupChar||and |staying letters $StayChar letters on the letters $CharOnChar and Char Substact $CharSubW width $twid height $thei erase col $bcl space col $scl base col $mcl guard col $ncl"
+    //%tid.shadow=tablenameshadow
     //%bcl.shadow=colorindexpicker
     //%scl.shadow=colorindexpicker
     //%mcl.shadow=colorindexpicker
     //%ncl.shadow=colorindexpicker
     //%group="create"
     //%weight=4
-    export function setCharFromSheet(tid: number = 0, PngSheet: Image = image.create(10, 16), GroupChar: string = "", StayChar: string = "", CharOnChar: string = "", CharSubW: string = "", twid: number = 5, thei: number = 8, bcl: number = 0, scl: number = 0, mcl: number = 0, ncl: number = 0) {
+    export function setCharFromSheet(tid: string = "", PngSheet: Image = image.create(10, 16), GroupChar: string = "", StayChar: string = "", CharOnChar: string = "", CharSubW: string = "", twid: number = 5, thei: number = 8, bcl: number = 0, scl: number = 0, mcl: number = 0, ncl: number = 0) {
         let gwid = Math.round(PngSheet.width / twid); let uig = image.create(twid, thei); let txi = 0; let tyi = 0;
         for (let tvn = 0; tvn < GroupChar.length; tvn++) {
             uig = image.create(twid, thei); txi = twid * (tvn % gwid); tyi = thei * Math.floor(tvn / gwid); drawTransparentImage(PngSheet, uig, 0 - txi, 0 - tyi); setCharecter(tid, GroupChar.charAt(tvn), uig, StayChar.includes(GroupChar.charAt(tvn)), CharOnChar.includes(GroupChar.charAt(tvn)), CharSubW.includes(GroupChar.charAt(tvn)), bcl, scl, mcl, ncl);
@@ -247,13 +256,14 @@ namespace unifont {
      */
     //%blockid=unifont_setchararrfromimgsheet
     //%block="set |table id $tid and set img sheet $PngSheet=screen_image_picker with array of letters $GroupChar||and | array of staying letters $StayChar array of letters on the letters $CharOnChar and array of Char Substact $CharSubW width $twid height $thei erase col $bcl space col $scl base col $mcl guard col $ncl"
+    //%tid.shadow=tablenameshadow
     //%bcl.shadow=colorindexpicker
     //%scl.shadow=colorindexpicker
     //%mcl.shadow=colorindexpicker
     //%ncl.shadow=colorindexpicker
     //%group="create"
     //%weight=6
-    export function setCharArrFromSheet(tid: number = 0, PngSheet: Image = image.create(10, 16), GroupChar: string[] = [], StayChar: string[] = [], CharOnChar: string[] = [], CharSubW: string[] = [], twid: number = 5, thei: number = 8, bcl: number = 0, scl: number = 0, mcl: number = 0, ncl: number = 0) {
+    export function setCharArrFromSheet(tid: string = "", PngSheet: Image = image.create(10, 16), GroupChar: string[] = [], StayChar: string[] = [], CharOnChar: string[] = [], CharSubW: string[] = [], twid: number = 5, thei: number = 8, bcl: number = 0, scl: number = 0, mcl: number = 0, ncl: number = 0) {
         let gwid = Math.round(PngSheet.width / twid); let uig = image.create(twid, thei); let txi = 0; let tyi = 0;
         for (let tvn = 0; tvn < GroupChar.length; tvn++) {
             uig = image.create(twid, thei); txi = twid * (tvn % gwid); tyi = thei * Math.floor(tvn / gwid); drawTransparentImage(PngSheet, uig, 0 - txi, 0 - tyi); setCharecter(tid, GroupChar[tvn], uig, StayChar.indexOf(GroupChar[tvn]) >= 0, CharOnChar.indexOf(GroupChar[tvn]) >= 0, CharSubW.indexOf(GroupChar[tvn]) >= 0, bcl, scl, mcl, ncl);
@@ -265,10 +275,12 @@ namespace unifont {
      * my charcter in table
      */
     //%blockid=unifont_numofglyphs
-    //%block="number of glyphs ||in table id $tid"
+    //%block="number of glyphs ||in table id $gid"
+    //%gid.shadow=tablenameshadow
     //%group="datainfo"
     //%weight=2
-    export function NumOfGlyphs(tid: number = 0): number {
+    export function NumOfGlyphs(gid: string = ""): number {
+        let tid = gettableid(gid)
         return ligs[tid].length
     }
 
@@ -277,10 +289,12 @@ namespace unifont {
      * of my table
      */
     //%blockid=unifont_arrofgypimg
-    //%block="array of glyph images ||in table id $tid"
+    //%block="array of glyph images ||in table id $gid"
+    //%gid.shadow=tablenameshadow
     //%group="datainfo"
     //%weight=4
-    export function ImageArray(tid: number = 0): Image[] {
+    export function ImageArray(gid: string = ""): Image[] {
+        let tid = gettableid(gid)
         return ligages[tid]
     }
 
@@ -289,14 +303,17 @@ namespace unifont {
      * of my table
      */
     //%blockid=unifont_arrofglyphs
-    //%block="array of glyphs ||in table id $tid"
+    //%block="array of glyphs ||in table id $gid"
+    //%gid.shadow=tablenameshadow
     //%group="datainfo"
     //%weight=6
-    export function GlyphArray(tid: number = 0): String[] {
+    export function GlyphArray(gid: string = ""): String[] {
+        let tid = gettableid(gid) 
         return ligs[tid]
     }
 
-    export function SetTextImgValue(arrm: boolean,input: string, iwidt: number, tid: number, icol: number = 0, bcol: number = 0, alm: number = 0, debugalm: boolean = false, spacew: number = undefined, lineh: number = undefined) {
+    export function SetTextImgValue(arrm: boolean,input: string, iwidt: number, lid: string, icol: number = 0, bcol: number = 0, alm: number = 0, debugalm: boolean = false, spacew: number = undefined, lineh: number = undefined) {
+        let tid = gettableid(lid)
         if (rendering) { if (arrm) { return [image.create(1,1)] as Image[] } else { return image.create(1,1) as Image } }
         rendering = true
         if (lineh == undefined) { lineh = lineheight}
@@ -530,12 +547,13 @@ namespace unifont {
      */
     //%blockid=unifont_setimgfromtext
     //%block="create the image of |text $input in page width $iwidt from table id $tid||and |fill col $icol with outline $bcol and got alignment $alm and get debugalm $debugalm"
+    //%tid.shadow=tablenameshadow
     //%alm.min=-1 alm.max=1 alm.defl=0
     //%icol.shadow=colorindexpicker
     //%bcol.shadow=colorindexpicker
     //%group="render"
     //%weight=4
-    export function SetTextImage(input: string, iwidt: number, tid: number, icol: number = 0, bcol: number = 0, alm: number = 0, debugalm: boolean = false,spacew: number = 0, lineh: number = 0) {
+    export function SetTextImage(input: string, iwidt: number, tid: string, icol: number = 0, bcol: number = 0, alm: number = 0, debugalm: boolean = false,spacew: number = 0, lineh: number = 0) {
         return SetTextImgValue(false, input, iwidt, tid, icol, bcol, alm, debugalm, spacew, lineh) as Image
     }
 
@@ -546,12 +564,13 @@ namespace unifont {
      */
     //%blockid=unifont_setimgframefromtext
     //%block="create the image frame of |text $input in page width $iwidt from table id $tid||and |fill col $icol with outline $bcol and got alignment $alm and get debugalm $debugalm"
+    //%tid.shadow=tablenameshadow
     //%alm.min=-1 alm.max=1 alm.defl=0
     //%icol.shadow=colorindexpicker
     //%bcol.shadow=colorindexpicker
     //%group="render"
     //%weight=2
-    export function SetTextImageArray(input: string, iwidt: number, tid: number, icol: number = 0, bcol: number = 0, alm: number = 0, debugalm: boolean = false, spacew: number = 0, lineh: number = 0) {
+    export function SetTextImageArray(input: string, iwidt: number, tid: string, icol: number = 0, bcol: number = 0, alm: number = 0, debugalm: boolean = false, spacew: number = 0, lineh: number = 0) {
         return SetTextImgValue(true, input, iwidt, tid, icol, bcol, alm, debugalm, spacew, lineh) as Image[]
     }
 
@@ -562,12 +581,13 @@ namespace unifont {
      */
     //%blockid=unifont_stamptexttoframe
     //%block="StampStrImgToTheDialogFrame $Fimg=dialog_image_picker Text $Txt Text width $Wval TableId $arrid||And text color col $ucol and outline $bcol Alignment $ualm"
+    //%arrid.shadow=tablenameshadow
     //%ualm.min=-1 ualm.max=1 ualm.defl=0
     //%ucol.shadow=colorindexpicker
     //%bcol.shadow=colorindexpicker
     //%group="Dialog render"
     //%weight=4
-    export function StampStrToDialog(Fimg: Image, Txt: string = "", Wval: number = 0, arrid: number = 0, ucol: number = 0, bcol: number = 0, ualm: number = 0, spacew: number = 0, lineh: number = 0) {
+    export function StampStrToDialog(Fimg: Image, Txt: string = "", Wval: number = 0, arrid: string = "", ucol: number = 0, bcol: number = 0, ualm: number = 0, spacew: number = 0, lineh: number = 0) {
         let StrImg: Image = SetTextImage(Txt, Wval, arrid, ucol, bcol, ualm, false, spacew, lineh)
         let gapw = Math.floor(Fimg.width / 3)
         let gaph = Math.floor(Fimg.height / 3)
@@ -585,12 +605,13 @@ namespace unifont {
      */
     //%blockid=unifont_stamptextarrtoframe
     //%block="StampStrAnimToDialogFrame $Fimg=dialog_image_picker Text input $Txt In text width $Wval At table id $arrid||and text color $ucol with outline $bcol And alignment $ualm "
+    //%arrid.shadow=tablenameshadow
     //%ualm.min=-1 ualm.max=1 ualm.defl=0
     //%ucol.shadow=colorindexpicker
     //%bcol.shadow=colorindexpicker
     //%group="Dialog render"
     //%weight=2
-    export function StampStrArrToDialog(Fimg: Image, Txt: string = "", Wval: number = 0, arrid: number = 0, ucol: number = 0, bcol: number = 0, ualm: number = 0,spacew: number = 0, lineh: number = 0) {
+    export function StampStrArrToDialog(Fimg: Image, Txt: string = "", Wval: number = 0, arrid: string = "", ucol: number = 0, bcol: number = 0, ualm: number = 0,spacew: number = 0, lineh: number = 0) {
         let StrImg: Image[] = SetTextImageArray(Txt, Wval, arrid, ucol, bcol, ualm, false, spacew, lineh)
         let gapw = Math.floor(Fimg.width / 3)
         let gaph = Math.floor(Fimg.height / 3)
@@ -697,9 +718,9 @@ namespace unifont {
     export function spriteUpdate(Spr: Sprite ) {
         if (!(Spr)) { return; }
         if (sprdata.readDataImage(Spr,"sdim")) {
-            sprdata.setDataImage(Spr, "nextimg", StampStrToDialog(sprdata.readDataImage(Spr, "sdim"), sprdata.readDataString(Spr, "stxt"), sprdata.readDataNumber(Spr,"stxw"),sprdata.readDataNumber(Spr,"stid"),sprdata.readDataNumber(Spr,"scol"),sprdata.readDataNumber(Spr,"socol"),sprdata.readDataNumber(Spr,"salg"),sprdata.readDataNumber(Spr,"spacew"),sprdata.readDataNumber(Spr,"lineh")))
+            sprdata.setDataImage(Spr, "nextimg", StampStrToDialog(sprdata.readDataImage(Spr, "sdim"), sprdata.readDataString(Spr, "stxt"), sprdata.readDataNumber(Spr,"stxw"),sprdata.readDataString(Spr,"stid"),sprdata.readDataNumber(Spr,"scol"),sprdata.readDataNumber(Spr,"socol"),sprdata.readDataNumber(Spr,"salg"),sprdata.readDataNumber(Spr,"spacew"),sprdata.readDataNumber(Spr,"lineh")))
         } else {
-            sprdata.setDataImage(Spr, "nextimg", SetTextImage(sprdata.readDataString(Spr, "stxt"),sprdata.readDataNumber(Spr,"stxw"),sprdata.readDataNumber(Spr,"stid"),sprdata.readDataNumber(Spr,"scol"),sprdata.readDataNumber(Spr,"socol"),sprdata.readDataNumber(Spr,"salg"),false,sprdata.readDataNumber(Spr,"spacew"),sprdata.readDataNumber(Spr,"lineh")))
+            sprdata.setDataImage(Spr, "nextimg", SetTextImage(sprdata.readDataString(Spr, "stxt"),sprdata.readDataNumber(Spr,"stxw"),sprdata.readDataString(Spr,"stid"),sprdata.readDataNumber(Spr,"scol"),sprdata.readDataNumber(Spr,"socol"),sprdata.readDataNumber(Spr,"salg"),false,sprdata.readDataNumber(Spr,"spacew"),sprdata.readDataNumber(Spr,"lineh")))
         }
         if (Spr.image.equals(sprdata.readDataImage(Spr,"nextimg"))) { return; }
         Spr.setImage(sprdata.readDataImage(Spr,"nextimg"))
@@ -707,6 +728,9 @@ namespace unifont {
 
     export enum SprDataType {Tcol,Bcol,Tid,PageW,Talg}
 
+    /**
+     * create the unifont as sprite
+     */
     //%blockid=unifont_sprite_create
     //%block="create unifont sprite as $Text in color $Col with outline $Bcol in alignment $alg||and page width $PageW and tableid $Tid"
     //%Col.shadow=colorindexpicker
@@ -714,13 +738,13 @@ namespace unifont {
     //%blockSetVariable="myUnifont"
     //%group="sprite mode"
     //%weight=22
-    export function newUnifontSprite(Text: string = "",Col: number , Bcol: number,alg: align,PageW: number = 0, Tid: number = 0) {
+    export function newUnifontSprite(Text: string = "",Col: number , Bcol: number,alg: align,PageW: number = 0, Tid: string = "") {
         let _UnifontSprite = sprites.create(img`
             .
         `, SpriteKind._unifont)
         sprdata.setDataString(_UnifontSprite,"stxt",Text)
         sprdata.setDataNumber(_UnifontSprite,"scol",Col)
-        sprdata.setDataNumber(_UnifontSprite,"stid",Tid)
+        sprdata.setDataString(_UnifontSprite,"stid",Tid)
         sprdata.setDataNumber(_UnifontSprite,"stxw",PageW)
         sprdata.setDataNumber(_UnifontSprite,"salg",getAlign(alg))
         sprdata.setDataNumber(_UnifontSprite,"spacew",undefined)
@@ -731,6 +755,10 @@ namespace unifont {
         return _UnifontSprite
     }
     
+    /**
+     * get text data
+     * from unifont sprite
+     */
     //%blockid=unifont_sprite_readtxt
     //%block="get $myUnifont as text data"
     //%myUnifont.shadow=variables_get myUnifont.defl=myUnifont
@@ -740,6 +768,10 @@ namespace unifont {
         return sprdata.readDataString(myUnifont,"stxt")
     }
 
+    /**
+     * get unifont sprite
+     * in sprite array
+     */
     //%blockid=unifont_sprite_uniarray
     //%block="array of all unifont sprite"
     //%group="sprite mode"
@@ -748,6 +780,10 @@ namespace unifont {
         return sprites.allOfKind(SpriteKind._unifont)
     }
 
+    /**
+     * get option data number
+     * from unifont sprite
+     */
     //%blockid=unifont_sprite_readsprdatainnum
     //%block="get $myUnifont from $NumType"
     //%myUnifont.shadow=variables_get myUnifont.defl=myUnifont
@@ -770,6 +806,10 @@ namespace unifont {
         }
     }
 
+    /**
+     * set alignment as enum
+     * to unifont sprite
+     */
     //%blockid=unifont_sprite_setalign
     //%block=" $myUnifont=variables_get set align to $alg"
     //%myUnifont.shadow=variables_get myUnifont.defl=myUnifont
@@ -781,6 +821,10 @@ namespace unifont {
         spriteUpdate(myUnifont)
     }
 
+    /**
+     * set alignment as number
+     * to unifont sprite
+     */
     //%blockid=unifont_sprite_setalignnum
     //%block=" $myUnifont set align value to $aln"
     //%myUnifont.shadow=variables_get myUnifont.defl=myUnifont
@@ -792,6 +836,10 @@ namespace unifont {
         spriteUpdate(myUnifont)
     }
 
+    /**
+     * add or set dialog frame
+     * to unifont sprite
+     */
     //%blockid=unifont_sprite_setdialog
     //%block=" $myUnifont set dialog frame to $DlImg=dialog_image_picker"
     //%myUnifont.shadow=variables_get myUnifont.defl=myUnifont
@@ -803,6 +851,10 @@ namespace unifont {
         spriteUpdate(myUnifont)
     }
 
+    /**
+     * remove dialog frame
+     * at unifont sprite
+     */
     //%blockid=unifont_sprite_cleardialog
     //%block=" $myUnifont clear dialog frame"
     //%myUnifont.shadow=variables_get myUnifont.defl=myUnifont
@@ -816,6 +868,10 @@ namespace unifont {
     
     export enum spacetype {letterspace,lineheight}
 
+    /**
+     * set gap space 
+     * to unifont sprite
+     */
     //%blockid=unifont_sprite_setlinespace
     //%block=" $myUnifont set $gaptype to $value"
     //%myUnifont.shadow=variables_get myUnifont.defl=myUnifont
@@ -837,6 +893,10 @@ namespace unifont {
         spriteUpdate(myUnifont)
     }
 
+    /**
+     * clear gap space
+     * at unifont sprite
+     */
     //%blockid=unifont_sprite_setdefaultlinespace
     //%block=" $myUnifont set $gaptype to default value"
     //%myUnifont.shadow=variables_get myUnifont.defl=myUnifont
@@ -858,6 +918,10 @@ namespace unifont {
         spriteUpdate(myUnifont)
     }
 
+    /**
+     * set text to render
+     * to unifont sprite
+     */
     //%blockid=unifont_sprite_settextdata
     //%block=" $myUnifont set text to $Text"
     //%myUnifont.shadow=variables_get myUnifont.defl=myUnifont
@@ -871,6 +935,10 @@ namespace unifont {
 
     export enum colortype {solidcolor,outlinecolor}
 
+    /**
+     * set text color index
+     * to unifont sprite
+     */
     //%blockid=unifont_sprite_settextcolor
     //%block=" $myUnifont set $colortexttype to $ncolor"
     //%myUnifont.shadow=variables_get myUnifont.defl=myUnifont
@@ -893,17 +961,26 @@ namespace unifont {
         spriteUpdate(myUnifont)
     }
 
+    /**
+     * set table id 
+     * to unifont sprite
+     */
     //%blockid=unifont_sprite_settableid
     //%block=" $myUnifont set Table id to $Tid"
+    //%Tid.shadow=tablenameshadow
     //%myUnifont.shadow=variables_get myUnifont.defl=myUnifont
     //%group="sprite mode"
     //%weight=2
-    export function setSpriteTableId(myUnifont: Sprite,Tid: number = 0) {
-        if (sprdata.readDataNumber(myUnifont,"stid") == Tid) { return; }
-        sprdata.setDataNumber(myUnifont,"stid",Tid)
+    export function setSpriteTableId(myUnifont: Sprite,Tid: string = "") {
+        if (sprdata.readDataString(myUnifont,"stid") == Tid) { return; }
+        sprdata.setDataString(myUnifont,"stid",Tid)
         spriteUpdate(myUnifont)
     }
 
+    /**
+     * set page width
+     * to unifont sprite
+     */
     //%blockid=unifont_sprite_setpagewidth
     //%block=" $myUnifont set page width to $PageW"
     //%myUnifont.shadow=variables_get myUnifont.defl=myUnifont
@@ -917,7 +994,11 @@ namespace unifont {
 
     export enum delaytype {delaypermsec,msec,fpsec}
 
-    //%blockid=unifont_sprite_setpagewidth
+    /**
+     * play text animation
+     * from unifont sprite
+     */
+    //%blockid=unifont_sprite_playanimatiom
     //%block=" $myUnifont get animation play for pause type $delaymode in (ms) $secval||and paused $pausev"
     //%secval.defl=100
     //%myUnifont.shadow=variables_get myUnifont.defl=myUnifont
@@ -926,9 +1007,9 @@ namespace unifont {
     export function getSpriteAnimPlay(myUnifont: Sprite,delaymode:delaytype,secval:number,pausev:boolean=false) {
         sprdata.setDataNumber(myUnifont,"scval",0)
         if (sprdata.readDataImage(myUnifont, "sdim")) {
-            sprdata.setDataImageArray(myUnifont, "imgarr", StampStrArrToDialog(sprdata.readDataImage(myUnifont, "sdim"), sprdata.readDataString(myUnifont, "stxt"), sprdata.readDataNumber(myUnifont, "stxw"), sprdata.readDataNumber(myUnifont, "stid"), sprdata.readDataNumber(myUnifont, "scol"), sprdata.readDataNumber(myUnifont, "socol"), sprdata.readDataNumber(myUnifont, "salg"), sprdata.readDataNumber(myUnifont, "spacew"), sprdata.readDataNumber(myUnifont, "lineh")))
+            sprdata.setDataImageArray(myUnifont, "imgarr", StampStrArrToDialog(sprdata.readDataImage(myUnifont, "sdim"), sprdata.readDataString(myUnifont, "stxt"), sprdata.readDataNumber(myUnifont, "stxw"), sprdata.readDataString(myUnifont, "stid"), sprdata.readDataNumber(myUnifont, "scol"), sprdata.readDataNumber(myUnifont, "socol"), sprdata.readDataNumber(myUnifont, "salg"), sprdata.readDataNumber(myUnifont, "spacew"), sprdata.readDataNumber(myUnifont, "lineh")))
         } else {
-            sprdata.setDataImageArray(myUnifont, "imgarr", SetTextImageArray(sprdata.readDataString(myUnifont, "stxt"), sprdata.readDataNumber(myUnifont, "stxw"), sprdata.readDataNumber(myUnifont, "stid"), sprdata.readDataNumber(myUnifont, "scol"), sprdata.readDataNumber(myUnifont, "socol"), sprdata.readDataNumber(myUnifont, "salg"), false, sprdata.readDataNumber(myUnifont, "spacew"), sprdata.readDataNumber(myUnifont, "lineh")))
+            sprdata.setDataImageArray(myUnifont, "imgarr", SetTextImageArray(sprdata.readDataString(myUnifont, "stxt"), sprdata.readDataNumber(myUnifont, "stxw"), sprdata.readDataString(myUnifont, "stid"), sprdata.readDataNumber(myUnifont, "scol"), sprdata.readDataNumber(myUnifont, "socol"), sprdata.readDataNumber(myUnifont, "salg"), false, sprdata.readDataNumber(myUnifont, "spacew"), sprdata.readDataNumber(myUnifont, "lineh")))
         }
         switch (delaymode) {
             case delaytype.delaypermsec:
