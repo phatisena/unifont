@@ -1027,7 +1027,7 @@ namespace unifont {
             case delaytype.delaypermsec:
                 sprdata.setDataNumber(myUnifont,"scval",secval)
                 umsec = secval
-                lensec = secval * (sprdata.readDataImageArray(myUnifont, "imgarr").length - 1)
+                lensec = secval * sprdata.readDataImageArray(myUnifont, "imgarr").length
             break;
             case delaytype.multisec:
                 sprdata.setDataNumber(myUnifont,"scval",secval / sprdata.readDataImageArray(myUnifont,"imgarr").length)
