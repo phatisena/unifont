@@ -120,7 +120,7 @@ namespace unifont {
     }
 
     //%block="$name"
-    //%blockId=tablenameshadow
+    //%blockId=unifont_tablenameshadow
     //%blockHidden=true shim=TD_ID
     //%name.fieldEditor="autocomplete" name.fieldOptions.decompileLiterals=true
     //%name.fieldOptions.key="tablenameshadow"
@@ -133,7 +133,7 @@ namespace unifont {
      */
     //%blockid=unifont_setcharecter
     //%block="set |table id $gid and set letter $glyph to img $imgi=screen_image_picker||and |the letter can move? $notmove and stay on or under the letter? $onthechar and substract width $inchar erase col $bcol spacebar col $scol base col $mcol guard col $ncol"
-    //%gid.shadow=tablenameshadow gid.defl="fonttemp"
+    //%gid.shadow=unifont_tablenameshadow gid.defl="fonttemp"
     //%bcol.shadow=colorindexpicker
     //%scol.shadow=colorindexpicker
     //%mcol.shadow=colorindexpicker
@@ -235,7 +235,7 @@ namespace unifont {
      */
     //%blockid=unifont_setcharfromimgsheet
     //%block="set |table id $tid and set img sheet $PngSheet=screen_image_picker with letters $GroupChar||and |staying letters $StayChar letters on the letters $CharOnChar and Char Substact $CharSubW width $twid height $thei erase col $bcl space col $scl base col $mcl guard col $ncl"
-    //%tid.shadow=tablenameshadow tid.defl="fonttemp"
+    //%tid.shadow=unifont_tablenameshadow tid.defl="fonttemp"
     //%bcl.shadow=colorindexpicker
     //%scl.shadow=colorindexpicker
     //%mcl.shadow=colorindexpicker
@@ -256,7 +256,7 @@ namespace unifont {
      */
     //%blockid=unifont_setchararrfromimgsheet
     //%block="set |table id $tid and set img sheet $PngSheet=screen_image_picker with array of letters $GroupChar||and | array of staying letters $StayChar array of letters on the letters $CharOnChar and array of Char Substact $CharSubW width $twid height $thei erase col $bcl space col $scl base col $mcl guard col $ncl"
-    //%tid.shadow=tablenameshadow tid.defl="fonttemp"
+    //%tid.shadow=unifont_tablenameshadow tid.defl="fonttemp"
     //%bcl.shadow=colorindexpicker
     //%scl.shadow=colorindexpicker
     //%mcl.shadow=colorindexpicker
@@ -276,7 +276,7 @@ namespace unifont {
      */
     //%blockid=unifont_numofglyphs
     //%block="number of glyphs in table id $gid"
-    //%gid.shadow=tablenameshadow gid.defl="fonttemp"
+    //%gid.shadow=unifont_tablenameshadow gid.defl="fonttemp"
     //%group="datainfo"
     //%weight=2
     export function NumOfGlyphs(gid: string = "fonttemp"): number {
@@ -290,7 +290,7 @@ namespace unifont {
      */
     //%blockid=unifont_arrofgypimg
     //%block="array of glyph images in table id $gid"
-    //%gid.shadow=tablenameshadow gid.defl="fonttemp"
+    //%gid.shadow=unifont_tablenameshadow gid.defl="fonttemp"
     //%group="datainfo"
     //%weight=4
     export function ImageArray(gid: string = "fonttemp"): Image[] {
@@ -304,7 +304,7 @@ namespace unifont {
      */
     //%blockid=unifont_arrofglyphs
     //%block="array of glyphs in table id $gid"
-    //%gid.shadow=tablenameshadow gid.defl="fonttemp"
+    //%gid.shadow=unifont_tablenameshadow gid.defl="fonttemp"
     //%group="datainfo"
     //%weight=6
     export function GlyphArray(gid: string = "fonttemp"): String[] {
@@ -547,7 +547,7 @@ namespace unifont {
      */
     //%blockid=unifont_setimgfromtext
     //%block="create the image of |text $input in page width $iwidt from table id $tid||and |fill col $icol with outline $bcol and got alignment $alm and get debugalm $debugalm"
-    //%tid.shadow=tablenameshadow tid.defl="fonttemp"
+    //%tid.shadow=unifont_tablenameshadow tid.defl="fonttemp"
     //%alm.min=-1 alm.max=1 alm.defl=0
     //%icol.shadow=colorindexpicker
     //%bcol.shadow=colorindexpicker
@@ -564,7 +564,7 @@ namespace unifont {
      */
     //%blockid=unifont_setimgframefromtext
     //%block="create the image frame of |text $input in page width $iwidt from table id $tid||and |fill col $icol with outline $bcol and got alignment $alm and get debugalm $debugalm"
-    //%tid.shadow=tablenameshadow tid.defl="fonttemp"
+    //%tid.shadow=unifont_tablenameshadow tid.defl="fonttemp"
     //%alm.min=-1 alm.max=1 alm.defl=0
     //%icol.shadow=colorindexpicker
     //%bcol.shadow=colorindexpicker
@@ -581,7 +581,7 @@ namespace unifont {
      */
     //%blockid=unifont_stamptexttoframe
     //%block="StampStrImgToTheDialogFrame $Fimg=dialog_image_picker Text $Txt Text width $Wval TableId $arrid||And text color col $ucol and outline $bcol Alignment $ualm"
-    //%arrid.shadow=tablenameshadow arrid.defl="fonttemp"
+    //%arrid.shadow=unifont_tablenameshadow arrid.defl="fonttemp"
     //%ualm.min=-1 ualm.max=1 ualm.defl=0
     //%ucol.shadow=colorindexpicker
     //%bcol.shadow=colorindexpicker
@@ -605,7 +605,7 @@ namespace unifont {
      */
     //%blockid=unifont_stamptextarrtoframe
     //%block="StampStrAnimToDialogFrame $Fimg=dialog_image_picker Text input $Txt In text width $Wval At table id $arrid||and text color $ucol with outline $bcol And alignment $ualm "
-    //%arrid.shadow=tablenameshadow arrid.defl="fonttemp"
+    //%arrid.shadow=unifont_tablenameshadow arrid.defl="fonttemp"
     //%ualm.min=-1 ualm.max=1 ualm.defl=0
     //%ucol.shadow=colorindexpicker
     //%bcol.shadow=colorindexpicker
@@ -640,7 +640,6 @@ namespace unifont {
     /**
      * change the letterspace by value
      */
-    true && true
     //%blockid=unifont_changeletterspacing
     //%block="change letter spacing by $input"
     //%group="modify"
@@ -700,7 +699,7 @@ namespace unifont {
      */
     //%blockid=unifont_presetfont
     //%block="SetupPresetFont $tempf with table id $tid"
-    //%tid.shadow=tablenameshadow tid.defl="fonttemp"
+    //%tid.shadow=unifont_tablenameshadow tid.defl="fonttemp"
     //%group="create"
     //%weight=10
     export function SetupPresetFont(tempf: tempfont, tid: string = "fonttemp") {
@@ -735,7 +734,7 @@ namespace unifont {
      */
     //%blockid=unifont_sprite_create
     //%block="create unifont sprite as $Text in color $Col with outline $Bcol in alignment $alg and tableid $Tid||and page width $PageW"
-    //%Tid.shadow=tablenameshadow Tid.defl="fonttemp"
+    //%Tid.shadow=unifont_tablenameshadow Tid.defl="fonttemp"
     //%Col.shadow=colorindexpicker
     //%Bcol.shadow=colorindexpicker
     //%blockSetVariable="myUnifont"
@@ -970,7 +969,7 @@ namespace unifont {
      */
     //%blockid=unifont_sprite_settableid
     //%block=" $myUnifont set Table id to $Tid"
-    //%Tid.shadow=tablenameshadow Tid.defl="fonttemp"
+    //%Tid.shadow=unifont_tablenameshadow Tid.defl="fonttemp"
     //%myUnifont.shadow=variables_get myUnifont.defl=myUnifont
     //%group="sprite mode"
     //%weight=2
