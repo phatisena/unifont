@@ -425,7 +425,7 @@ namespace unifont {
         }
         if (hix > 0 && debugalm) { wie += letterspace + (3 * letterspace) }; wie -= letterspace; lnwit.push(wie);
         let hgi = 0; let limg = image.create(lnwit[hgi], heig); let scwidt = true; let underc = false; let sc = 0; let scnwidt = false; let rimg = image.create(8, 8); let output = image.create(widt, heig); hie = 0; wie = 0; curwidt = 0;
-        let uoutput: Image = image.create(output.width,output.height)
+        let uoutput: Image = image.create(output.width,output.height);
         if (bcol > 0) { uoutput = image.create(output.width+2,output.height+2) }
         for (let currentletter3 = 0; currentletter3 < input.length; currentletter3++) {
             wie = 0; curchar = deepChar(tid, currentletter3, input)
