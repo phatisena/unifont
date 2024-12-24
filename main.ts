@@ -119,6 +119,14 @@ namespace unifont {
         return ImgOutput
     }
 
+    export function background(then: () => void) {
+        control.runInBackground(then)
+    }
+
+    export function after(time: number, thenDo: () => void) {
+        setTimeout(thenDo, time)
+    }
+
     //%block="$name"
     //%blockId=unifont_tablenameshadow
     //%blockHidden=true shim=TD_ID
@@ -994,7 +1002,7 @@ namespace unifont {
         spriteUpdate(myUnifont)
     }
 
-    export enum delaytype {delaypermsec,msec,fpsec}
+    export enum delaytype {delaypermsec,multisec}
 
     /**
      * play text animation
@@ -1008,6 +1016,7 @@ namespace unifont {
     //%weight=1
     export function getSpriteAnimPlay(myUnifont: Sprite,delaymode:delaytype,secval:number,pausev:boolean=false) {
         sprdata.setDataNumber(myUnifont,"scval",0)
+        let umsec = 0; let lensec = 0;
         if (sprdata.readDataImage(myUnifont, "sdim")) {
             sprdata.setDataImageArray(myUnifont, "imgarr", StampStrArrToDialog(sprdata.readDataImage(myUnifont, "sdim"), sprdata.readDataString(myUnifont, "stxt"), sprdata.readDataNumber(myUnifont, "stxw"), sprdata.readDataString(myUnifont, "stid"), sprdata.readDataNumber(myUnifont, "scol"), sprdata.readDataNumber(myUnifont, "socol"), sprdata.readDataNumber(myUnifont, "salg"), sprdata.readDataNumber(myUnifont, "spacew"), sprdata.readDataNumber(myUnifont, "lineh")))
         } else {
@@ -1015,13 +1024,14 @@ namespace unifont {
         }
         switch (delaymode) {
             case delaytype.delaypermsec:
-            sprdata.setDataNumber(myUnifont,"scval",secval)
+                sprdata.setDataNumber(myUnifont,"scval",secval)
+                umsec = secval
+                lensec = secval * sprdata.readDataImageArray(myUnifont, "imgarr").length
             break;
-            case delaytype.msec:
-            sprdata.setDataNumber(myUnifont,"scval",secval / sprdata.readDataImageArray(myUnifont,"imgarr").length)
-            break;
-            case delaytype.fpsec:
-            sprdata.setDataNumber(myUnifont, "scval", 1000 / secval)
+            case delaytype.multisec:
+                sprdata.setDataNumber(myUnifont,"scval",secval / sprdata.readDataImageArray(myUnifont,"imgarr").length)
+                umsec = secval
+                lensec = secval
             break;
             default:
             return;
@@ -1030,10 +1040,12 @@ namespace unifont {
         if (pausev) {
             sprdata.setDataBoolean(myUnifont, "anim", true)
             sprdata.setDataBoolean(myUnifont, "anip", false)
-            for (let i = 0; i < sprdata.readDataImageArray(myUnifont, "imgarr").length; i++) {
-                myUnifont.setImage(sprdata.readDataImageArray(myUnifont, "imgarr")[i])
-                pause(sprdata.readDataNumber(myUnifont, "scval"))
-            }
+            background( function() {
+                for (let i = 0; i < sprdata.readDataImageArray(myUnifont, "imgarr").length; i++) {
+                    myUnifont.setImage(sprdata.readDataImageArray(myUnifont, "imgarr")[i])
+                    pause(sprdata.readDataNumber(myUnifont, "scval"))
+                }
+            })
             myUnifont.setImage(sprdata.readDataImage(myUnifont, "nextimg"))
             sprdata.setDataBoolean(myUnifont, "anim", false)
             return;
@@ -1046,6 +1058,11 @@ namespace unifont {
             sprdata.setDataBoolean(myUnifont, "anip", false)
             sprdata.setDataBoolean(myUnifont, "anim", false)
         }
+        after( lensec, function () {
+            sprdata.setDataBoolean(myUnifont, "anip", false)
+            sprdata.setDataBoolean(myUnifont, "anim", false)
+            myUnifont.setImage(sprdata.readDataImage(myUnifont, "nextimg"))
+        })
     }
 }
 
