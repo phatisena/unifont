@@ -7,7 +7,7 @@ namespace SpriteKind {
 //%color="#12d48a" 
 //%icon="\uf031"
 //%group="[]"
-//%weight=3
+//%weight=10
 namespace unifont {
 
     let rendering = false;let tablename: string[] = []; let ligs: string[][] = []; let ligages: Image[][] = []; let ligwidth: number[][] = []; let ligsubw: number[][] = []; let ligdir: number[][] = []; let ligcol: number[][] = []; let ligul: number[][] = []; let storeid: number[] = []; let letterspace: number = 1; let curid = 0; let lineheight = 1;
@@ -736,7 +736,7 @@ namespace unifont {
         Spr.setImage(sprdata.readDataImage(Spr,"nextimg"))
     }
 
-    export enum SprDataType {Tcol,Bcol,Tid,PageW,Talg}
+    export enum SprDataNumType {Tcol,Bcol,Tid,PageW,Talg}
 
     /**
      * create the unifont as sprite
@@ -800,17 +800,17 @@ namespace unifont {
     //%myUnifont.shadow=variables_get myUnifont.defl=myUnifont
     //%group="sprite mode"
     //%weight=16
-    export function getSpriteTextData(myUnifont:Sprite,NumType:SprDataType) {
+    export function getSpriteTextData(myUnifont:Sprite,NumType:SprDataNumType) {
         switch (NumType) {
-            case SprDataType.Tcol:
+            case SprDataNumType.Tcol:
             return sprdata.readDataNumber(myUnifont,"scol");
-            case SprDataType.Bcol:
+            case SprDataNumType.Bcol:
             return sprdata.readDataNumber(myUnifont,"socol")
-            case SprDataType.Tid:
+            case SprDataNumType.Tid:
             return sprdata.readDataNumber(myUnifont,"stid");
-            case SprDataType.PageW:
+            case SprDataNumType.PageW:
             return sprdata.readDataNumber(myUnifont,"stxw");
-            case SprDataType.Talg:
+            case SprDataNumType.Talg:
             return sprdata.readDataNumber(myUnifont,"salg");
             default:
             return -1;
