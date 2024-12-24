@@ -1016,6 +1016,7 @@ namespace unifont {
     //%group="sprite mode"
     //%weight=1
     export function getSpriteAnimPlay(myUnifont: Sprite,delaymode:delaytype,secval:number,pausev:boolean=false) {
+        if (sprdata.readDataBoolean(myUnifont, "anim")) return;
         sprdata.setDataNumber(myUnifont,"scval",0)
         let umsec = 0; let lensec = 0;
         if (sprdata.readDataImage(myUnifont, "sdim")) {
