@@ -6,6 +6,7 @@ namespace SpriteKind {
 //%block="UniFont"
 //%color="#12d48a" 
 //%icon="\uf031"
+//%group="[]"
 //%weight=3
 namespace unifont {
 
