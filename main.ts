@@ -12,7 +12,7 @@ namespace unifont {
 
     let rendering = false;let tablename: string[] = []; let ligs: string[][] = []; let ligages: Image[][] = []; let ligwidth: number[][] = []; let ligsubw: number[][] = []; let ligdir: number[][] = []; let ligcol: number[][] = []; let ligul: number[][] = []; let storeid: number[] = []; let letterspace: number = 1; let curid = 0; let lineheight = 1;
 
-    export function gettableid(name: string) {
+    function gettableid(name: string) {
         if (tablename.indexOf(name) < 0) {
         tablename.push(name); storeid.push(curid); ligs.push([]); ligages.push([]); ligwidth.push([]); ligsubw.push([]); ligdir.push([]); ligcol.push([]); ligul.push([]); curid += 1;
         return tablename.length - 1
@@ -20,19 +20,19 @@ namespace unifont {
         return tablename.indexOf(name)
     }
 
-    export function drawTransparentImage(src: Image, to: Image, x: number, y: number) {
+    function drawTransparentImage(src: Image, to: Image, x: number, y: number) {
         if (!src || !to) { return; }
         to.drawTransparentImage(src, x, y)
     }
 
-    export function findCommand(tvj: string, chj: string = "", nvj: number): boolean {
+    function findCommand(tvj: string, chj: string = "", nvj: number): boolean {
         if (((nvj < tvj.length && tvj.charAt(nvj)) && (nvj + 1 < tvj.length && tvj.charAt(nvj + 1) == "\\")) && ((nvj + 2 < tvj.length && chj.length <= 0))) { return true }
         if (chj.length != 1) { return false }
         if (((nvj + 1 < tvj.length && tvj.charAt(nvj + 1) == "\\")) && ((nvj + 2 < tvj.length && tvj.charAt(nvj + 2) == chj))) { return true }
         return false
     }
 
-    export function deepChar(tid: number = 0, idx: number = 0, charstr: string = "") {
+    function deepChar(tid: number = 0, idx: number = 0, charstr: string = "") {
         let ustr = charstr.charAt(idx)
         let ic = 1
         let uc = charstr.charAt(idx + ic)
@@ -48,7 +48,7 @@ namespace unifont {
         return ustr
     }
     
-    export function drawOutline(Inputi: Image, color: number, dir8: boolean) {
+    function drawOutline(Inputi: Image, color: number, dir8: boolean) {
         let dxl: number[] = [1,0,-1,0]
         let dyl: number[] = [0,1,0,-1]
         if (dir8) {
@@ -67,7 +67,7 @@ namespace unifont {
         return Outputi
     }
 
-    export function SetImgFrame(ImgF: Image, Wh: number, Ht: number) {
+    function SetImgFrame(ImgF: Image, Wh: number, Ht: number) {
         let ImgOutput = image.create(Wh, Ht)
         let Twidt = Math.floor(ImgF.width / 3)
         let Theig = Math.floor(ImgF.height / 3)
@@ -120,11 +120,11 @@ namespace unifont {
         return ImgOutput
     }
 
-    export function background(then: () => void) {
+    function background(then: () => void) {
         control.runInBackground(then)
     }
 
-    export function after(time: number, thenDo: () => void) {
+    function after(time: number, thenDo: () => void) {
         setTimeout(thenDo, time)
     }
 
@@ -321,7 +321,7 @@ namespace unifont {
         return ligs[tid]
     }
 
-    export function SetTextImgValue(arrm: boolean,input: string, iwidt: number, lid: string, icol: number = 0, bcol: number = 0, alm: number = 0, debugalm: boolean = false, spacew: number = undefined, lineh: number = undefined) {
+    function SetTextImgValue(arrm: boolean,input: string, iwidt: number, lid: string, icol: number = 0, bcol: number = 0, alm: number = 0, debugalm: boolean = false, spacew: number = undefined, lineh: number = undefined) {
         let tid = gettableid(lid)
         if (rendering) { if (arrm) { return [image.create(1,1)] as Image[] } else { return image.create(1,1) as Image } }
         rendering = true
@@ -700,7 +700,7 @@ namespace unifont {
         }
     }
 
-    export enum tempfont { MainFont, ArcadeFont }
+    export enum tempfont { MainFont = 1, ArcadeFont = 2, LatinMini = 3}
 
     /**
      * set charcter
@@ -713,19 +713,22 @@ namespace unifont {
     //%weight=10
     export function SetupPresetFont(tempf: tempfont, tid: string = "fonttemp") {
         switch (tempf) {
-            case tempfont.MainFont:
-                unidata.mainfont(tid)
+            case 1:
+                mainfont(tid)
                 break;
-            case tempfont.ArcadeFont:
-                unidata.arcadefont(tid)
+            case 2:
+                arcadefont(tid)
+                break;
+            case 3:
+                latinMini(tid)
                 break;
             default:
-                unidata.mainfont(tid)
+                mainfont(tid)
                 break;
         }
     }
 
-    export function spriteUpdate(Spr: Sprite ) {
+    function spriteUpdate(Spr: Sprite ) {
         if (!(Spr)) { return; }
         if (sprdata.readDataImage(Spr,"sdim")) {
             sprdata.setDataImage(Spr, "nextimg", StampStrToDialog(sprdata.readDataImage(Spr, "sdim"), sprdata.readDataString(Spr, "stxt"), sprdata.readDataNumber(Spr,"stxw"),sprdata.readDataString(Spr,"stid"),sprdata.readDataNumber(Spr,"scol"),sprdata.readDataNumber(Spr,"socol"),sprdata.readDataNumber(Spr,"salg"),sprdata.readDataNumber(Spr,"spacew"),sprdata.readDataNumber(Spr,"lineh")))
