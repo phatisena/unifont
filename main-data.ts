@@ -1,6 +1,6 @@
 namespace unifont {
 
-  export function mainfont(tid:string = "") {
+  function mainfont(tid:string = "") {
     setCharFromSheet(
                     tid,
                     img`
@@ -482,7 +482,7 @@ namespace unifont {
                 )                    
   }
 
-  export function arcadefont(tid:string = "") {
+  function arcadefont(tid:string = "") {
     setCharFromSheet(
                     tid,
                     img`
@@ -612,7 +612,7 @@ namespace unifont {
                 )
   }
 
-  export function latinMini(tid:string) {
+  function latinmini(tid:string) {
       setCharFromSheet(
 tid,
 img`
