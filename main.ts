@@ -680,7 +680,7 @@ namespace unifont {
         lineheight += input
     }
 
-    export enum align { left, center, right }
+    export enum align { left = -1, center = 0, right = 1}
 
     /**
      * get alignment value
@@ -689,16 +689,7 @@ namespace unifont {
     //%block="get $alg of alignment"
     //%group="modify"
     export function getAlign(alg: align) {
-        switch (alg) {
-            case align.left:
-                return -1;
-            case align.center:
-                return 0;
-            case align.right:
-                return 1;
-            default:
-                return 0;
-        }
+        return alg
     }
 
     export enum tempfont { MainFont = 1, ArcadeFont = 2, LatinMini = 3}
@@ -715,16 +706,16 @@ namespace unifont {
     export function SetupPresetFont(tempf: tempfont, tid: string = "fonttemp") {
         switch (tempf) {
             case 1:
-                mainfont(tid)
+                _mainfont(tid)
                 break;
             case 2:
-                arcadefont(tid)
+                _arcadefont(tid)
                 break;
             case 3:
-                latinmini(tid)
+                _latinmini(tid)
                 break;
             default:
-                mainfont(tid)
+                _mainfont(tid)
                 break;
         }
     }
@@ -740,7 +731,7 @@ namespace unifont {
         Spr.setImage(sprdata.readDataImage(Spr,"nextimg"))
     }
 
-    export enum SprDataNumType {Tcol,Bcol,Tid,PageW,Talg}
+    export enum SprDataNumType {Tcol=1,Bcol=2,PageW=3,Talg=4}
 
     /**
      * create the unifont as sprite
@@ -806,15 +797,13 @@ namespace unifont {
     //%weight=16
     export function getSpriteTextData(myUnifont:Sprite,NumType:SprDataNumType) {
         switch (NumType) {
-            case SprDataNumType.Tcol:
+            case 1:
             return sprdata.readDataNumber(myUnifont,"scol");
-            case SprDataNumType.Bcol:
+            case 2:
             return sprdata.readDataNumber(myUnifont,"socol")
-            case SprDataNumType.Tid:
-            return sprdata.readDataNumber(myUnifont,"stid");
-            case SprDataNumType.PageW:
+            case 3:
             return sprdata.readDataNumber(myUnifont,"stxw");
-            case SprDataNumType.Talg:
+            case 4:
             return sprdata.readDataNumber(myUnifont,"salg");
             default:
             return -1;
@@ -881,7 +870,7 @@ namespace unifont {
         spriteUpdate(myUnifont)
     }
     
-    export enum spacetype {letterspace,lineheight}
+    export enum spacetype {letterspace=1,lineheight=2}
 
     /**
      * set gap space 
@@ -894,11 +883,11 @@ namespace unifont {
     //%weight=8
     export function setGapSpr(myUnifont: Sprite, gaptype: spacetype, value: number = 0) {
         switch (gaptype) {
-        case spacetype.letterspace:
+        case 1:
         if (sprdata.readDataNumber(myUnifont,"spacew") == value) { return; }
         sprdata.setDataNumber(myUnifont,"spacew",value)
         break;
-        case spacetype.lineheight:
+        case 2:
         if (sprdata.readDataNumber(myUnifont,"lineh") == value) { return; }
         sprdata.setDataNumber(myUnifont,"lineh",value)
         break;
@@ -919,11 +908,11 @@ namespace unifont {
     //%weight=7
     export function setDefaultGapSpr(myUnifont: Sprite, gaptype: spacetype) {
         switch (gaptype) {
-        case spacetype.letterspace:
+        case 1:
         if (sprdata.readDataNumber(myUnifont,"spacew") == undefined) { return; }
         sprdata.setDataNumber(myUnifont,"spacew",undefined)
         break;
-        case spacetype.lineheight:
+        case 2:
         if (sprdata.readDataNumber(myUnifont,"lineh") == undefined) { return; }
         sprdata.setDataNumber(myUnifont,"lineh",undefined)
         break;
@@ -948,7 +937,7 @@ namespace unifont {
         spriteUpdate(myUnifont)
     }
 
-    export enum colortype {solidcolor,outlinecolor}
+    export enum colortype {solidcolor=1,outlinecolor=2}
 
     /**
      * set text color index
@@ -962,11 +951,11 @@ namespace unifont {
     //%weight=6
     export function setSpriteTextCol(myUnifont: Sprite,colortexttype:colortype,ncolor: number = 0) {
         switch (colortexttype) {
-        case colortype.solidcolor:
+        case 1:
         if (sprdata.readDataNumber(myUnifont,"scol") == ncolor) { return; }
         sprdata.setDataNumber(myUnifont,"scol",ncolor)
         break;
-        case colortype.outlinecolor:
+        case 2:
         if (sprdata.readDataNumber(myUnifont,"socol") == ncolor) { return; }
         sprdata.setDataNumber(myUnifont,"socol",ncolor)
         break;
@@ -1007,7 +996,7 @@ namespace unifont {
         spriteUpdate(myUnifont)
     }
 
-    export enum delaytype {delaypermsec,multisec}
+    export enum delaytype {delaypermsec=1,multisec=2}
 
     /**
      * play text animation
@@ -1029,12 +1018,12 @@ namespace unifont {
             sprdata.setDataImageArray(myUnifont, "imgarr", SetTextImageArray(sprdata.readDataString(myUnifont, "stxt"), sprdata.readDataNumber(myUnifont, "stxw"), sprdata.readDataString(myUnifont, "stid"), sprdata.readDataNumber(myUnifont, "scol"), sprdata.readDataNumber(myUnifont, "socol"), sprdata.readDataNumber(myUnifont, "salg"), false, sprdata.readDataNumber(myUnifont, "spacew"), sprdata.readDataNumber(myUnifont, "lineh")))
         }
         switch (delaymode) {
-            case delaytype.delaypermsec:
+            case 1:
                 sprdata.setDataNumber(myUnifont,"scval",secval)
                 umsec = secval
                 lensec = secval * sprdata.readDataImageArray(myUnifont, "imgarr").length
             break;
-            case delaytype.multisec:
+            case 2:
                 sprdata.setDataNumber(myUnifont,"scval",secval / sprdata.readDataImageArray(myUnifont,"imgarr").length)
                 umsec = secval
                 lensec = secval
