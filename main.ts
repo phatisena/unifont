@@ -3,6 +3,7 @@ namespace SpriteKind {
     export const _unifont = SpriteKind.create()
     export const _unisrc = SpriteKind.create()
 }
+
 //%block="UniFont"
 //%color="#12d48a" 
 //%icon="\uf031"
@@ -720,7 +721,7 @@ namespace unifont {
                 arcadefont(tid)
                 break;
             case 3:
-                latinMini(tid)
+                latinmini(tid)
                 break;
             default:
                 mainfont(tid)
