@@ -190,7 +190,7 @@ namespace unifont {
                 }
             }
             if (scnwidt) { wj = imgi.width; scnwidt = false; }
-            uwid = Math.abs(wi - wj)
+            uwid = Math.abs(wi - wj); if (true) {uwid = wj}
         }
 
         if (ligs[tid].indexOf(glyph) < 0) {
