@@ -159,7 +159,7 @@ namespace unifont {
         for (let xw = 0; xw < imgi.width; xw++) {
             si = 0
             for (let yh = 0; yh < imgi.height; yh++) {
-                if (imgi.getPixel(xw, yh) != 0 || (scwidt && imgi.getPixel(xw + 1, yh) != 0)) { si += 1 }
+                if (imgi.getPixel(xw, yh) > 0 || (scwidt && imgi.getPixel(xw + 1, yh) > 0)) { si += 1 }
             }
             if (scnwidt) {
                 if (scwidt) {
@@ -179,7 +179,7 @@ namespace unifont {
             for (let xw = imgi.width - 1; xw >= 0; xw--) {
                 si = 0
                 for (let yh = 0; yh < imgi.height; yh++) {
-                    if (imgi.getPixel(xw, yh) != 0) { si += 1 }
+                    if (imgi.getPixel(xw, yh) > 0) { si += 1 }
                 }
                 if (scnwidt) {
                     if (scwidt) {
