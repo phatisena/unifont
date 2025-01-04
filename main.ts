@@ -435,7 +435,7 @@ namespace unifont {
         }
         if (hix > 0 && debugalm) { wie += letterspace + (3 * letterspace) }; wie -= letterspace; lnwit.push(wie);
         let hgi = 0; let limg = image.create(lnwit[hgi], heig); let scwidt = true; let underc = false; let sc = 0; let scnwidt = false; let rimg = image.create(8, 8); let output = image.create(widt, heig); hie = 0; wie = 0; curwidt = 0;
-        let uoutput: Image = image.create(output.width,output.height);
+        let uoutput: Image = image.create(output.width,output.height); let uuoutput: Image = uoutput.clone()
         if (bcol > 0) { uoutput = image.create(output.width+2,output.height+2) }
         for (let currentletter3 = 0; currentletter3 < input.length; currentletter3++) {
             wie = 0; curchar = deepChar(tid, currentletter3, input)
@@ -492,19 +492,20 @@ namespace unifont {
                 curwidt += 2 * spacew
             }
             uhei = Math.max(uhei, hvi)
+            uuoutput = output.clone()
             if (alm < 0) {
-                drawTransparentImage(limg.clone(), output, 0, hie)
+                drawTransparentImage(limg.clone(), uuoutput, 0, hie)
             } else if (alm > 0) {
-                drawTransparentImage(limg.clone(), output, Math.abs(output.width - limg.width), hie)
+                drawTransparentImage(limg.clone(), uuoutput, Math.abs(output.width - Math.min(curwidt,limg.width)), hie)
             } else if (alm == 0) {
-                drawTransparentImage(limg.clone(), output, Math.abs((output.width / 2) - (limg.width / 2)), hie)
+                drawTransparentImage(limg.clone(), uuoutput, Math.abs((output.width / 2) - (Math.min(curwidt,limg.width) / 2)), hie)
             }
             if (icol > 0) {
                 for (let ico = 1; ico < 16; ico++) {
-                    output.replace(ico, icol)
+                    uuoutput.replace(ico, icol)
                 }
             }
-            if (bcol > 0) {uoutput = drawOutline(output.clone(),bcol,true) } else { uoutput = output.clone() }
+            if (bcol > 0) {uoutput = drawOutline(uuoutput.clone(),bcol,true) } else { uoutput = output.clone() }
             outputarr.push(uoutput.clone())
             if (iwidt > 0) {
                 if (curwidt >= iwidt || findCommand(input, "n", currentletter3)) {
@@ -515,6 +516,13 @@ namespace unifont {
                     } else if (alm == 0) {
                         drawTransparentImage(limg.clone(), output, Math.abs((output.width / 2) - (limg.width / 2)), hie)
                     }
+                    if (icol > 0) {
+                        for (let ico = 1; ico < 16; ico++) {
+                            output.replace(ico, icol)
+                        }
+                    }
+                    if (bcol > 0) { uoutput = drawOutline(output.clone(), bcol, true) } else { uoutput = output.clone() }
+                    outputarr.push(uoutput.clone())
                     hgi += 1; limg = image.create(lnwit[hgi], heig); curwidt = 0;
                     if (uhei > hvi) {
                         hie += uhei
