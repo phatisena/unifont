@@ -434,8 +434,8 @@ namespace unifont {
             if (curchar.length - 1 > 0) { currentletter2 += curchar.length - 1 }
         }
         if (hix > 0 && debugalm) { wie += letterspace + (3 * letterspace) }; wie -= letterspace; lnwit.push(wie);
-        let hgi = 0; let limg = image.create(lnwit[hgi], heig); let scwidt = true; let underc = false; let sc = 0; let scnwidt = false; let rimg = image.create(8, 8); let output = image.create(widt, heig); hie = 0; wie = 0; curwidt = 0;
-        let uoutput: Image = image.create(output.width,output.height); let uuoutput: Image = uoutput.clone()
+        let hgi = 0; let limg = image.create(lnwit[hgi], heig); let scwidt = true, underc = false, scnwidt = false; let rimg = image.create(8, 8), output = image.create(widt, heig); let sc = 0; hie = 0; wie = 0; curwidt = 0;
+        let uoutput: Image = image.create(output.width, output.height), uuoutput: Image = image.create(output.width, output.height);
         if (bcol > 0) { uoutput = image.create(output.width+2,output.height+2) }
         for (let currentletter3 = 0; currentletter3 < input.length; currentletter3++) {
             wie = 0; curchar = deepChar(tid, currentletter3, input)
@@ -505,8 +505,8 @@ namespace unifont {
                     uuoutput.replace(ico, icol)
                 }
             }
-            if (bcol > 0) {uoutput = drawOutline(uuoutput.clone(),bcol,true) } else { uoutput = output.clone() }
-            outputarr.push(uoutput.clone())
+            if (bcol > 0) {uuoutput = drawOutline(uuoutput.clone(),bcol,true) } else { uoutput = uuoutput.clone() }
+            outputarr.push(uuoutput.clone())
             if (iwidt > 0) {
                 if (curwidt >= iwidt || findCommand(input, "n", currentletter3)) {
                     if (alm < 0) {
