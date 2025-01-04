@@ -328,7 +328,7 @@ namespace unifont {
         rendering = true
         if (lineh == undefined) { lineh = lineheight}
         if (spacew == undefined) { spacew = letterspace}
-        let curchar = ""; let curchar2 = ""; let uhei = 0; let outputarr: Image[] = []; let lnwit: number[] = []; let heig = 0; let widt = 0; let curwidt = 0; let uwidt = 0; let swidt = 0; let nwidt = 0; let wie = 0; let hie = 0; let hvi = 0;
+        let curchar = "", curchar2 = ""; let uhei = 0; let outputarr: Image[] = []; let lnwit: number[] = []; let heig = 0; let widt = 0; let curwidt = 0; let uwidt = 0; let swidt = 0; let nwidt = 0; let wie = 0; let hie = 0; let hvi = 0;
         for (let currentletter = 0; currentletter < input.length; currentletter++) {
             curchar = deepChar(tid, currentletter, input)
             if (!(ligs[tid].indexOf(curchar) < 0)) {
@@ -360,8 +360,7 @@ namespace unifont {
             } else {
                 wie += 2 * spacew
             }
-            uhei = Math.max(uhei, hvi)
-            heig = Math.max(heig, hie + hvi)
+            uhei = Math.max(uhei, hvi), heig = Math.max(heig, hie + hvi)
             if (iwidt > 0) {
                 if (wie >= iwidt || findCommand(input, "n", currentletter)) {
                     if (uhei > hvi) {
@@ -380,7 +379,7 @@ namespace unifont {
             }
             if (curchar.length - 1 > 0) { currentletter += curchar.length - 1 }
         }
-        wie = 0; widt = 0; let hix = 0;
+        wie = 0, widt = 0; let hix = 0;
         for (let currentletter2 = 0; currentletter2 < input.length; currentletter2++) {
             curchar = deepChar(tid, currentletter2, input)
             if (!(ligs[tid].indexOf(curchar) < 0)) {
