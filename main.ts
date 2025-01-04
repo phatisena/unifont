@@ -163,7 +163,7 @@ namespace unifont {
             }
             if (scnwidt) {
                 if (scwidt) {
-                    if (si <= 0) { wj = xw; scnwidt = false; }
+                    if (si <= 0) { wj = xw; scnwidt = false; break;}
                 } else {
                     if (si > 0) { wi = xw; scwidt = true; }
                 }
@@ -183,7 +183,7 @@ namespace unifont {
                 }
                 if (scnwidt) {
                     if (scwidt) {
-                        if (si <= 0) { wj = xw; scnwidt = false; }
+                        if (si <= 0) { wj = xw; scnwidt = false; break;}
                     } else {
                         if (si > 0) { wi = xw; scwidt = true; }
                     }
