@@ -190,7 +190,7 @@ namespace unifont {
                 }
             }
             if (scnwidt) { wj = imgi.width; scnwidt = false; }
-            uwid = Math.abs(wj - wi)
+            uwid = Math.abs(wi - wj)
         }
 
         if (ligs[tid].indexOf(glyph) < 0) {
@@ -344,7 +344,7 @@ namespace unifont {
                     swidt = 0
                 }
                 curchar2 = deepChar(tid, currentletter + 1, input)
-                if (curchar2 && Math.abs(ligsubw[tid][ligs[tid].indexOf(curchar2)] - ligwidth[tid][ligs[tid].indexOf(curchar2)]) > 0) {
+                if ((curchar2 != curchar) && Math.abs(ligsubw[tid][ligs[tid].indexOf(curchar2)] - ligwidth[tid][ligs[tid].indexOf(curchar2)]) > 0) {
                     wie += Math.abs(ligwidth[tid][ligs[tid].indexOf(curchar)] - Math.abs(ligsubw[tid][ligs[tid].indexOf(curchar2)] - ligwidth[tid][ligs[tid].indexOf(curchar2)]))
                 } else if (Math.abs(ligsubw[tid][ligs[tid].indexOf(curchar)] - ligwidth[tid][ligs[tid].indexOf(curchar)]) > 0) {
                     wie += ligsubw[tid][(ligs[tid].indexOf(curchar))]
@@ -395,7 +395,7 @@ namespace unifont {
                     swidt = 0
                 }
                 curchar2 = deepChar(tid, currentletter2 + 1, input)
-                if (curchar2 && Math.abs(ligsubw[tid][ligs[tid].indexOf(curchar2)] - ligwidth[tid][ligs[tid].indexOf(curchar2)]) > 0) {
+                if ((curchar2 != curchar) && Math.abs(ligsubw[tid][ligs[tid].indexOf(curchar2)] - ligwidth[tid][ligs[tid].indexOf(curchar2)]) > 0) {
                     wie += Math.abs(ligwidth[tid][ligs[tid].indexOf(curchar)] - Math.abs(ligsubw[tid][ligs[tid].indexOf(curchar2)] - ligwidth[tid][ligs[tid].indexOf(curchar2)]))
                 } else if (Math.abs(ligsubw[tid][ligs[tid].indexOf(curchar)] - ligwidth[tid][ligs[tid].indexOf(curchar)]) > 0) {
                     wie += ligsubw[tid][(ligs[tid].indexOf(curchar))]
@@ -475,7 +475,7 @@ namespace unifont {
                     swidt = 0
                 }
                 curchar2 = deepChar(tid, currentletter3 + 1, input)
-                if (curchar2 && Math.abs(ligsubw[tid][ligs[tid].indexOf(curchar2)] - ligwidth[tid][ligs[tid].indexOf(curchar2)]) > 0) {
+                if ((curchar2 != curchar) && Math.abs(ligsubw[tid][ligs[tid].indexOf(curchar2)] - ligwidth[tid][ligs[tid].indexOf(curchar2)]) > 0) {
                     curwidt += Math.abs(ligwidth[tid][ligs[tid].indexOf(curchar)] - Math.abs(ligsubw[tid][ligs[tid].indexOf(curchar2)] - ligwidth[tid][ligs[tid].indexOf(curchar2)]))
                 } else if (Math.abs(ligsubw[tid][ligs[tid].indexOf(curchar)] - ligwidth[tid][ligs[tid].indexOf(curchar)]) > 0) {
                     curwidt += ligsubw[tid][(ligs[tid].indexOf(curchar))]
