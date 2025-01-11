@@ -979,7 +979,7 @@ namespace unifont {
     //%Tid.shadow=unifont_tablenameshadow Tid.defl="fonttemp"
     //%myUnifont.shadow=variables_get myUnifont.defl=myUnifont
     //%group="sprite mode"
-    //%weight=2
+    //%weight=3
     export function setSpriteTableId(myUnifont: Sprite,Tid: string = "fonttemp") {
         if (sprdata.readDataString(myUnifont,"stid") == Tid) { return; }
         sprdata.setDataString(myUnifont,"stid",Tid)
@@ -1008,11 +1008,11 @@ namespace unifont {
      * from unifont sprite
      */
     //%blockid=unifont_sprite_playanimatiom
-    //%block=" $myUnifont get animation play for pause type $delaymode in (ms) $secval||and paused $pausev"
+    //%block=" $myUnifont get animation play for pause type $delaymode in (ms) $secval||and separeted $pausev"
     //%secval.defl=100
     //%myUnifont.shadow=variables_get myUnifont.defl=myUnifont
     //%group="sprite mode"
-    //%weight=1
+    //%weight=2
     export function getSpriteAnimPlay(myUnifont: Sprite,delaymode:delaytype,secval:number,pausev:boolean=false) {
         if (sprdata.readDataBoolean(myUnifont, "anim")) return;
         sprdata.setDataNumber(myUnifont,"scval",0)
@@ -1063,5 +1063,18 @@ namespace unifont {
             sprdata.setDataBoolean(myUnifont, "anim", false)
             myUnifont.setImage(sprdata.readDataImage(myUnifont, "nextimg"))
         })
+    }
+
+    /**
+     * check unifont sprite
+     * playing animation until done
+     */
+    //%blockid=unifont_sprite_playanimisdone
+    //%block=" $myUnifont get animation is stop"
+    //%myUnifont.shadow=variables_get myUnifont.defl=myUnifont
+    //%group="sprite mode"
+    //%weight=1
+    export function animdone(myUnifont: Sprite) {
+        return !(sprdata.readDataBoolean(myUnifont, "anim"))
     }
 }
