@@ -1,13 +1,11 @@
-
 namespace SpriteKind {
     export const _unifont = SpriteKind.create()
     export const _unisrc = SpriteKind.create()
 }
-
 //%block="UniFont"
 //%color="#12d48a" 
 //%icon="\uf031"
-//%group="[]"
+//%group="[UniFont]"
 //%weight=10
 namespace unifont {
 
@@ -83,31 +81,31 @@ namespace unifont {
                 ImgTable.push(Uimg.clone())
             }
         }
-        for (let wi = 0; wi < Math.floor(Wh / Twidt); wi++) {
-            for (let hj = 0; hj < Math.floor(Ht / Theig); hj++) {
-                sw = Math.min(wi * Twidt, Wh - Twidt)
-                sh = Math.min(hj * Theig, Ht - Theig)
-                if (hj == 0 && wi == 0) {
+        for (let wi2 = 0; wi2 < Math.floor(Wh / Twidt); wi2++) {
+            for (let hj2 = 0; hj2 < Math.floor(Ht / Theig); hj2++) {
+                sw = Math.min(wi2 * Twidt, Wh - Twidt)
+                sh = Math.min(hj2 * Theig, Ht - Theig)
+                if (hj2 == 0 && wi2 == 0) {
                     drawTransparentImage(ImgTable[0], ImgOutput, sw, sh)
-                } else if (hj == Math.floor(Ht / Theig) - 1 && wi == Math.floor(Wh / Twidt) - 1) {
+                } else if (hj2 == Math.floor(Ht / Theig) - 1 && wi2 == Math.floor(Wh / Twidt) - 1) {
                     drawTransparentImage(ImgTable[8], ImgOutput, sw, sh)
-                } else if (hj == Math.floor(Ht / Theig) - 1 && wi == 0) {
+                } else if (hj2 == Math.floor(Ht / Theig) - 1 && wi2 == 0) {
                     drawTransparentImage(ImgTable[6], ImgOutput, sw, sh)
-                } else if (hj == 0 && wi == Math.floor(Wh / Twidt) - 1) {
+                } else if (hj2 == 0 && wi2 == Math.floor(Wh / Twidt) - 1) {
                     drawTransparentImage(ImgTable[2], ImgOutput, sw, sh)
                 } else {
-                    if (wi > 0 && wi < Math.floor(Wh / Twidt) - 1) {
-                        if (hj == 0) {
+                    if (wi2 > 0 && wi2 < Math.floor(Wh / Twidt) - 1) {
+                        if (hj2 == 0) {
                             drawTransparentImage(ImgTable[1], ImgOutput, sw, sh)
-                        } else if (hj == Math.floor(Ht / Theig) - 1) {
+                        } else if (hj2 == Math.floor(Ht / Theig) - 1) {
                             drawTransparentImage(ImgTable[7], ImgOutput, sw, sh)
                         } else {
                             drawTransparentImage(ImgTable[4], ImgOutput, sw, sh)
                         }
-                    } else if (hj > 0 && hj < Math.floor(Ht / Theig) - 1) {
-                        if (wi == 0) {
+                    } else if (hj2 > 0 && hj2 < Math.floor(Ht / Theig) - 1) {
+                        if (wi2 == 0) {
                             drawTransparentImage(ImgTable[3], ImgOutput, sw, sh)
-                        } else if (wi == Math.floor(Wh / Twidt) - 1) {
+                        } else if (wi2 == Math.floor(Wh / Twidt) - 1) {
                             drawTransparentImage(ImgTable[5], ImgOutput, sw, sh)
                         } else {
                             drawTransparentImage(ImgTable[4], ImgOutput, sw, sh)
@@ -152,7 +150,7 @@ namespace unifont {
     //%weight=2
     export function setCharecter(gid: string = "fonttemp", glyph: string = "", imgi: Image = image.create(5, 8), notmove: boolean = false, onthechar: boolean = false, inchar: boolean = false, bcol: number = 0, scol: number = 0, mcol: number = 0, ncol: number = 0) {
         let tid = gettableid(gid)
-        let sncol = true; let scnwidt = true; let scwidt = false; let wi = 0; let wj = 0; let si = 0; let imgj = image.create(imgi.width, imgi.height);
+        let sncol = true; let scnwidt = true; let scwidt = false; let wi3 = 0; let wj = 0; let si = 0; let imgj = image.create(imgi.width, imgi.height);
         if (bcol > 0 && bcol < 16) {
             imgi.replace(bcol, 0)
         }
@@ -165,32 +163,32 @@ namespace unifont {
                 if (scwidt) {
                     if (si <= 0) { wj = xw; scnwidt = false; break;}
                 } else {
-                    if (si > 0) { wi = xw; scwidt = true; }
+                    if (si > 0) { wi3 = xw; scwidt = true; }
                 }
             }
         }
         if (scnwidt) { wj = imgi.width; scnwidt = false; }
-        imgj = image.create(Math.abs(wj - wi), imgi.height); drawTransparentImage(imgi, imgj, 0 - wi, 0);
+        imgj = image.create(Math.abs(wj - wi3), imgi.height); drawTransparentImage(imgi, imgj, 0 - wi3, 0);
         if (scol > 0 && scol < 16) {
             imgj.replace(scol, 0)
         }
         let uwid = 0
         if (inchar) {
-            for (let xw = imgi.width - 1; xw >= 0; xw--) {
+            for (let xw2 = imgi.width - 1; xw2 >= 0; xw2--) {
                 si = 0
-                for (let yh = 0; yh < imgi.height; yh++) {
-                    if (imgi.getPixel(xw, yh) > 0) { si += 1 }
+                for (let yh2 = 0; yh2 < imgi.height; yh2++) {
+                    if (imgi.getPixel(xw2, yh2) > 0) { si += 1 }
                 }
                 if (scnwidt) {
                     if (scwidt) {
-                        if (si <= 0) { wj = xw; scnwidt = false; break;}
+                        if (si <= 0) { wj = xw2; scnwidt = false; break;}
                     } else {
-                        if (si > 0) { wi = xw; scwidt = true; }
+                        if (si > 0) { wi3 = xw2; scwidt = true; }
                     }
                 }
             }
             if (scnwidt) { wj = imgi.width; scnwidt = false; }
-            uwid = Math.abs(wi - wj); if (true) {uwid = wj}
+            uwid = Math.abs(wi3 - wj); if (true) {uwid = wj}
         }
 
         if (ligs[tid].indexOf(glyph) < 0) {
@@ -274,9 +272,9 @@ namespace unifont {
     //%group="create"
     //%weight=6
     export function setCharArrFromSheet(tid: string = "fonttemp", PngSheet: Image = image.create(10, 16), GroupChar: string[] = [], StayChar: string[] = [], CharOnChar: string[] = [], CharSubW: string[] = [], twid: number = 5, thei: number = 8, bcl: number = 0, scl: number = 0, mcl: number = 0, ncl: number = 0) {
-        let gwid = Math.round(PngSheet.width / twid); let uig = image.create(twid, thei); let txi = 0; let tyi = 0;
-        for (let tvn = 0; tvn < GroupChar.length; tvn++) {
-            uig = image.create(twid, thei); txi = twid * (tvn % gwid); tyi = thei * Math.floor(tvn / gwid); drawTransparentImage(PngSheet, uig, 0 - txi, 0 - tyi); setCharecter(tid, GroupChar[tvn], uig, StayChar.indexOf(GroupChar[tvn]) >= 0, CharOnChar.indexOf(GroupChar[tvn]) >= 0, CharSubW.indexOf(GroupChar[tvn]) >= 0, bcl, scl, mcl, ncl);
+        let gwid2 = Math.round(PngSheet.width / twid); let uig2 = image.create(twid, thei); let txi2 = 0; let tyi2 = 0;
+        for (let tvn2 = 0; tvn2 < GroupChar.length; tvn2++) {
+            uig2 = image.create(twid, thei); txi2 = twid * (tvn2 % gwid2); tyi2 = thei * Math.floor(tvn2 / gwid2); drawTransparentImage(PngSheet, uig2, 0 - txi2, 0 - tyi2); setCharecter(tid, GroupChar[tvn2], uig2, StayChar.indexOf(GroupChar[tvn2]) >= 0, CharOnChar.indexOf(GroupChar[tvn2]) >= 0, CharSubW.indexOf(GroupChar[tvn2]) >= 0, bcl, scl, mcl, ncl);
         }
     }
 
@@ -290,8 +288,8 @@ namespace unifont {
     //%group="datainfo"
     //%weight=2
     export function NumOfGlyphs(gid: string = "fonttemp"): number {
-        let tid = gettableid(gid)
-        return ligs[tid].length
+        let tid2 = gettableid(gid)
+        return ligs[tid2].length
     }
 
     /**
@@ -304,8 +302,8 @@ namespace unifont {
     //%group="datainfo"
     //%weight=4
     export function ImageArray(gid: string = "fonttemp"): Image[] {
-        let tid = gettableid(gid)
-        return ligages[tid]
+        let tid3 = gettableid(gid)
+        return ligages[tid3]
     }
 
     /**
@@ -318,23 +316,23 @@ namespace unifont {
     //%group="datainfo"
     //%weight=6
     export function GlyphArray(gid: string = "fonttemp"): String[] {
-        let tid = gettableid(gid) 
-        return ligs[tid]
+        let tid4 = gettableid(gid) 
+        return ligs[tid4]
     }
 
     function SetTextImgValue(arrm: boolean,input: string, iwidt: number, lid: string, icol: number = 0, bcol: number = 0, alm: number = 0, debugalm: boolean = false, spacew: number = undefined, lineh: number = undefined) {
-        let tid = gettableid(lid)
+        let tid5 = gettableid(lid)
         if (rendering) { if (arrm) { return [image.create(1,1)] as Image[] } else { return image.create(1,1) as Image } }
         rendering = true
         if (lineh == undefined) { lineh = lineheight}
         if (spacew == undefined) { spacew = letterspace}
         let curchar = "", curchar2 = ""; let uhei = 0; let outputarr: Image[] = []; let lnwit: number[] = []; let heig = 0; let widt = 0; let curwidt = 0; let uwidt = 0; let swidt = 0; let nwidt = 0; let wie = 0; let hie = 0; let hvi = 0;
         for (let currentletter = 0; currentletter < input.length; currentletter++) {
-            curchar = deepChar(tid, currentletter, input)
-            if (!(ligs[tid].indexOf(curchar) < 0)) {
-                uwidt = ligwidth[tid][(ligs[tid].indexOf(curchar))]
-                if (ligwidth[tid][(ligs[tid].indexOf(curchar))] <= 0) {
-                    nwidt = ligages[tid][(ligs[tid].indexOf(curchar))].width
+            curchar = deepChar(tid5, currentletter, input)
+            if (!(ligs[tid5].indexOf(curchar) < 0)) {
+                uwidt = ligwidth[tid5][(ligs[tid5].indexOf(curchar))]
+                if (ligwidth[tid5][(ligs[tid5].indexOf(curchar))] <= 0) {
+                    nwidt = ligages[tid5][(ligs[tid5].indexOf(curchar))].width
                 } else {
                     nwidt = 0
                 }
@@ -343,18 +341,18 @@ namespace unifont {
                 } else {
                     swidt = 0
                 }
-                curchar2 = deepChar(tid, currentletter + 1, input)
-                if ((curchar2 != curchar) && Math.abs(ligsubw[tid][ligs[tid].indexOf(curchar2)] - ligwidth[tid][ligs[tid].indexOf(curchar2)]) > 0) {
-                    wie += Math.abs(ligwidth[tid][ligs[tid].indexOf(curchar)] - Math.abs(ligsubw[tid][ligs[tid].indexOf(curchar2)] - ligwidth[tid][ligs[tid].indexOf(curchar2)]))
-                } else if (Math.abs(ligsubw[tid][ligs[tid].indexOf(curchar)] - ligwidth[tid][ligs[tid].indexOf(curchar)]) > 0) {
-                    wie += ligsubw[tid][(ligs[tid].indexOf(curchar))]
-                } else if (ligwidth[tid][(ligs[tid].indexOf(curchar))] > 0) {
+                curchar2 = deepChar(tid5, currentletter + 1, input)
+                if ((curchar2 != curchar) && Math.abs(ligsubw[tid5][ligs[tid5].indexOf(curchar2)] - ligwidth[tid5][ligs[tid5].indexOf(curchar2)]) > 0) {
+                    wie += Math.abs(ligwidth[tid5][ligs[tid5].indexOf(curchar)] - Math.abs(ligsubw[tid5][ligs[tid5].indexOf(curchar2)] - ligwidth[tid5][ligs[tid5].indexOf(curchar2)]))
+                } else if (Math.abs(ligsubw[tid5][ligs[tid5].indexOf(curchar)] - ligwidth[tid5][ligs[tid5].indexOf(curchar)]) > 0) {
+                    wie += ligsubw[tid5][(ligs[tid5].indexOf(curchar))]
+                } else if (ligwidth[tid5][(ligs[tid5].indexOf(curchar))] > 0) {
                     wie += Math.abs(uwidt - nwidt)
                 }
-                if ((iwidt <= 0 || !(findCommand(input, "n", currentletter))) && (ligwidth[tid][(ligs[tid].indexOf(input.charAt(Math.min(currentletter + Math.max(curchar.length, 1), input.length - 1))))] > 0 || currentletter + (curchar.length - 1) >= input.length - 1)) {
+                if ((iwidt <= 0 || !(findCommand(input, "n", currentletter))) && (ligwidth[tid5][(ligs[tid5].indexOf(input.charAt(Math.min(currentletter + Math.max(curchar.length, 1), input.length - 1))))] > 0 || currentletter + (curchar.length - 1) >= input.length - 1)) {
                     wie += spacew
                 }
-                hvi = ligages[tid][(ligs[tid].indexOf(curchar))].height
+                hvi = ligages[tid5][(ligs[tid5].indexOf(curchar))].height
             } else if (input.charAt(currentletter) == " ") {
                 wie += 3 * spacew
             } else {
@@ -381,28 +379,28 @@ namespace unifont {
         }
         wie = 0, widt = 0; let hix = 0;
         for (let currentletter2 = 0; currentletter2 < input.length; currentletter2++) {
-            curchar = deepChar(tid, currentletter2, input)
-            if (!(ligs[tid].indexOf(curchar) < 0)) {
-                uwidt = ligwidth[tid][(ligs[tid].indexOf(curchar))]
-                if (ligwidth[tid][(ligs[tid].indexOf(curchar))] <= 0) {
-                    nwidt = ligages[tid][(ligs[tid].indexOf(curchar))].width
+            curchar = deepChar(tid5, currentletter2, input)
+            if (!(ligs[tid5].indexOf(curchar) < 0)) {
+                uwidt = ligwidth[tid5][(ligs[tid5].indexOf(curchar))]
+                if (ligwidth[tid5][(ligs[tid5].indexOf(curchar))] <= 0) {
+                    nwidt = ligages[tid5][(ligs[tid5].indexOf(curchar))].width
                 } else {
                     nwidt = 0
                 }
-                if (ligwidth[tid][(ligs[tid].indexOf(input.charAt(Math.min(currentletter2 + curchar.length, input.length - 1))))] <= 0) {
+                if (ligwidth[tid5][(ligs[tid5].indexOf(input.charAt(Math.min(currentletter2 + curchar.length, input.length - 1))))] <= 0) {
                     swidt = uwidt
                 } else {
                     swidt = 0
                 }
-                curchar2 = deepChar(tid, currentletter2 + 1, input)
-                if ((curchar2 != curchar) && Math.abs(ligsubw[tid][ligs[tid].indexOf(curchar2)] - ligwidth[tid][ligs[tid].indexOf(curchar2)]) > 0) {
-                    wie += Math.abs(ligwidth[tid][ligs[tid].indexOf(curchar)] - Math.abs(ligsubw[tid][ligs[tid].indexOf(curchar2)] - ligwidth[tid][ligs[tid].indexOf(curchar2)]))
-                } else if (Math.abs(ligsubw[tid][ligs[tid].indexOf(curchar)] - ligwidth[tid][ligs[tid].indexOf(curchar)]) > 0) {
-                    wie += ligsubw[tid][(ligs[tid].indexOf(curchar))]
-                } else if (ligwidth[tid][(ligs[tid].indexOf(curchar))] > 0) {
+                curchar2 = deepChar(tid5, currentletter2 + 1, input)
+                if ((curchar2 != curchar) && Math.abs(ligsubw[tid5][ligs[tid5].indexOf(curchar2)] - ligwidth[tid5][ligs[tid5].indexOf(curchar2)]) > 0) {
+                    wie += Math.abs(ligwidth[tid5][ligs[tid5].indexOf(curchar)] - Math.abs(ligsubw[tid5][ligs[tid5].indexOf(curchar2)] - ligwidth[tid5][ligs[tid5].indexOf(curchar2)]))
+                } else if (Math.abs(ligsubw[tid5][ligs[tid5].indexOf(curchar)] - ligwidth[tid5][ligs[tid5].indexOf(curchar)]) > 0) {
+                    wie += ligsubw[tid5][(ligs[tid5].indexOf(curchar))]
+                } else if (ligwidth[tid5][(ligs[tid5].indexOf(curchar))] > 0) {
                     wie += Math.abs(uwidt - nwidt)
                 }
-                if ((iwidt <= 0 || !(findCommand(input, "n", currentletter2))) && (ligwidth[tid][(ligs[tid].indexOf(input.charAt(Math.min(currentletter2 + Math.max(curchar.length, 1), input.length - 1))))] > 0 || currentletter2 + (curchar.length - 1) >= input.length - 1)) {
+                if ((iwidt <= 0 || !(findCommand(input, "n", currentletter2))) && (ligwidth[tid5][(ligs[tid5].indexOf(input.charAt(Math.min(currentletter2 + Math.max(curchar.length, 1), input.length - 1))))] > 0 || currentletter2 + (curchar.length - 1) >= input.length - 1)) {
                     wie += spacew
                 }
             } else if (input.charAt(currentletter2) == " ") {
@@ -433,32 +431,32 @@ namespace unifont {
             if (curchar.length - 1 > 0) { currentletter2 += curchar.length - 1 }
         }
         if (hix > 0 && debugalm) { wie += letterspace + (3 * letterspace) }; wie -= letterspace; lnwit.push(wie);
-        let hgi = 0; let limg = image.create(lnwit[hgi], heig); let scwidt = true, underc = false, scnwidt = false; let rimg = image.create(8, 8), output = image.create(widt, heig); let sc = 0; hie = 0; wie = 0; curwidt = 0;
+        let hgi = 0; let limg = image.create(lnwit[hgi], heig); let scwidt2 = true, underc = false, scnwidt2 = false; let rimg = image.create(8, 8), output = image.create(widt, heig); let sc = 0; hie = 0; wie = 0; curwidt = 0;
         let uoutput: Image = image.create(output.width, output.height), uuoutput: Image = image.create(output.width, output.height);
         if (bcol > 0) { uoutput = image.create(output.width+2,output.height+2) }
         for (let currentletter3 = 0; currentletter3 < input.length; currentletter3++) {
-            wie = 0; curchar = deepChar(tid, currentletter3, input)
-            if (!(ligs[tid].indexOf(curchar) < 0)) {
-                hvi = ligages[tid][(ligs[tid].indexOf(curchar))].height; uwidt = ligwidth[tid][(ligs[tid].indexOf(curchar))];
-                if (ligwidth[tid][(ligs[tid].indexOf(curchar))] <= 0) {
-                    nwidt = ligages[tid][(ligs[tid].indexOf(curchar))].width
+            wie = 0; curchar = deepChar(tid5, currentletter3, input)
+            if (!(ligs[tid5].indexOf(curchar) < 0)) {
+                hvi = ligages[tid5][(ligs[tid5].indexOf(curchar))].height; uwidt = ligwidth[tid5][(ligs[tid5].indexOf(curchar))];
+                if (ligwidth[tid5][(ligs[tid5].indexOf(curchar))] <= 0) {
+                    nwidt = ligages[tid5][(ligs[tid5].indexOf(curchar))].width
                 } else {
                     nwidt = 0
                 }
-                scwidt = false; scnwidt = false; wie = 0; rimg = ligages[tid][(ligs[tid].indexOf(curchar))].clone(); let ccol = ligul[tid][ligs[tid].indexOf(input.charAt(currentletter3))];
-                if (ligwidth[tid][ligs[tid].indexOf(input.charAt(Math.min(currentletter3 + curchar.length, input.length - 1)))] > 0 && ligdir[tid][ligs[tid].indexOf(input.charAt(Math.min(currentletter3 + curchar.length, input.length - 1)))] == 0) {
-                    rimg.replace(ccol, ligcol[tid][ligs[tid].indexOf(curchar)])
-                } else if (ligwidth[tid][ligs[tid].indexOf(curchar)] > 0 && ligdir[tid][ligs[tid].indexOf(input.charAt(Math.min(currentletter3 + curchar.length, input.length - 1)))] < 0) {
+                scwidt2 = false; scnwidt2 = false; wie = 0; rimg = ligages[tid5][(ligs[tid5].indexOf(curchar))].clone(); let ccol = ligul[tid5][ligs[tid5].indexOf(input.charAt(currentletter3))];
+                if (ligwidth[tid5][ligs[tid5].indexOf(input.charAt(Math.min(currentletter3 + curchar.length, input.length - 1)))] > 0 && ligdir[tid5][ligs[tid5].indexOf(input.charAt(Math.min(currentletter3 + curchar.length, input.length - 1)))] == 0) {
+                    rimg.replace(ccol, ligcol[tid5][ligs[tid5].indexOf(curchar)])
+                } else if (ligwidth[tid5][ligs[tid5].indexOf(curchar)] > 0 && ligdir[tid5][ligs[tid5].indexOf(input.charAt(Math.min(currentletter3 + curchar.length, input.length - 1)))] < 0) {
                     rimg.replace(ccol, 0)
-                } else if (ligwidth[tid][ligs[tid].indexOf(curchar)] > 0 && ligdir[tid][ligs[tid].indexOf(input.charAt(Math.min(currentletter3 + curchar.length, input.length - 1)))] > 0) {
-                    rimg.replace(ccol, ligcol[tid][ligs[tid].indexOf(curchar)])
+                } else if (ligwidth[tid5][ligs[tid5].indexOf(curchar)] > 0 && ligdir[tid5][ligs[tid5].indexOf(input.charAt(Math.min(currentletter3 + curchar.length, input.length - 1)))] > 0) {
+                    rimg.replace(ccol, ligcol[tid5][ligs[tid5].indexOf(curchar)])
                 }
-                if (Math.abs(ligdir[tid][ligs[tid].indexOf(curchar)]) > 0 && Math.abs(ligdir[tid][ligs[tid].indexOf(input.charAt(Math.max(currentletter3 - 1, 0)))]) == 0) {
+                if (Math.abs(ligdir[tid5][ligs[tid5].indexOf(curchar)]) > 0 && Math.abs(ligdir[tid5][ligs[tid5].indexOf(input.charAt(Math.max(currentletter3 - 1, 0)))]) == 0) {
                     sc = 1; wie = 0;
                     while (sc > 0) {
                         sc = 0
-                        for (let yh = 0; yh < rimg.height; yh++) {
-                            if (limg.getPixel((curwidt - letterspace) - wie, yh) == rimg.getPixel(rimg.width - 1, yh) && (limg.getPixel((curwidt - letterspace) - wie, yh) != 0 && limg.getPixel((curwidt - letterspace) - wie, yh) != 0)) {
+                        for (let yh3 = 0; yh3 < rimg.height; yh3++) {
+                            if (limg.getPixel((curwidt - letterspace) - wie, yh3) == rimg.getPixel(rimg.width - 1, yh3) && (limg.getPixel((curwidt - letterspace) - wie, yh3) != 0 && limg.getPixel((curwidt - letterspace) - wie, yh3) != 0)) {
                                 sc += 1
                             }
                         }
@@ -468,21 +466,21 @@ namespace unifont {
                     }
                 }
                 if (wie < 0) { wie = Math.abs(wie) }
-                drawTransparentImage(rimg, limg, curwidt - (nwidt + wie), 0 + (hvi - ligages[tid][(ligs[tid].indexOf(curchar))].height))
-                if (ligwidth[tid][(ligs[tid].indexOf(input.charAt(Math.min(currentletter3 + curchar.length, input.length - 1))))] == 0) {
+                drawTransparentImage(rimg, limg, curwidt - (nwidt + wie), 0 + (hvi - ligages[tid5][(ligs[tid5].indexOf(curchar))].height))
+                if (ligwidth[tid5][(ligs[tid5].indexOf(input.charAt(Math.min(currentletter3 + curchar.length, input.length - 1))))] == 0) {
                     swidt = uwidt
                 } else {
                     swidt = 0
                 }
-                curchar2 = deepChar(tid, currentletter3 + 1, input)
-                if ((curchar2 != curchar) && Math.abs(ligsubw[tid][ligs[tid].indexOf(curchar2)] - ligwidth[tid][ligs[tid].indexOf(curchar2)]) > 0) {
-                    curwidt += Math.abs(ligwidth[tid][ligs[tid].indexOf(curchar)] - Math.abs(ligsubw[tid][ligs[tid].indexOf(curchar2)] - ligwidth[tid][ligs[tid].indexOf(curchar2)]))
-                } else if (Math.abs(ligsubw[tid][ligs[tid].indexOf(curchar)] - ligwidth[tid][ligs[tid].indexOf(curchar)]) > 0) {
-                    curwidt += ligsubw[tid][(ligs[tid].indexOf(curchar))]
-                } else if (ligwidth[tid][(ligs[tid].indexOf(curchar))] > 0) {
+                curchar2 = deepChar(tid5, currentletter3 + 1, input)
+                if ((curchar2 != curchar) && Math.abs(ligsubw[tid5][ligs[tid5].indexOf(curchar2)] - ligwidth[tid5][ligs[tid5].indexOf(curchar2)]) > 0) {
+                    curwidt += Math.abs(ligwidth[tid5][ligs[tid5].indexOf(curchar)] - Math.abs(ligsubw[tid5][ligs[tid5].indexOf(curchar2)] - ligwidth[tid5][ligs[tid5].indexOf(curchar2)]))
+                } else if (Math.abs(ligsubw[tid5][ligs[tid5].indexOf(curchar)] - ligwidth[tid5][ligs[tid5].indexOf(curchar)]) > 0) {
+                    curwidt += ligsubw[tid5][(ligs[tid5].indexOf(curchar))]
+                } else if (ligwidth[tid5][(ligs[tid5].indexOf(curchar))] > 0) {
                     curwidt += Math.abs(uwidt - nwidt)
                 }
-                if ((iwidt <= 0 || !(findCommand(input, "n", currentletter3))) && (ligwidth[tid][(ligs[tid].indexOf(input.charAt(Math.min(currentletter3 + Math.max(curchar.length, 1), input.length - 1))))] > 0 || currentletter3 + (curchar.length - 1) >= input.length - 1)) {
+                if ((iwidt <= 0 || !(findCommand(input, "n", currentletter3))) && (ligwidth[tid5][(ligs[tid5].indexOf(input.charAt(Math.min(currentletter3 + Math.max(curchar.length, 1), input.length - 1))))] > 0 || currentletter3 + (curchar.length - 1) >= input.length - 1)) {
                     curwidt += spacew
                 }
             } else if (input.charAt(currentletter3) == " ") {
@@ -516,8 +514,8 @@ namespace unifont {
                         drawTransparentImage(limg.clone(), output, Math.abs((output.width / 2) - (limg.width / 2)), hie)
                     }
                     if (icol > 0) {
-                        for (let ico = 1; ico < 16; ico++) {
-                            output.replace(ico, icol)
+                        for (let ico2 = 1; ico2 < 16; ico2++) {
+                            output.replace(ico2, icol)
                         }
                     }
                     if (bcol > 0) { uoutput = drawOutline(output.clone(), bcol, true) } else { uoutput = output.clone() }
@@ -546,8 +544,8 @@ namespace unifont {
             drawTransparentImage(limg.clone(), output, Math.abs((output.width / 2) - (limg.width / 2)), hie)
         }
         if (icol > 0) {
-            for (let ico = 1; ico < 16; ico++) {
-                output.replace(ico, icol)
+            for (let ico3 = 1; ico3 < 16; ico3++) {
+                output.replace(ico3, icol)
             }
         }
         if (bcol > 0) { uoutput = drawOutline(output,bcol,true) } else { uoutput = output.clone() }
@@ -629,15 +627,15 @@ namespace unifont {
     //%group="Dialog render"
     //%weight=2
     export function StampStrArrToDialog(Fimg: Image, Txt: string = "", Wval: number = 0, arrid: string = "fonttemp", ucol: number = 0, bcol: number = 0, ualm: number = 0,spacew: number = 0, lineh: number = 0) {
-        let StrImg: Image[] = SetTextImageArray(Txt, Wval, arrid, ucol, bcol, ualm, false, spacew, lineh)
-        let gapw = Math.floor(Fimg.width / 3)
-        let gaph = Math.floor(Fimg.height / 3)
-        let UfImg: Image = SetImgFrame(Fimg, StrImg[0].width + ((gapw * 2) + Math.floor(gapw / 2)), StrImg[0].height + ((gaph * 2) + Math.floor(gaph / 2)))
+        let StrImg2: Image[] = SetTextImageArray(Txt, Wval, arrid, ucol, bcol, ualm, false, spacew, lineh)
+        let gapw2 = Math.floor(Fimg.width / 3)
+        let gaph2 = Math.floor(Fimg.height / 3)
+        let UfImg2: Image = SetImgFrame(Fimg, StrImg2[0].width + ((gapw2 * 2) + Math.floor(gapw2 / 2)), StrImg2[0].height + ((gaph2 * 2) + Math.floor(gaph2 / 2)))
         let imgArr: Image[] = []
         let uimg: Image = null
-        for (let mgi = 0; mgi < StrImg.length; mgi++) {
-            uimg = UfImg.clone()
-            drawTransparentImage(StrImg[mgi].clone(), uimg, gapw, gaph)
+        for (let mgi = 0; mgi < StrImg2.length; mgi++) {
+            uimg = UfImg2.clone()
+            drawTransparentImage(StrImg2[mgi].clone(), uimg, gapw2, gaph2)
             imgArr.push(uimg)
         }
         return imgArr
@@ -1067,4 +1065,3 @@ namespace unifont {
         })
     }
 }
-
