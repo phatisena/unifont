@@ -9,7 +9,7 @@ namespace SpriteKind {
 //%weight=10
 namespace unifont {
 
-    let rendering = false;let tablename: string[] = []; let ligs: string[][] = []; let ligages: Image[][] = []; let ligwidth: number[][] = []; let ligsubw: number[][] = []; let ligdir: number[][] = []; let ligcol: number[][] = []; let ligul: number[][] = []; let storeid: number[] = []; let letterspace: number = 1; let curid = 0; let lineheight = 1;
+    let rendering = false;let tablename: string[] = []; let ligs: string[][] = []; let ligages: Image[][] = []; let ligwidth: number[][] = [], ligsubw: number[][] = [], ligdir: number[][] = [], ligcol: number[][] = [], ligul: number[][] = []; let storeid: number[] = []; let letterspace: number = 1, curid: number = 0, lineheight: number = 1;
 
     function gettableid(name: string) {
         if (tablename.indexOf(name) < 0) {
