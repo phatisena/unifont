@@ -9,6 +9,7 @@
         "main.blocks",
         "main.ts",
         "main-data.ts",
+        "main-save.ts",
         "sprite-more-data.ts",
         "README.md",
         "assets.json"
