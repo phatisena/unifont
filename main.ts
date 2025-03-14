@@ -31,7 +31,7 @@ namespace unifont {
         return false
     }
 
-    function deepChar(tid: number = 0, idx: number = 0, charstr: string = "") {
+    function deepChar(tid: number = 0, idx: number = 0, charstr: string = "", reverse: boolean = false) {
         let ustr = charstr.charAt(idx)
         let ic = 1
         let uc = charstr.charAt(idx + ic)
@@ -39,7 +39,8 @@ namespace unifont {
         if (ligs[tid].indexOf(istr) < 0) { return ustr }
         while (ligs[tid].indexOf(istr) >= 0) {
             ustr = "" + ustr + uc
-            ic++
+            if (reverse) ic--;
+            else ic++;
             uc = charstr.charAt(idx + ic)
             istr = "" + ustr + uc
             if (idx + ic >= charstr.length) { break }
@@ -235,6 +236,29 @@ namespace unifont {
             }
         }
     }
+
+    export class gCprop { constructor(public chars: string, public offsets: number[]) { } }
+    
+    //%blockid=unifont_gcharsprop
+    //%block="chars $chars offset $offsets"
+    export function gCharProp(chars: string, offsets: number[]) { return new gCprop(chars, offsets) }
+
+    export function charprops(groupc: gCprop, stayc: gCprop, cinc: gCprop, csub: gCprop): gCprop[] { return [groupc, stayc, cinc, csub]}
+
+    export class gCarrProp { constructor(public chars: string[], public offsets: number[]) { } }
+
+
+    
+
+    //%blockid=unifont_gchararrsprop
+    //%block="chars array $chars offset $offsets"
+    export function gcarrprop(chars: string[], offsets: number[]) { return new gCarrProp(chars, offsets) }
+
+    export class colorGlyphProp { constructor(public bgcolor: number, public gapcolor: number, public basecolor: number, public guardcolor: number) { } }
+
+    //%blockid=unifont_colglyphprop
+    //%block="color:| bg $bgcol gap $gapcol base $basecol guard $guardcol"
+    export function colglyphprop(bgcol: number, gapcol: number, basecol: number, guardcol: number) { return new colorGlyphProp(bgcol, gapcol, basecol, guardcol) }
 
     /**
      * add more glyph
